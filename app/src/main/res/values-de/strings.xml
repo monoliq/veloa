@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Veloa Assistent</string>
+    <string name="accessibility_service_description">Startet Apps und Systemaktionen blitzschnell durch Gesten über die Seitenleiste oder die schwebende Taste.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Aserbaidschanisch</string>
+    <string name="lang_de">Deutsch</string>
+    <string name="lang_en">Englisch</string>
+    <string name="lang_es">Spanisch</string>
+    <string name="lang_fr">Französisch</string>
+    <string name="lang_it">Italienisch</string>
+    <string name="lang_pl">Polnisch</string>
+    <string name="lang_pt">Portugiesisch</string>
+    <string name="lang_ru">Russisch</string>
+    <string name="lang_tr">Türkisch</string>
+    <string name="lang_uk">Ukrainisch</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Start</string>
+    <string name="nav_gestures">Gesten</string>
+    <string name="nav_settings">Einstellungen</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Willkommen!</string>
+    <string name="required_permissions_title">Erforderliche Berechtigungen</string>
+    <string name="perm_accessibility">Bedienungshilfe</string>
+    <string name="perm_roadmap_accessibility">Bedienungshilfe → Heruntergeladene Apps → Veloa Assistent → Aktivieren</string>
+    <string name="perm_overlay">Über anderen Apps einblenden</string>
+    <string name="perm_roadmap_overlay">Über anderen Apps einblenden → Veloa → Zulassen</string>
+    <string name="perm_notification">Benachrichtigungen</string>
+    <string name="perm_roadmap_notification_dialog">Benachrichtigungsdialog → Zulassen</string>
+    <string name="perm_roadmap_notification_settings">App-Benachrichtigungen → Benachrichtigungen anzeigen → Aktivieren</string>
+    <string name="perm_battery">Akkuoptimierung deaktivieren</string>
+    <string name="perm_roadmap_battery_dialog">Akku-Dialog → Zulassen</string>
+    <string name="perm_roadmap_battery_list">Akkuoptimierung → Veloa → Uneingeschränkt</string>
+    <string name="perm_autostart">Hintergrundbetrieb &amp; Autostart</string>
+    <string name="perm_roadmap_autostart_xiaomi">Autostart → Veloa → Aktivieren</string>
+    <string name="perm_roadmap_autostart_oem">Autostart-Liste → Veloa → Aktivieren</string>
+    <string name="perm_roadmap_autostart_samsung">Akku → Grenzen der Hintergrundnutzung → Nie im Standby → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">App-Info → Akku → Uneingeschränkt</string>
+    <string name="perm_xiaomi_popup">Fenster im Hintergrund öffnen</string>
+    <string name="perm_roadmap_xiaomi_popup">Weitere Berechtigungen → Fenster im Hintergrund öffnen → Immer zulassen</string>
+    <string name="perm_xiaomi_lock">Vor Bereinigung schützen (Sperren)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Apps sperren → Veloa → Aktivieren</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Sicherheit → Geschwindigkeit erhöhen → Einstellungen (⚙) → Apps sperren → Veloa</string>
+    <string name="btn_open_app_info">Eingeschränkte Einstellungen zulassen</string>
+    <string name="perm_roadmap_restricted">App-Info → Oben rechts ⋮ → Eingeschränkte Einstellungen zulassen</string>
+    <string name="perm_accessibility_restart_hint">Dienst wurde vom System gestoppt — in Bedienungshilfe aus- und wieder einschalten</string>
+    <string name="perm_accessibility_active_bank_notice">Einige Banking-Apps funktionieren möglicherweise nicht, solange die Bedienungshilfe aktiv ist. Deaktivieren Sie in diesem Fall diesen Modus und nutzen Sie Veloa weiter (App-Startgesten bleiben aktiv, aber Systemaktionen wie „Zurück“, „Startbildschirm“, „Bildschirm sperren“ und „Bildschirmfoto“ sind deaktiviert).</string>
+    <string name="perm_accessibility_inactive_limit_notice">Systemaktionen wie „Zurück“, „Startbildschirm“, „Bildschirm sperren“ und „Bildschirmfoto“ erfordern die Bedienungshilfe und funktionieren im deaktivierten Modus nicht. Gesten zum Öffnen von Apps funktionieren weiterhin über „Über anderen Apps einblenden“.</string>
+    <string name="notif_channel_name">Veloa Dienststabilität</string>
+    <string name="notif_service_title">Veloa ist aktiv</string>
+    <string name="notif_service_text">Gesten- und Seitenleistendienst läuft dauerhaft</string>
+
+    <string name="handler_type_title">Steuerungsart wählen</string>
+    <string name="handler_side">Seitenleiste</string>
+    <string name="handler_side_desc">Vom Bildschirmrand nach innen wischen, um Gesten zu zeichnen</string>
+    <string name="handler_floating">Schwebende Taste</string>
+    <string name="handler_floating_desc">Steuerung über eine bewegliche runde Taste</string>
+    <string name="handler_both">Beides</string>
+    <string name="handler_both_desc">Seitenleiste und schwebende Taste gleichzeitig nutzen</string>
+    <string name="handler_floating_hint">Um die Aktionen der schwebenden Taste anzupassen: Einstellungen → Schwebende Steuerung → Tastenaktionen anpassen.</string>
+    <string name="btn_open_pad_now">Gestenfeld testen</string>
+    <string name="stats_gestures_count">Gespeicherte Gesten: %1$d</string>
+
+    <string name="about_dialog_title">Über Veloa</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
+    <string name="ok">Verstanden</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Gespeicherte Gesten</string>
+    <string name="gestures_empty_title">Noch keine Gesten</string>
+    <string name="gestures_empty_desc">Tippe unten auf +, um ein Zeichen zu zeichnen und eine App auszuwählen.</string>
+    <string name="gestures_test_mode">Testen</string>
+    <string name="gestures_test_hint">Zeichne eine deiner gespeicherten Gesten</string>
+    <string name="gestures_test_matched">Erkannt: %1$s (Übereinstimmung: %2$s)</string>
+    <string name="gestures_test_unmatched">Nicht erkannt (ähnlichste: %1$s)</string>
+
+    <string name="editor_title_new">Neue Geste</string>
+    <string name="editor_title_edit">Geste bearbeiten</string>
+    <string name="editor_name_label">Name</string>
+    <string name="editor_name_placeholder">z. B. Telefon, Kamera, Nachrichten</string>
+    <string name="editor_draw_prompt">Zeichne die Geste unten</string>
+    <string name="editor_draw_placeholder">Hier zeichnen</string>
+    <string name="editor_clear_drawing">Löschen</string>
+    <string name="editor_select_app_quick">App wählen</string>
+    <string name="editor_other_action_quick">Andere Aktion</string>
+    <string name="editor_selected_action">Gewählte Aktion</string>
+    <string name="editor_no_action_yet">Noch keine App oder Aktion gewählt</string>
+    <string name="editor_save">Speichern</string>
+    <string name="editor_delete">Entfernen</string>
+    <string name="editor_cancel">Abbrechen</string>
+    <string name="editor_error_name">Bitte einen Namen für die Geste eingeben</string>
+    <string name="editor_error_draw">Bitte zuerst eine Geste zeichnen</string>
+    <string name="editor_error_actions">Bitte eine App oder Aktion auswählen</string>
+    <string name="editor_existing_gesture_hint">Vorhandene Geste bleibt erhalten (neu zeichnen zum Ersetzen)</string>
+    <string name="editor_stroke_ready">Geste gezeichnet ✓</string>
+
+    <string name="pick_action_title">Aktion wählen</string>
+    <string name="pick_app_title">App wählen</string>
+    <string name="pick_app_search">Apps suchen...</string>
+    <string name="param_url_title">Webadresse</string>
+    <string name="param_url_hint">https://beispiel.de</string>
+    <string name="param_dial_title">Telefonnummer</string>
+    <string name="param_dial_hint">+491701234567</string>
+    <string name="confirm">Bestätigen</string>
+
+    <!-- Actions -->
+    <string name="action_none">Keine</string>
+    <string name="action_open_gesture_pad">Gestenfeld öffnen</string>
+    <string name="action_back">Zurück</string>
+    <string name="action_home">Startbildschirm</string>
+    <string name="action_recents">Letzte Apps</string>
+    <string name="action_notifications">Benachrichtigungen</string>
+    <string name="action_quick_settings">Schnelleinstellungen</string>
+    <string name="action_power_dialog">Ein/Aus-Menü</string>
+    <string name="action_lock_screen">Bildschirm sperren</string>
+    <string name="action_screenshot">Bildschirmfoto</string>
+    <string name="action_split_screen">Geteilter Bildschirm</string>
+    <string name="action_last_app">Vorherige App</string>
+    <string name="action_launch_app">App öffnen</string>
+    <string name="action_open_url">Weblink öffnen</string>
+    <string name="action_dial">Nummer wählen</string>
+    <string name="action_flashlight">Taschenlampe ein/aus</string>
+    <string name="action_volume_panel">Lautstärkeregler</string>
+    <string name="action_media_play_pause">Wiedergabe / Pause</string>
+    <string name="action_media_next">Nächster Titel</string>
+    <string name="action_media_prev">Vorheriger Titel</string>
+    <string name="action_wifi_settings">WLAN-Einstellungen</string>
+    <string name="action_bluetooth_settings">Bluetooth-Einstellungen</string>
+    <string name="action_rotation_settings">Bildschirmdrehung</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Einfaches Tippen</string>
+    <string name="trigger_double_tap">Doppeltippen</string>
+    <string name="trigger_long_press">Langes Drücken</string>
+    <string name="trigger_swipe_left">Nach links wischen</string>
+    <string name="trigger_swipe_up">Nach oben wischen</string>
+    <string name="trigger_swipe_right">Nach rechts wischen</string>
+    <string name="trigger_swipe_down">Nach unten wischen</string>
+
+    <!-- Themes -->
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="theme_amoled">Tiefschwarz</string>
+    <string name="settings_app_color_theme">Farbthema</string>
+    <string name="color_theme_ocean">Ozean</string>
+    <string name="color_theme_emerald">Smaragd</string>
+    <string name="color_theme_violet">Violett</string>
+    <string name="color_theme_coral">Koralle</string>
+    <string name="color_theme_amber">Bernstein</string>
+    <string name="color_theme_monochrome">Monochrom</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">System</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_theme">Design</string>
+    <string name="settings_hide_keyboard">Bei geöffneter Tastatur ausblenden</string>
+    <string name="settings_hide_keyboard_desc">Blendet Seitenleiste oder Taste aus, wenn die Tastatur aktiv ist</string>
+
+    <string name="settings_gesture_options_title">Gestenoptionen</string>
+    <string name="settings_sensitivity_label">Empfindlichkeit</string>
+    <string name="settings_sensitivity_value">%1$d%% (empfohlen: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Locker</string>
+    <string name="settings_sensitivity_strict">95% • Genau</string>
+    <string name="settings_gesture_color">Gestenfarbe</string>
+    <string name="settings_direction_priority">Richtungspriorität</string>
+    <string name="settings_direction_priority_desc">Berücksichtigt bei ähnlichen Gesten die Zeichenrichtung</string>
+    <string name="settings_multi_stroke">Mehrstrich-Gesten</string>
+    <string name="settings_multi_stroke_desc">Erlaubt Gesten aus mehreren Linien</string>
+
+    <string name="settings_floating_title">Schwebende Steuerung</string>
+    <string name="settings_floating_size">Größe: %1$d</string>
+    <string name="settings_floating_transparency">Transparenz: %1$s</string>
+    <string name="settings_floating_color">Tastenfarbe</string>
+    <string name="settings_double_tap">Doppeltippen aktivieren</string>
+    <string name="settings_double_tap_desc">Eigene Aktion für Doppeltippen festlegen</string>
+    <string name="settings_floating_triggers">Tastenaktionen anpassen</string>
+
+    <string name="settings_side_title">Seitenleisten-Steuerung</string>
+    <string name="settings_side_mode_title">Aktivierungsmodus</string>
+    <string name="settings_side_mode_direct">Direkt zeichnen</string>
+    <string name="settings_side_mode_direct_desc">Vom Rand wischen und die Geste in einem Zug zeichnen</string>
+    <string name="settings_side_mode_two_step">Erst öffnen, dann zeichnen</string>
+    <string name="settings_side_mode_two_step_desc">Randwischen öffnet das Feld, die nächste Berührung zeichnet die Geste</string>
+    <string name="settings_side_width">Breite: %1$d</string>
+    <string name="settings_side_height">Höhe: %1$d</string>
+    <string name="settings_side_transparency">Transparenz: %1$s</string>
+    <string name="settings_side_location">Position: %1$d%%</string>
+    <string name="settings_side_left">Links</string>
+    <string name="settings_side_right">Rechts</string>
+    <string name="settings_side_both">Beide</string>
+    <string name="settings_side_color">Randfarbe</string>
+
+    <string name="settings_haptics">Haptisches Feedback</string>
+    <string name="settings_haptics_desc">Dezente Vibration beim Randwischen und Erkennen einer Geste</string>
+    <string name="settings_hide_landscape">Im Querformat ausblenden</string>
+    <string name="settings_hide_landscape_desc">In Vollbild-Videos und Spielen ausblenden</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Schließen</string>
+    <string name="overlay_draw_now">Geste zeichnen</string>
+    <string name="overlay_require_api28">Diese Funktion erfordert eine neuere Systemversion</string>
+    <string name="overlay_flashlight_unavailable">Taschenlampe nicht verfügbar</string>
+</resources>

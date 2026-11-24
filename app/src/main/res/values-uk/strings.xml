@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Помічник Veloa</string>
+    <string name="accessibility_service_description">Швидко запускає застосунки та системні дії за допомогою жестів через бічну панель або плаваючу кнопку.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Азербайджанська</string>
+    <string name="lang_de">Німецька</string>
+    <string name="lang_en">Англійська</string>
+    <string name="lang_es">Іспанська</string>
+    <string name="lang_fr">Французька</string>
+    <string name="lang_it">Італійська</string>
+    <string name="lang_pl">Польська</string>
+    <string name="lang_pt">Португальська</string>
+    <string name="lang_ru">Російська</string>
+    <string name="lang_tr">Турецька</string>
+    <string name="lang_uk">Українська</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Головна</string>
+    <string name="nav_gestures">Жести</string>
+    <string name="nav_settings">Налаштування</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Вітаємо!</string>
+    <string name="required_permissions_title">Необхідні дозволи</string>
+    <string name="perm_accessibility">Спеціальні можливості</string>
+    <string name="perm_roadmap_accessibility">Спец. можливості → Завантажені застосунки → Помічник Veloa → Увімкнути</string>
+    <string name="perm_overlay">Поверх інших застосунків</string>
+    <string name="perm_roadmap_overlay">Поверх інших застосунків → Veloa → Дозволити</string>
+    <string name="perm_notification">Дозвіл на сповіщення</string>
+    <string name="perm_roadmap_notification_dialog">Запит сповіщень → Дозволити</string>
+    <string name="perm_roadmap_notification_settings">Сповіщення застосунку → Показувати сповіщення → Увімкнути</string>
+    <string name="perm_battery">Вимкнути оптимізацію батареї</string>
+    <string name="perm_roadmap_battery_dialog">Вікно батареї → Дозволити</string>
+    <string name="perm_roadmap_battery_list">Оптимізація батареї → Veloa → Без обмежень</string>
+    <string name="perm_autostart">Фонова робота та автозапуск</string>
+    <string name="perm_roadmap_autostart_xiaomi">Автозапуск → Veloa → Увімкнути</string>
+    <string name="perm_roadmap_autostart_oem">Список автозапуску → Veloa → Увімкнути</string>
+    <string name="perm_roadmap_autostart_samsung">Батарея → Обмеження у фоні → Ніколи не переводити в сон → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">Про застосунок → Батарея → Без обмежень</string>
+    <string name="perm_xiaomi_popup">Спливаючі вікна у фоні</string>
+    <string name="perm_roadmap_xiaomi_popup">Інші дозволи → Спливаючі вікна у фоновому режимі → Завжди дозволяти</string>
+    <string name="perm_xiaomi_lock">Захист від очищення (Закріпити)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Закріпити застосунки → Veloa → Увімкнути</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Безпека → Прискорення → Налаштування (⚙) → Закріпити застосунки → Veloa</string>
+    <string name="btn_open_app_info">Дозволити обмежені налаштування</string>
+    <string name="perm_roadmap_restricted">Про застосунок → Зверху праворуч ⋮ → Дозволити обмежені налаштування</string>
+    <string name="perm_accessibility_restart_hint">Система зупинила службу — вимкніть і знову увімкніть її у Спец. можливостях</string>
+    <string name="perm_accessibility_active_bank_notice">Деякі банківські застосунки можуть не працювати, коли увімкнено Спеціальні можливості. У такому разі вимкніть цей режим і продовжуйте користуватися Veloa (жести відкриття застосунків працюватимуть, але системні дії «Назад», «Головний екран», «Заблокувати екран» та «Знімок екрана» будуть вимкнені).</string>
+    <string name="perm_accessibility_inactive_limit_notice">Системні дії «Назад», «Головний екран», «Заблокувати екран» та «Знімок екрана» потребують Спеціальних можливостей і не працюють, коли цей режим вимкнено. Жести відкриття застосунків продовжують працювати завдяки дозволу «Поверх інших застосунків».</string>
+    <string name="notif_channel_name">Стабільність служби Veloa</string>
+    <string name="notif_service_title">Veloa активна</string>
+    <string name="notif_service_text">Служба жестів і бічної панелі працює безперервно</string>
+
+    <string name="handler_type_title">Оберіть тип керування</string>
+    <string name="handler_side">Бічна панель</string>
+    <string name="handler_side_desc">Проведіть від краю екрана всередину, щоб намалювати жест</string>
+    <string name="handler_floating">Плаваюча кнопка</string>
+    <string name="handler_floating_desc">Керування круглою кнопкою поверх екрана</string>
+    <string name="handler_both">Обидва варіанти</string>
+    <string name="handler_both_desc">І бічна панель, і плаваюча кнопка</string>
+    <string name="handler_floating_hint">Щоб налаштувати дії плаваючої кнопки, перейдіть: Налаштування → Плаваюче керування → Налаштувати дії кнопки.</string>
+    <string name="btn_open_pad_now">Перевірити панель жестів</string>
+    <string name="stats_gestures_count">Збережених жестів: %1$d</string>
+
+    <string name="about_dialog_title">Про застосунок Veloa</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
+    <string name="ok">Гаразд</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Збережені жести</string>
+    <string name="gestures_empty_title">Жестів ще немає</string>
+    <string name="gestures_empty_desc">Натисніть + нижче, щоб намалювати символ і вибрати застосунок.</string>
+    <string name="gestures_test_mode">Перевірка</string>
+    <string name="gestures_test_hint">Намалюйте один зі збережених жестів</string>
+    <string name="gestures_test_matched">Знайдено: %1$s (збіг: %2$s)</string>
+    <string name="gestures_test_unmatched">Не розпізнано (найближчий: %1$s)</string>
+
+    <string name="editor_title_new">Новий жест</string>
+    <string name="editor_title_edit">Редагувати жест</string>
+    <string name="editor_name_label">Назва</string>
+    <string name="editor_name_placeholder">Наприклад: Телефон, Камера, Повідомлення</string>
+    <string name="editor_draw_prompt">Намалюйте жест нижче</string>
+    <string name="editor_draw_placeholder">Малюйте тут</string>
+    <string name="editor_clear_drawing">Очистити</string>
+    <string name="editor_select_app_quick">Обрати застосунок</string>
+    <string name="editor_other_action_quick">Інша дія</string>
+    <string name="editor_selected_action">Обрана дія</string>
+    <string name="editor_no_action_yet">Застосунок або дію ще не обрано</string>
+    <string name="editor_save">Зберегти</string>
+    <string name="editor_delete">Видалити</string>
+    <string name="editor_cancel">Скасувати</string>
+    <string name="editor_error_name">Введіть назву жесту</string>
+    <string name="editor_error_draw">Намалюйте жест на панелі</string>
+    <string name="editor_error_actions">Оберіть застосунок або дію</string>
+    <string name="editor_existing_gesture_hint">Поточний жест збережено (намалюйте знову для заміни)</string>
+    <string name="editor_stroke_ready">Жест намальовано ✓</string>
+
+    <string name="pick_action_title">Оберіть дію</string>
+    <string name="pick_app_title">Оберіть застосунок</string>
+    <string name="pick_app_search">Пошук застосунків...</string>
+    <string name="param_url_title">Вебадреса</string>
+    <string name="param_url_hint">https://example.ua</string>
+    <string name="param_dial_title">Номер телефону</string>
+    <string name="param_dial_hint">+380501234567</string>
+    <string name="confirm">Підтвердити</string>
+
+    <!-- Actions -->
+    <string name="action_none">Немає</string>
+    <string name="action_open_gesture_pad">Відкрити панель жестів</string>
+    <string name="action_back">Назад</string>
+    <string name="action_home">Головний екран</string>
+    <string name="action_recents">Нещодавні застосунки</string>
+    <string name="action_notifications">Панель сповіщень</string>
+    <string name="action_quick_settings">Швидкі налаштування</string>
+    <string name="action_power_dialog">Меню живлення</string>
+    <string name="action_lock_screen">Заблокувати екран</string>
+    <string name="action_screenshot">Знімок екрана</string>
+    <string name="action_split_screen">Розділений екран</string>
+    <string name="action_last_app">Попередній застосунок</string>
+    <string name="action_launch_app">Відкрити застосунок</string>
+    <string name="action_open_url">Відкрити посилання</string>
+    <string name="action_dial">Набрати номер</string>
+    <string name="action_flashlight">Увімкнути/вимкнути ліхтарик</string>
+    <string name="action_volume_panel">Панель гучності</string>
+    <string name="action_media_play_pause">Відтворення / Пауза</string>
+    <string name="action_media_next">Наступний трек</string>
+    <string name="action_media_prev">Попередній трек</string>
+    <string name="action_wifi_settings">Налаштування бездротової мережі</string>
+    <string name="action_bluetooth_settings">Налаштування бездротового зв\'язку</string>
+    <string name="action_rotation_settings">Налаштування повороту екрана</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Одне натискання</string>
+    <string name="trigger_double_tap">Подвійне натискання</string>
+    <string name="trigger_long_press">Довге натискання</string>
+    <string name="trigger_swipe_left">Провести ліворуч</string>
+    <string name="trigger_swipe_up">Провести вгору</string>
+    <string name="trigger_swipe_right">Провести праворуч</string>
+    <string name="trigger_swipe_down">Провести вниз</string>
+
+    <!-- Themes -->
+    <string name="theme_light">Світла</string>
+    <string name="theme_dark">Темна</string>
+    <string name="theme_amoled">Чорна</string>
+    <string name="settings_app_color_theme">Колірна тема</string>
+    <string name="color_theme_ocean">Океан</string>
+    <string name="color_theme_emerald">Смарагд</string>
+    <string name="color_theme_violet">Фіолетовий</string>
+    <string name="color_theme_coral">Корал</string>
+    <string name="color_theme_amber">Бурштин</string>
+    <string name="color_theme_monochrome">Монохром</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">Система</string>
+    <string name="settings_language">Мова</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_hide_keyboard">Приховувати при відкритій клавіатурі</string>
+    <string name="settings_hide_keyboard_desc">Приховує бічну панель або кнопку, коли відкрита клавіатура</string>
+
+    <string name="settings_gesture_options_title">Параметри жестів</string>
+    <string name="settings_sensitivity_label">Чутливість</string>
+    <string name="settings_sensitivity_value">%1$d%% (рекомендовано: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Мʼяко</string>
+    <string name="settings_sensitivity_strict">95% • Точно</string>
+    <string name="settings_gesture_color">Колір жесту</string>
+    <string name="settings_direction_priority">Пріоритет напрямку</string>
+    <string name="settings_direction_priority_desc">Враховує напрямок малювання схожих жестів</string>
+    <string name="settings_multi_stroke">Багатоштрихові жести</string>
+    <string name="settings_multi_stroke_desc">Дозволяє малювати жести з кількох ліній</string>
+
+    <string name="settings_floating_title">Плаваюче керування</string>
+    <string name="settings_floating_size">Розмір: %1$d</string>
+    <string name="settings_floating_transparency">Прозорість: %1$s</string>
+    <string name="settings_floating_color">Колір кнопки</string>
+    <string name="settings_double_tap">Увімкнути подвійне натискання</string>
+    <string name="settings_double_tap_desc">Призначити окрему дію на подвійне натискання</string>
+    <string name="settings_floating_triggers">Налаштувати дії кнопки</string>
+
+    <string name="settings_side_title">Керування бічною панеллю</string>
+    <string name="settings_side_mode_title">Режим активації</string>
+    <string name="settings_side_mode_direct">Малювати одразу</string>
+    <string name="settings_side_mode_direct_desc">Проведіть від краю і малюйте жест одним рухом</string>
+    <string name="settings_side_mode_two_step">Спочатку відкрити, потім малювати</string>
+    <string name="settings_side_mode_two_step_desc">Свайп від краю відкриває панель, наступний дотик малює жест</string>
+    <string name="settings_side_width">Ширина: %1$d</string>
+    <string name="settings_side_height">Висота: %1$d</string>
+    <string name="settings_side_transparency">Прозорість: %1$s</string>
+    <string name="settings_side_location">Положення: %1$d%%</string>
+    <string name="settings_side_left">Ліворуч</string>
+    <string name="settings_side_right">Праворуч</string>
+    <string name="settings_side_both">Обидві</string>
+    <string name="settings_side_color">Колір бічної смуги</string>
+
+    <string name="settings_haptics">Вібровідгук</string>
+    <string name="settings_haptics_desc">Легка вібрація при проведенні та розпізнаванні жесту</string>
+    <string name="settings_hide_landscape">Приховувати в альбомній орієнтації</string>
+    <string name="settings_hide_landscape_desc">Приховувати в повноекранних іграх та відео</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Закрити</string>
+    <string name="overlay_draw_now">Намалюйте жест</string>
+    <string name="overlay_require_api28">Для цієї функції потрібна новіша версія системи</string>
+    <string name="overlay_flashlight_unavailable">Ліхтарик недоступний</string>
+</resources>

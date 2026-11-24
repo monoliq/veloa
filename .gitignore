@@ -1,0 +1,25 @@
+# Gradle & Android build outputs
+.gradle/
+.kotlin/
+build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local & signing secrets (NEVER commit!)
+local.properties
+keystore.properties
+*.jks
+*.keystore
+*.p12
+
+# Compiled APKs / bundles
+*.apk
+*.aab
+
+# IDE & OS files
+*.iml
+.idea/
+.DS_Store
+Thumbs.db

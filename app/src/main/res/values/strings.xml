@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Veloa Köməkçisi</string>
+    <string name="accessibility_service_description">Yan panel və üzən düymə vasitəsilə ekranda işarə çəkərək tətbiqləri və sistem əməliyyatlarını sürətli işə salır.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Azərbaycan dili</string>
+    <string name="lang_de">Alman dili</string>
+    <string name="lang_en">İngilis dili</string>
+    <string name="lang_es">İspan dili</string>
+    <string name="lang_fr">Fransız dili</string>
+    <string name="lang_it">İtalyan dili</string>
+    <string name="lang_pl">Polyak dili</string>
+    <string name="lang_pt">Portuqal dili</string>
+    <string name="lang_ru">Rus dili</string>
+    <string name="lang_tr">Türk dili</string>
+    <string name="lang_uk">Ukrayna dili</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Əsas</string>
+    <string name="nav_gestures">Jestlər</string>
+    <string name="nav_settings">Ayarlar</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Xoş gəldiniz!</string>
+    <string name="required_permissions_title">Lazımi İcazələr</string>
+    <string name="perm_accessibility">Əlçatanlıq İcazəsi</string>
+    <string name="perm_roadmap_accessibility">Əlçatanlıq → Yüklənmiş tətbiqlər → Veloa Köməkçisi → Aktiv et</string>
+    <string name="perm_overlay">Digər Tətbiqlər Üzərində Göstər</string>
+    <string name="perm_roadmap_overlay">Digər tətbiqlər üzərində göstər → Veloa → İcazə ver</string>
+    <string name="perm_notification">Bildiriş İcazəsi</string>
+    <string name="perm_roadmap_notification_dialog">Bildiriş sorğusu → İcazə ver</string>
+    <string name="perm_roadmap_notification_settings">Tətbiq bildirişləri → Bildirişləri göstər → Aktiv et</string>
+    <string name="perm_battery">Batareya Optimallaşdırmasını Bağla</string>
+    <string name="perm_roadmap_battery_dialog">Batareya sorğusu → İcazə ver</string>
+    <string name="perm_roadmap_battery_list">Batareya optimallaşdırması → Veloa → Məhdudiyyətsiz</string>
+    <string name="perm_autostart">Arxa Fonda İş və Avto-başlatma</string>
+    <string name="perm_roadmap_autostart_xiaomi">Avtomatik başlatma → Veloa → Aktiv et</string>
+    <string name="perm_roadmap_autostart_oem">Avto-başlatma siyahısı → Veloa → Aktiv et</string>
+    <string name="perm_roadmap_autostart_samsung">Batareya → Arxa fon limitləri → Heç vaxt yatmayan tətbiqlər → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">Tətbiq məlumatı → Batareya → Məhdudiyyətsiz</string>
+    <string name="perm_xiaomi_popup">Arxa Fonda Pəncərə Açma</string>
+    <string name="perm_roadmap_xiaomi_popup">Digər icazələr → Arxa fonda açılan pəncərələr → Həmişə icazə ver</string>
+    <string name="perm_xiaomi_lock">Keş Təmizləmədən Qoru (Tətbiqi Kilidlə)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Tətbiqləri kilidlə → Veloa → Aktiv et</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Təhlükəsizlik → Sürəti artır → Ayarlar (⚙) → Tətbiqləri kilidlə → Veloa</string>
+    <string name="btn_open_app_info">Məhdud ayarlara icazə ver</string>
+    <string name="perm_roadmap_restricted">Tətbiq məlumatı → Yuxarı sağ ⋮ → Məhdud ayarlara icazə ver</string>
+    <string name="perm_accessibility_restart_hint">Sistem xidməti dayandırıb — Əlçatanlıq ayarında söndürüb yenidən yandırın</string>
+    <string name="perm_accessibility_active_bank_notice">Bəzi bank tətbiqləri Əlçatanlıq aktiv olduqda təhlükəsizlik səbəbilə işləməyə bilər. Belə halda bu rejimi söndürüb tətbiqdən istifadəyə davam edin (tətbiq açma jestləri işləyəcək, lakin &quot;Geri&quot;, &quot;Əsas ekran&quot;, &quot;Ekranı kilidlə&quot; və &quot;Ekran görüntüsü&quot; kimi sistem düymələri deaktiv olacaq).</string>
+    <string name="perm_accessibility_inactive_limit_notice">&quot;Geri&quot;, &quot;Əsas ekran&quot;, &quot;Ekranı kilidlə&quot; və &quot;Ekran görüntüsü&quot; kimi sistem düymələri Əlçatanlıq tələb etdiyi üçün bu rejim deaktiv olduqda işləmir. Tətbiq açma jestləri isə &quot;Digər Tətbiqlər Üzərində Göstər&quot; icazəsi ilə işləməyə davam edir.</string>
+    <string name="notif_channel_name">Veloa Xidmət Sabitliyi</string>
+    <string name="notif_service_title">Veloa aktivdir</string>
+    <string name="notif_service_text">Jest və yan panel xidməti fasiləsiz işləyir</string>
+
+    <string name="handler_type_title">İdarəetmə Növünü Seçin</string>
+    <string name="handler_side">Yan Panel</string>
+    <string name="handler_side_desc">Ekranın kənarından içəri sürüşdürərək jest çəkin</string>
+    <string name="handler_floating">Üzən Düymə</string>
+    <string name="handler_floating_desc">Ekranda üzən dairəvi düymə ilə idarə edin</string>
+    <string name="handler_both">Hər ikisi</string>
+    <string name="handler_both_desc">Həm yan kənar sürüşdürməsi, həm üzən düymə</string>
+    <string name="handler_floating_hint">Üzən düymə jestlərini tənzimləmək üçün: Ayarlar → Üzən İdarəedici → Düymə hərəkətlərini tənzimlə bölməsinə keçin.</string>
+    <string name="btn_open_pad_now">Jest panelini sına</string>
+    <string name="stats_gestures_count">Saxlanmış jestlər: %1$d</string>
+
+    <string name="about_dialog_title">Veloa Haqqında</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
+    <string name="ok">Oldu</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Saxlanmış Jestlər</string>
+    <string name="gestures_empty_title">Hələ jest yoxdur</string>
+    <string name="gestures_empty_desc">Aşağıdakı + düyməsinə toxunaraq yeni işarə çəkin və tətbiq seçin.</string>
+    <string name="gestures_test_mode">Sınaq</string>
+    <string name="gestures_test_hint">Saxlanmış işarələrdən birini çəkin</string>
+    <string name="gestures_test_matched">Tapıldı: %1$s (uyğunluq: %2$s)</string>
+    <string name="gestures_test_unmatched">Tanınmadı (ən yaxın: %1$s)</string>
+
+    <string name="editor_title_new">Yeni Jest</string>
+    <string name="editor_title_edit">Jesti Redaktə Et</string>
+    <string name="editor_name_label">Ad</string>
+    <string name="editor_name_placeholder">Məsələn: Zəng, Kamera, Mesaj</string>
+    <string name="editor_draw_prompt">İşarəni aşağıda çəkin</string>
+    <string name="editor_draw_placeholder">Burada çəkin</string>
+    <string name="editor_clear_drawing">Təmizlə</string>
+    <string name="editor_select_app_quick">Tətbiq seç</string>
+    <string name="editor_other_action_quick">Digər əməliyyat</string>
+    <string name="editor_selected_action">Seçilmiş əməliyyat</string>
+    <string name="editor_no_action_yet">Hələ tətbiq və ya əməliyyat seçilməyib</string>
+    <string name="editor_save">Yadda saxla</string>
+    <string name="editor_delete">Sil</string>
+    <string name="editor_cancel">Ləğv et</string>
+    <string name="editor_error_name">Zəhmət olmasa jest adı daxil edin</string>
+    <string name="editor_error_draw">Zəhmət olmasa işarə çəkin</string>
+    <string name="editor_error_actions">Zəhmət olmasa bir tətbiq və ya əməliyyat seçin</string>
+    <string name="editor_existing_gesture_hint">Mövcud işarə saxlanılıb (dəyişmək üçün yenidən çəkin)</string>
+    <string name="editor_stroke_ready">İşarə çəkildi ✓</string>
+
+    <string name="pick_action_title">Əməliyyat seçin</string>
+    <string name="pick_app_title">Tətbiq seçin</string>
+    <string name="pick_app_search">Tətbiq axtar...</string>
+    <string name="param_url_title">Veb ünvan</string>
+    <string name="param_url_hint">https://example.az</string>
+    <string name="param_dial_title">Telefon nömrəsi</string>
+    <string name="param_dial_hint">+994501234567</string>
+    <string name="confirm">Təsdiq et</string>
+
+    <!-- Actions -->
+    <string name="action_none">Heç nə</string>
+    <string name="action_open_gesture_pad">Jest panelini aç</string>
+    <string name="action_back">Geri</string>
+    <string name="action_home">Əsas ekran</string>
+    <string name="action_recents">Son tətbiqlər</string>
+    <string name="action_notifications">Bildiriş paneli</string>
+    <string name="action_quick_settings">Sürətli ayarlar</string>
+    <string name="action_power_dialog">Güc menyusu</string>
+    <string name="action_lock_screen">Ekranı kilidlə</string>
+    <string name="action_screenshot">Ekran görüntüsü</string>
+    <string name="action_split_screen">Bölünmüş ekran</string>
+    <string name="action_last_app">Əvvəlki tətbiq</string>
+    <string name="action_launch_app">Tətbiqi aç</string>
+    <string name="action_open_url">Veb ünvanı aç</string>
+    <string name="action_dial">Zəng yığ</string>
+    <string name="action_flashlight">Fənəri yandır/söndür</string>
+    <string name="action_volume_panel">Səs paneli</string>
+    <string name="action_media_play_pause">Oynat / Dayandır</string>
+    <string name="action_media_next">Növbəti musiqi</string>
+    <string name="action_media_prev">Əvvəlki musiqi</string>
+    <string name="action_wifi_settings">Simsiz şəbəkə ayarları</string>
+    <string name="action_bluetooth_settings">Blutuz ayarları</string>
+    <string name="action_rotation_settings">Ekran döndərmə ayarları</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Tək toxunuş</string>
+    <string name="trigger_double_tap">İki dəfə toxunuş</string>
+    <string name="trigger_long_press">Uzun basma</string>
+    <string name="trigger_swipe_left">Sola sürüşdür</string>
+    <string name="trigger_swipe_up">Yuxarı sürüşdür</string>
+    <string name="trigger_swipe_right">Sağa sürüşdür</string>
+    <string name="trigger_swipe_down">Aşağı sürüşdür</string>
+
+    <!-- Themes -->
+    <string name="theme_light">İşıqlı</string>
+    <string name="theme_dark">Qaranlıq</string>
+    <string name="theme_amoled">Tam Qara</string>
+    <string name="settings_app_color_theme">Tətbiq Teması</string>
+    <string name="color_theme_ocean">Okean</string>
+    <string name="color_theme_emerald">Zümrüd</string>
+    <string name="color_theme_violet">Bənövşəyi</string>
+    <string name="color_theme_coral">Mərcan</string>
+    <string name="color_theme_amber">Kəhrəba</string>
+    <string name="color_theme_monochrome">Monoxrom</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">Sistem</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_hide_keyboard">Klaviatura açılanda idarəedicini gizlət</string>
+    <string name="settings_hide_keyboard_desc">Klaviatura görünəndə yan panel və ya düyməni gizlədir</string>
+
+    <string name="settings_gesture_options_title">Jest Seçimləri</string>
+    <string name="settings_sensitivity_label">Həssaslıq</string>
+    <string name="settings_sensitivity_value">%1$d%% (tövsiyə: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Rahat</string>
+    <string name="settings_sensitivity_strict">95% • Dəqiq</string>
+    <string name="settings_gesture_color">Jest Rəngi</string>
+    <string name="settings_direction_priority">İstiqamət Prioriteti</string>
+    <string name="settings_direction_priority_desc">Oxşar jestlərdə çəkilmə istiqamətinə üstünlük verilir</string>
+    <string name="settings_multi_stroke">Çox-xətli Jestlər</string>
+    <string name="settings_multi_stroke_desc">Bir neçə xəttdən ibarət jestlər çəkməyə icazə verir</string>
+
+    <string name="settings_floating_title">Üzən İdarəedici</string>
+    <string name="settings_floating_size">Ölçü: %1$d</string>
+    <string name="settings_floating_transparency">Şəffaflıq: %1$s</string>
+    <string name="settings_floating_color">Düymə Rəngi</string>
+    <string name="settings_double_tap">İki Dəfə Toxunuşu Aktiv Et</string>
+    <string name="settings_double_tap_desc">İki dəfə toxunmaya ayrıca əməliyyat təyin edə bilərsiniz</string>
+    <string name="settings_floating_triggers">Düymə hərəkətlərini tənzimlə</string>
+
+    <string name="settings_side_title">Yan Panel İdarəedicisi</string>
+    <string name="settings_side_mode_title">Aktivləşmə rejimi</string>
+    <string name="settings_side_mode_direct">Birbaşa çək</string>
+    <string name="settings_side_mode_direct_desc">Kənardan sürüşdürərək elə həmin toxunuşla jesti çəkin</string>
+    <string name="settings_side_mode_two_step">Əvvəl aç, sonra çək</string>
+    <string name="settings_side_mode_two_step_desc">Kənardan sürüşdürmə paneli açır, 2-ci toxunuşla jesti çəkirsiniz</string>
+    <string name="settings_side_width">Eni: %1$d</string>
+    <string name="settings_side_height">Hündürlük: %1$d</string>
+    <string name="settings_side_transparency">Şəffaflıq: %1$s</string>
+    <string name="settings_side_location">Mövqe: %1$d%%</string>
+    <string name="settings_side_left">Sol</string>
+    <string name="settings_side_right">Sağ</string>
+    <string name="settings_side_both">Hər ikisi</string>
+    <string name="settings_side_color">Yan Xətt Rəngi</string>
+
+    <string name="settings_haptics">Toxunuş titrəşimi</string>
+    <string name="settings_haptics_desc">Kənar sürüşdürmə və jest tanınanda titrəşim</string>
+    <string name="settings_hide_landscape">Üfüqi rejimdə gizlət</string>
+    <string name="settings_hide_landscape_desc">Tam ekran video və oyunlarda gizlət</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Bağla</string>
+    <string name="overlay_draw_now">Jesti çəkin</string>
+    <string name="overlay_require_api28">Bu funksiya daha yeni sistem versiyası tələb edir</string>
+    <string name="overlay_flashlight_unavailable">Fənər tapılmadı</string>
+</resources>

@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Veloa Assistant</string>
+    <string name="accessibility_service_description">Launches apps and system actions smoothly by drawing gestures via the Side Panel or Floating Button.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Azerbaijani</string>
+    <string name="lang_de">German</string>
+    <string name="lang_en">English</string>
+    <string name="lang_es">Spanish</string>
+    <string name="lang_fr">French</string>
+    <string name="lang_it">Italian</string>
+    <string name="lang_pl">Polish</string>
+    <string name="lang_pt">Portuguese</string>
+    <string name="lang_ru">Russian</string>
+    <string name="lang_tr">Turkish</string>
+    <string name="lang_uk">Ukrainian</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_gestures">Gestures</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Welcome!</string>
+    <string name="required_permissions_title">Required Permissions</string>
+    <string name="perm_accessibility">Accessibility Permission</string>
+    <string name="perm_roadmap_accessibility">Accessibility → Downloaded apps → Veloa Assistant → Turn on</string>
+    <string name="perm_overlay">Display Over Other Apps</string>
+    <string name="perm_roadmap_overlay">Display over other apps → Veloa → Allow</string>
+    <string name="perm_notification">Notification Permission</string>
+    <string name="perm_roadmap_notification_dialog">Notification dialog → Allow</string>
+    <string name="perm_roadmap_notification_settings">App notifications → Show notifications → Turn on</string>
+    <string name="perm_battery">Disable Battery Optimization</string>
+    <string name="perm_roadmap_battery_dialog">Battery dialog → Allow</string>
+    <string name="perm_roadmap_battery_list">Battery optimization → Veloa → Unrestricted</string>
+    <string name="perm_autostart">Background Run &amp; Auto-Start</string>
+    <string name="perm_roadmap_autostart_xiaomi">Autostart → Veloa → Turn on</string>
+    <string name="perm_roadmap_autostart_oem">Auto-start list → Veloa → Turn on</string>
+    <string name="perm_roadmap_autostart_samsung">Battery → Background usage limits → Never sleeping apps → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">App info → Battery → Unrestricted</string>
+    <string name="perm_xiaomi_popup">Background Pop-up Windows</string>
+    <string name="perm_roadmap_xiaomi_popup">Other permissions → Display pop-up windows while in background → Always allow</string>
+    <string name="perm_xiaomi_lock">Protect From Cleaner (Lock App)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Lock apps → Veloa → Turn on</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Security → Boost speed → Settings (⚙) → Lock apps → Veloa</string>
+    <string name="btn_open_app_info">Allow restricted settings</string>
+    <string name="perm_roadmap_restricted">App info → Top-right ⋮ → Allow restricted settings</string>
+    <string name="perm_accessibility_restart_hint">Service was stopped by system — toggle it off and on in Accessibility Settings</string>
+    <string name="perm_accessibility_active_bank_notice">Some banking apps may stop working while Accessibility is active. If this happens, turn off Accessibility and keep using Veloa (app-launch gestures will still work, but system actions like &quot;Back&quot;, &quot;Home&quot;, &quot;Lock screen&quot;, and &quot;Screenshot&quot; will be disabled).</string>
+    <string name="perm_accessibility_inactive_limit_notice">System actions like &quot;Back&quot;, &quot;Home&quot;, &quot;Lock screen&quot;, and &quot;Screenshot&quot; require Accessibility and will not work while it is disabled. App-launch gestures continue working with &quot;Display Over Other Apps&quot;.</string>
+    <string name="notif_channel_name">Veloa Service Stability</string>
+    <string name="notif_service_title">Veloa is active</string>
+    <string name="notif_service_text">Gesture and side panel service is running smoothly</string>
+
+    <string name="handler_type_title">Select Handler Type</string>
+    <string name="handler_side">Side Panel</string>
+    <string name="handler_side_desc">Swipe inward from screen edge to draw gestures</string>
+    <string name="handler_floating">Floating Button</string>
+    <string name="handler_floating_desc">Control from a draggable floating circle button</string>
+    <string name="handler_both">Both</string>
+    <string name="handler_both_desc">Use both Side Panel and Floating Button</string>
+    <string name="handler_floating_hint">To customize floating button gestures, go to: Settings → Floating Handler → Customize button triggers.</string>
+    <string name="btn_open_pad_now">Test Gesture Pad</string>
+    <string name="stats_gestures_count">Saved gestures: %1$d</string>
+
+    <string name="about_dialog_title">About Veloa</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Minimalist, ad-free gesture launcher and side panel assistant.\n\nIf Accessibility is restricted on newer devices: App info → top-right ⋮ → Allow restricted settings.</string>
+    <string name="ok">OK</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Saved Gestures</string>
+    <string name="gestures_empty_title">No gestures yet</string>
+    <string name="gestures_empty_desc">Tap + below to draw a symbol and assign an app or action.</string>
+    <string name="gestures_test_mode">Test</string>
+    <string name="gestures_test_hint">Draw one of your saved gestures</string>
+    <string name="gestures_test_matched">Matched: %1$s (match: %2$s)</string>
+    <string name="gestures_test_unmatched">Not recognized (closest: %1$s)</string>
+
+    <string name="editor_title_new">New Gesture</string>
+    <string name="editor_title_edit">Edit Gesture</string>
+    <string name="editor_name_label">Name</string>
+    <string name="editor_name_placeholder">e.g., Phone, Camera, Messages</string>
+    <string name="editor_draw_prompt">Draw your gesture below</string>
+    <string name="editor_draw_placeholder">Draw here</string>
+    <string name="editor_clear_drawing">Clear</string>
+    <string name="editor_select_app_quick">Select App</string>
+    <string name="editor_other_action_quick">Other Action</string>
+    <string name="editor_selected_action">Selected action</string>
+    <string name="editor_no_action_yet">No app or action selected yet</string>
+    <string name="editor_save">Save</string>
+    <string name="editor_delete">Delete</string>
+    <string name="editor_cancel">Cancel</string>
+    <string name="editor_error_name">Please enter a gesture name</string>
+    <string name="editor_error_draw">Please draw a gesture on the pad</string>
+    <string name="editor_error_actions">Please select an app or action</string>
+    <string name="editor_existing_gesture_hint">Existing gesture kept (draw to replace)</string>
+    <string name="editor_stroke_ready">Gesture drawn ✓</string>
+
+    <string name="pick_action_title">Select action</string>
+    <string name="pick_app_title">Select app</string>
+    <string name="pick_app_search">Search apps...</string>
+    <string name="param_url_title">Web address</string>
+    <string name="param_url_hint">https://example.com</string>
+    <string name="param_dial_title">Phone number</string>
+    <string name="param_dial_hint">+15551234567</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- Actions -->
+    <string name="action_none">None</string>
+    <string name="action_open_gesture_pad">Open gesture pad</string>
+    <string name="action_back">Back</string>
+    <string name="action_home">Home</string>
+    <string name="action_recents">Recent apps</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="action_quick_settings">Quick settings</string>
+    <string name="action_power_dialog">Power dialog</string>
+    <string name="action_lock_screen">Lock screen</string>
+    <string name="action_screenshot">Screenshot</string>
+    <string name="action_split_screen">Split screen</string>
+    <string name="action_last_app">Last app</string>
+    <string name="action_launch_app">Launch app</string>
+    <string name="action_open_url">Open web link</string>
+    <string name="action_dial">Dial number</string>
+    <string name="action_flashlight">Toggle flashlight</string>
+    <string name="action_volume_panel">Volume panel</string>
+    <string name="action_media_play_pause">Play / Pause</string>
+    <string name="action_media_next">Next track</string>
+    <string name="action_media_prev">Previous track</string>
+    <string name="action_wifi_settings">Wi-Fi settings</string>
+    <string name="action_bluetooth_settings">Bluetooth settings</string>
+    <string name="action_rotation_settings">Display rotation settings</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Single tap</string>
+    <string name="trigger_double_tap">Double tap</string>
+    <string name="trigger_long_press">Long press</string>
+    <string name="trigger_swipe_left">Swipe left</string>
+    <string name="trigger_swipe_up">Swipe up</string>
+    <string name="trigger_swipe_right">Swipe right</string>
+    <string name="trigger_swipe_down">Swipe down</string>
+
+    <!-- Themes -->
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_amoled">Pure Black</string>
+    <string name="settings_app_color_theme">App Theme</string>
+    <string name="color_theme_ocean">Ocean</string>
+    <string name="color_theme_emerald">Emerald</string>
+    <string name="color_theme_violet">Violet</string>
+    <string name="color_theme_coral">Coral</string>
+    <string name="color_theme_amber">Amber</string>
+    <string name="color_theme_monochrome">Monochrome</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">System</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_hide_keyboard">Hide handler on keyboard show</string>
+    <string name="settings_hide_keyboard_desc">Hides the handler when the on-screen keyboard opens</string>
+
+    <string name="settings_gesture_options_title">Gesture Options</string>
+    <string name="settings_sensitivity_label">Sensitivity</string>
+    <string name="settings_sensitivity_value">%1$d%% (recommended: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Relaxed</string>
+    <string name="settings_sensitivity_strict">95% • Strict</string>
+    <string name="settings_gesture_color">Gesture Color</string>
+    <string name="settings_direction_priority">Direction Priority</string>
+    <string name="settings_direction_priority_desc">If gestures are similar, the drawn direction is prioritized</string>
+    <string name="settings_multi_stroke">Multi-stroke Gestures</string>
+    <string name="settings_multi_stroke_desc">You can draw gestures using multiple strokes</string>
+
+    <string name="settings_floating_title">Floating Handler</string>
+    <string name="settings_floating_size">Size: %1$d</string>
+    <string name="settings_floating_transparency">Transparency: %1$s</string>
+    <string name="settings_floating_color">Button Color</string>
+    <string name="settings_double_tap">Enable Double Tap</string>
+    <string name="settings_double_tap_desc">Assign a dedicated action to double tap</string>
+    <string name="settings_floating_triggers">Customize button triggers</string>
+
+    <string name="settings_side_title">Side Panel Handler</string>
+    <string name="settings_side_mode_title">Activation mode</string>
+    <string name="settings_side_mode_direct">Direct draw</string>
+    <string name="settings_side_mode_direct_desc">Swipe from edge and draw in one continuous motion</string>
+    <string name="settings_side_mode_two_step">Open first, then draw</string>
+    <string name="settings_side_mode_two_step_desc">Edge swipe activates the pad, then your next touch draws the gesture</string>
+    <string name="settings_side_width">Width: %1$d</string>
+    <string name="settings_side_height">Height: %1$d</string>
+    <string name="settings_side_transparency">Transparency: %1$s</string>
+    <string name="settings_side_location">Location: %1$d%%</string>
+    <string name="settings_side_left">Left</string>
+    <string name="settings_side_right">Right</string>
+    <string name="settings_side_both">Both</string>
+    <string name="settings_side_color">Side Color</string>
+
+    <string name="settings_haptics">Haptic feedback</string>
+    <string name="settings_haptics_desc">Subtle vibration on edge swipe and gesture match</string>
+    <string name="settings_hide_landscape">Hide in landscape</string>
+    <string name="settings_hide_landscape_desc">Hide handlers in full-screen landscape mode</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Close</string>
+    <string name="overlay_draw_now">Draw your gesture</string>
+    <string name="overlay_require_api28">This feature requires a newer system version</string>
+    <string name="overlay_flashlight_unavailable">Flashlight unavailable</string>
+</resources>

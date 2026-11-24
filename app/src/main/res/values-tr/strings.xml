@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Veloa Yardımcısı</string>
+    <string name="accessibility_service_description">Yan panel ve yüzen düğme ile ekranda hareket çizerek uygulamaları ve sistem işlemlerini hızlıca başlatır.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Azerbaycanca</string>
+    <string name="lang_de">Almanca</string>
+    <string name="lang_en">İngilizce</string>
+    <string name="lang_es">İspanyolca</string>
+    <string name="lang_fr">Fransızca</string>
+    <string name="lang_it">İtalyanca</string>
+    <string name="lang_pl">Lehçe</string>
+    <string name="lang_pt">Portekizce</string>
+    <string name="lang_ru">Rusça</string>
+    <string name="lang_tr">Türkçe</string>
+    <string name="lang_uk">Ukraynaca</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_gestures">Hareketler</string>
+    <string name="nav_settings">Ayarlar</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Hoş geldiniz!</string>
+    <string name="required_permissions_title">Gerekli İzinler</string>
+    <string name="perm_accessibility">Erişilebilirlik İzni</string>
+    <string name="perm_roadmap_accessibility">Erişilebilirlik → İndirilen uygulamalar → Veloa Yardımcısı → Aç</string>
+    <string name="perm_overlay">Diğer Uygulamaların Üstünde Göster</string>
+    <string name="perm_roadmap_overlay">Diğer uygulamaların üstünde göster → Veloa → İzin ver</string>
+    <string name="perm_notification">Bildirim İzni</string>
+    <string name="perm_roadmap_notification_dialog">Bildirim penceresi → İzin ver</string>
+    <string name="perm_roadmap_notification_settings">Uygulama bildirimleri → Bildirimleri göster → Aç</string>
+    <string name="perm_battery">Pil Optimizasyonunu Kapat</string>
+    <string name="perm_roadmap_battery_dialog">Pil penceresi → İzin ver</string>
+    <string name="perm_roadmap_battery_list">Pil optimizasyonu → Veloa → Kısıtlama yok</string>
+    <string name="perm_autostart">Arka Planda Çalışma ve Otomatik Başlatma</string>
+    <string name="perm_roadmap_autostart_xiaomi">Otomatik başlatma → Veloa → Aç</string>
+    <string name="perm_roadmap_autostart_oem">Otomatik başlatma listesi → Veloa → Aç</string>
+    <string name="perm_roadmap_autostart_samsung">Pil → Arka plan kullanım sınırları → Hiç uyumayan uygulamalar → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">Uygulama bilgisi → Pil → Kısıtlama yok</string>
+    <string name="perm_xiaomi_popup">Arka Planda Pencere Açma</string>
+    <string name="perm_roadmap_xiaomi_popup">Diğer izinler → Arka planda açılır pencereleri göster → Her zaman izin ver</string>
+    <string name="perm_xiaomi_lock">Temizleyiciden Koru (Uygulamayı Kilitle)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Uygulamaları kilitle → Veloa → Aç</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Güvenlik → Hızı artır → Ayarlar (⚙) → Uygulamaları kilitle → Veloa</string>
+    <string name="btn_open_app_info">Kısıtlı ayarlara izin ver</string>
+    <string name="perm_roadmap_restricted">Uygulama bilgisi → Sağ üst ⋮ → Kısıtlı ayarlara izin ver</string>
+    <string name="perm_accessibility_restart_hint">Sistem hizmeti durdurdu — Erişilebilirlik ayarında kapatıp yeniden açın</string>
+    <string name="perm_accessibility_active_bank_notice">Bazı banka uygulamaları Erişilebilirlik açıkken güvenlik nedeniyle çalışmayabilir. Böyle bir durumda bu izni kapatıp uygulamayı kullanmaya devam edin (uygulama açma hareketleri çalışır ancak &quot;Geri&quot;, &quot;Ana ekran&quot;, &quot;Ekranı kilitle&quot; ve &quot;Ekran görüntüsü&quot; gibi sistem işlemleri devre dışı kalır).</string>
+    <string name="perm_accessibility_inactive_limit_notice">&quot;Geri&quot;, &quot;Ana ekran&quot;, &quot;Ekranı kilitle&quot; ve &quot;Ekran görüntüsü&quot; gibi sistem düğmeleri Erişilebilirlik gerektirdiği için bu mod kapalıyken çalışmaz. Uygulama açma hareketleri &quot;Diğer Uygulamaların Üstünde Göster&quot; izniyle çalışmaya devam eder.</string>
+    <string name="notif_channel_name">Veloa Hizmet Kararlılığı</string>
+    <string name="notif_service_title">Veloa etkin</string>
+    <string name="notif_service_text">Hareket ve yan panel hizmeti kesintisiz çalışıyor</string>
+
+    <string name="handler_type_title">Denetim Türünü Seçin</string>
+    <string name="handler_side">Yan Panel</string>
+    <string name="handler_side_desc">Ekran kenarından içeri kaydırarak hareket çizin</string>
+    <string name="handler_floating">Yüzen Düğme</string>
+    <string name="handler_floating_desc">Ekranda yüzen yuvarlak düğme ile yönetin</string>
+    <string name="handler_both">Her İkisi</string>
+    <string name="handler_both_desc">Hem yan kenar kaydırma hem yüzen düğme</string>
+    <string name="handler_floating_hint">Yüzen düğme hareketlerini düzenlemek için: Ayarlar → Yüzen Denetleyici → Düğme eylemlerini özelleştir bölümüne gidin.</string>
+    <string name="btn_open_pad_now">Hareket panelini dene</string>
+    <string name="stats_gestures_count">Kayıtlı hareketler: %1$d</string>
+
+    <string name="about_dialog_title">Veloa Hakkında</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
+    <string name="ok">Tamam</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Kayıtlı Hareketler</string>
+    <string name="gestures_empty_title">Henüz hareket yok</string>
+    <string name="gestures_empty_desc">Yeni bir işaret çizmek ve uygulama seçmek için aşağıdaki + düğmesine dokunun.</string>
+    <string name="gestures_test_mode">Dene</string>
+    <string name="gestures_test_hint">Kayıtlı işaretlerden birini çizin</string>
+    <string name="gestures_test_matched">Eşleşti: %1$s (uyum: %2$s)</string>
+    <string name="gestures_test_unmatched">Tanınmadı (en yakın: %1$s)</string>
+
+    <string name="editor_title_new">Yeni Hareket</string>
+    <string name="editor_title_edit">Hareketi Düzenle</string>
+    <string name="editor_name_label">Ad</string>
+    <string name="editor_name_placeholder">Örnek: Arama, Kamera, Mesaj</string>
+    <string name="editor_draw_prompt">İşareti aşağıya çizin</string>
+    <string name="editor_draw_placeholder">Buraya çizin</string>
+    <string name="editor_clear_drawing">Temizle</string>
+    <string name="editor_select_app_quick">Uygulama seç</string>
+    <string name="editor_other_action_quick">Diğer işlem</string>
+    <string name="editor_selected_action">Seçili işlem</string>
+    <string name="editor_no_action_yet">Henüz uygulama veya işlem seçilmedi</string>
+    <string name="editor_save">Kaydet</string>
+    <string name="editor_delete">Sil</string>
+    <string name="editor_cancel">İptal</string>
+    <string name="editor_error_name">Lütfen bir hareket adı girin</string>
+    <string name="editor_error_draw">Lütfen bir işaret çizin</string>
+    <string name="editor_error_actions">Lütfen bir uygulama veya işlem seçin</string>
+    <string name="editor_existing_gesture_hint">Mevcut işaret korunuyor (değiştirmek için yeniden çizin)</string>
+    <string name="editor_stroke_ready">İşaret çizildi ✓</string>
+
+    <string name="pick_action_title">İşlem seçin</string>
+    <string name="pick_app_title">Uygulama seçin</string>
+    <string name="pick_app_search">Uygulama ara...</string>
+    <string name="param_url_title">Web adresi</string>
+    <string name="param_url_hint">https://ornek.com</string>
+    <string name="param_dial_title">Telefon numarası</string>
+    <string name="param_dial_hint">+905551234567</string>
+    <string name="confirm">Onayla</string>
+
+    <!-- Actions -->
+    <string name="action_none">Yok</string>
+    <string name="action_open_gesture_pad">Hareket panelini aç</string>
+    <string name="action_back">Geri</string>
+    <string name="action_home">Ana ekran</string>
+    <string name="action_recents">Son uygulamalar</string>
+    <string name="action_notifications">Bildirim paneli</string>
+    <string name="action_quick_settings">Hızlı ayarlar</string>
+    <string name="action_power_dialog">Güç menüsü</string>
+    <string name="action_lock_screen">Ekranı kilitle</string>
+    <string name="action_screenshot">Ekran görüntüsü</string>
+    <string name="action_split_screen">Bölünmüş ekran</string>
+    <string name="action_last_app">Önceki uygulama</string>
+    <string name="action_launch_app">Uygulamayı aç</string>
+    <string name="action_open_url">Web bağlantısını aç</string>
+    <string name="action_dial">Numara ara</string>
+    <string name="action_flashlight">El fenerini aç/kapat</string>
+    <string name="action_volume_panel">Ses paneli</string>
+    <string name="action_media_play_pause">Oynat / Duraklat</string>
+    <string name="action_media_next">Sonraki parça</string>
+    <string name="action_media_prev">Önceki parça</string>
+    <string name="action_wifi_settings">Kablosuz ağ ayarları</string>
+    <string name="action_bluetooth_settings">Bluetooth ayarları</string>
+    <string name="action_rotation_settings">Ekran döndürme ayarları</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Tek dokunuş</string>
+    <string name="trigger_double_tap">Çift dokunuş</string>
+    <string name="trigger_long_press">Uzun basma</string>
+    <string name="trigger_swipe_left">Sola kaydır</string>
+    <string name="trigger_swipe_up">Yukarı kaydır</string>
+    <string name="trigger_swipe_right">Sağa kaydır</string>
+    <string name="trigger_swipe_down">Aşağı kaydır</string>
+
+    <!-- Themes -->
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+    <string name="theme_amoled">Tam Siyah</string>
+    <string name="settings_app_color_theme">Uygulama Teması</string>
+    <string name="color_theme_ocean">Okyanus</string>
+    <string name="color_theme_emerald">Zümrüt</string>
+    <string name="color_theme_violet">Mor</string>
+    <string name="color_theme_coral">Mercan</string>
+    <string name="color_theme_amber">Kehribar</string>
+    <string name="color_theme_monochrome">Tek Renk</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">Sistem</string>
+    <string name="settings_language">Dil</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_hide_keyboard">Klavye açıldığında denetleyiciyi gizle</string>
+    <string name="settings_hide_keyboard_desc">Klavye görünürken yan paneli veya düğmeyi gizler</string>
+
+    <string name="settings_gesture_options_title">Hareket Seçenekleri</string>
+    <string name="settings_sensitivity_label">Hassasiyet</string>
+    <string name="settings_sensitivity_value">%1$d%% (önerilen: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Rahat</string>
+    <string name="settings_sensitivity_strict">95% • Hassas</string>
+    <string name="settings_gesture_color">Hareket Rengi</string>
+    <string name="settings_direction_priority">Yön Önceliği</string>
+    <string name="settings_direction_priority_desc">Benzer hareketlerde çizim yönüne öncelik verilir</string>
+    <string name="settings_multi_stroke">Çok Çizgili Hareketler</string>
+    <string name="settings_multi_stroke_desc">Birden fazla çizgiyle hareket çizmeye izin verir</string>
+
+    <string name="settings_floating_title">Yüzen Denetleyici</string>
+    <string name="settings_floating_size">Boyut: %1$d</string>
+    <string name="settings_floating_transparency">Saydamlık: %1$s</string>
+    <string name="settings_floating_color">Düğme Rengi</string>
+    <string name="settings_double_tap">Çift Dokunuşu Etkinleştir</string>
+    <string name="settings_double_tap_desc">Çift dokunuşa ayrı bir işlem atayabilirsiniz</string>
+    <string name="settings_floating_triggers">Düğme eylemlerini özelleştir</string>
+
+    <string name="settings_side_title">Yan Panel Denetleyicisi</string>
+    <string name="settings_side_mode_title">Etkinleştirme modu</string>
+    <string name="settings_side_mode_direct">Doğrudan çiz</string>
+    <string name="settings_side_mode_direct_desc">Kenardan kaydırarak aynı dokunuşla hareketi çizin</string>
+    <string name="settings_side_mode_two_step">Önce aç, sonra çiz</string>
+    <string name="settings_side_mode_two_step_desc">Kenar kaydırma paneli açar, ikinci dokunuşla hareketi çizersiniz</string>
+    <string name="settings_side_width">Genişlik: %1$d</string>
+    <string name="settings_side_height">Yükseklik: %1$d</string>
+    <string name="settings_side_transparency">Saydamlık: %1$s</string>
+    <string name="settings_side_location">Konum: %1$d%%</string>
+    <string name="settings_side_left">Sol</string>
+    <string name="settings_side_right">Sağ</string>
+    <string name="settings_side_both">Her İkisi</string>
+    <string name="settings_side_color">Yan Çizgi Rengi</string>
+
+    <string name="settings_haptics">Dokunma titreşimi</string>
+    <string name="settings_haptics_desc">Kenar kaydırma ve hareket tanındığında titreşim</string>
+    <string name="settings_hide_landscape">Yatay modda gizle</string>
+    <string name="settings_hide_landscape_desc">Tam ekran video ve oyunlarda gizler</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Kapat</string>
+    <string name="overlay_draw_now">Hareketi çizin</string>
+    <string name="overlay_require_api28">Bu özellik daha yeni sistem sürümü gerektirir</string>
+    <string name="overlay_flashlight_unavailable">El feneri bulunamadı</string>
+</resources>

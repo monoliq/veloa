@@ -1,0 +1,206 @@
+<resources>
+    <string name="app_name">Veloa</string>
+    <string name="accessibility_service_label">Помощник Veloa</string>
+    <string name="accessibility_service_description">Быстро запускает приложения и системные действия с помощью жестов через боковую панель или плавающую кнопку.</string>
+
+    <!-- Languages -->
+    <string name="lang_az">Азербайджанский</string>
+    <string name="lang_de">Немецкий</string>
+    <string name="lang_en">Английский</string>
+    <string name="lang_es">Испанский</string>
+    <string name="lang_fr">Французский</string>
+    <string name="lang_it">Итальянский</string>
+    <string name="lang_pl">Польский</string>
+    <string name="lang_pt">Португальский</string>
+    <string name="lang_ru">Русский</string>
+    <string name="lang_tr">Турецкий</string>
+    <string name="lang_uk">Украинский</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_gestures">Жесты</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Home -->
+    <string name="home_welcome">Добро пожаловать!</string>
+    <string name="required_permissions_title">Необходимые разрешения</string>
+    <string name="perm_accessibility">Специальные возможности</string>
+    <string name="perm_roadmap_accessibility">Спец. возможности → Скачанные приложения → Помощник Veloa → Включить</string>
+    <string name="perm_overlay">Поверх других приложений</string>
+    <string name="perm_roadmap_overlay">Поверх других приложений → Veloa → Разрешить</string>
+    <string name="perm_notification">Разрешение на уведомления</string>
+    <string name="perm_roadmap_notification_dialog">Запрос уведомлений → Разрешить</string>
+    <string name="perm_roadmap_notification_settings">Уведомления приложения → Показывать уведомления → Включить</string>
+    <string name="perm_battery">Отключить оптимизацию батареи</string>
+    <string name="perm_roadmap_battery_dialog">Окно батареи → Разрешить</string>
+    <string name="perm_roadmap_battery_list">Оптимизация батареи → Veloa → Без ограничений</string>
+    <string name="perm_autostart">Фоновая работа и автозапуск</string>
+    <string name="perm_roadmap_autostart_xiaomi">Автозапуск → Veloa → Включить</string>
+    <string name="perm_roadmap_autostart_oem">Список автозапуска → Veloa → Включить</string>
+    <string name="perm_roadmap_autostart_samsung">Батарея → Ограничения в фоне → Никогда не спящие → Veloa</string>
+    <string name="perm_roadmap_autostart_app_info">О приложении → Батарея → Без ограничений</string>
+    <string name="perm_xiaomi_popup">Всплывающие окна в фоне</string>
+    <string name="perm_roadmap_xiaomi_popup">Другие разрешения → Всплывающие окна в фоновом режиме → Всегда разрешать</string>
+    <string name="perm_xiaomi_lock">Защита от очистки (Закрепить)</string>
+    <string name="perm_roadmap_xiaomi_lock_direct">Закрепить приложения → Veloa → Включить</string>
+    <string name="perm_roadmap_xiaomi_lock_security">Безопасность → Ускорение → Настройки (⚙) → Закрепить приложения → Veloa</string>
+    <string name="btn_open_app_info">Разрешить ограниченные настройки</string>
+    <string name="perm_roadmap_restricted">О приложении → Вверху справа ⋮ → Разрешить ограниченные настройки</string>
+    <string name="perm_accessibility_restart_hint">Система остановила службу — выключите и снова включите её в Спец. возможностях</string>
+    <string name="perm_accessibility_active_bank_notice">Некоторые банковские приложения могут не работать при включённых Специальных возможностях. В таком случае отключите этот режим и продолжайте пользоваться Veloa (жесты запуска приложений сохранятся, но системные кнопки «Назад», «Главный экран», «Заблокировать экран» и «Снимок экрана» перестанут работать).</string>
+    <string name="perm_accessibility_inactive_limit_notice">Системные действия «Назад», «Главный экран», «Заблокировать экран» и «Снимок экрана» требуют Специальных возможностей и не работают, когда этот режим отключён. Жесты открытия приложений продолжают работать через «Поверх других приложений».</string>
+    <string name="notif_channel_name">Стабильность службы Veloa</string>
+    <string name="notif_service_title">Veloa активна</string>
+    <string name="notif_service_text">Служба жестов и боковой панели работает непрерывно</string>
+
+    <string name="handler_type_title">Выберите тип управления</string>
+    <string name="handler_side">Боковая панель</string>
+    <string name="handler_side_desc">Проведите от края экрана внутрь, чтобы нарисовать жест</string>
+    <string name="handler_floating">Плавающая кнопка</string>
+    <string name="handler_floating_desc">Управление круглой кнопкой поверх экрана</string>
+    <string name="handler_both">Оба варианта</string>
+    <string name="handler_both_desc">И боковая панель, и плавающая кнопка</string>
+    <string name="handler_floating_hint">Чтобы настроить действия плавающей кнопки, перейдите: Настройки → Плавающее управление → Настроить действия кнопки.</string>
+    <string name="btn_open_pad_now">Проверить панель жестов</string>
+    <string name="stats_gestures_count">Сохранённых жестов: %1$d</string>
+
+    <string name="about_dialog_title">О приложении Veloa</string>
+    <string name="about_dialog_body">Veloa v1.2.11 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
+    <string name="ok">Хорошо</string>
+
+    <!-- Gestures Screen & Editor -->
+    <string name="saved_gestures_title">Сохранённые жесты</string>
+    <string name="gestures_empty_title">Жестов пока нет</string>
+    <string name="gestures_empty_desc">Нажмите + ниже, чтобы нарисовать символ и выбрать приложение.</string>
+    <string name="gestures_test_mode">Проверка</string>
+    <string name="gestures_test_hint">Нарисуйте один из сохранённых жестов</string>
+    <string name="gestures_test_matched">Найдено: %1$s (совпадение: %2$s)</string>
+    <string name="gestures_test_unmatched">Не распознано (ближайший: %1$s)</string>
+
+    <string name="editor_title_new">Новый жест</string>
+    <string name="editor_title_edit">Изменить жест</string>
+    <string name="editor_name_label">Название</string>
+    <string name="editor_name_placeholder">Например: Телефон, Камера, Сообщения</string>
+    <string name="editor_draw_prompt">Нарисуйте жест ниже</string>
+    <string name="editor_draw_placeholder">Рисуйте здесь</string>
+    <string name="editor_clear_drawing">Очистить</string>
+    <string name="editor_select_app_quick">Выбрать приложение</string>
+    <string name="editor_other_action_quick">Другое действие</string>
+    <string name="editor_selected_action">Выбранное действие</string>
+    <string name="editor_no_action_yet">Приложение или действие ещё не выбраны</string>
+    <string name="editor_save">Сохранить</string>
+    <string name="editor_delete">Удалить</string>
+    <string name="editor_cancel">Отмена</string>
+    <string name="editor_error_name">Введите название жеста</string>
+    <string name="editor_error_draw">Нарисуйте жест на панели</string>
+    <string name="editor_error_actions">Выберите приложение или действие</string>
+    <string name="editor_existing_gesture_hint">Текущий жест сохранён (нарисуйте заново для замены)</string>
+    <string name="editor_stroke_ready">Жест нарисован ✓</string>
+
+    <string name="pick_action_title">Выберите действие</string>
+    <string name="pick_app_title">Выберите приложение</string>
+    <string name="pick_app_search">Поиск приложений...</string>
+    <string name="param_url_title">Веб-адрес</string>
+    <string name="param_url_hint">https://example.ru</string>
+    <string name="param_dial_title">Номер телефона</string>
+    <string name="param_dial_hint">+79991234567</string>
+    <string name="confirm">Подтвердить</string>
+
+    <!-- Actions -->
+    <string name="action_none">Нет</string>
+    <string name="action_open_gesture_pad">Открыть панель жестов</string>
+    <string name="action_back">Назад</string>
+    <string name="action_home">Главный экран</string>
+    <string name="action_recents">Недавние приложения</string>
+    <string name="action_notifications">Панель уведомлений</string>
+    <string name="action_quick_settings">Быстрые настройки</string>
+    <string name="action_power_dialog">Меню питания</string>
+    <string name="action_lock_screen">Заблокировать экран</string>
+    <string name="action_screenshot">Снимок экрана</string>
+    <string name="action_split_screen">Разделённый экран</string>
+    <string name="action_last_app">Предыдущее приложение</string>
+    <string name="action_launch_app">Открыть приложение</string>
+    <string name="action_open_url">Открыть ссылку</string>
+    <string name="action_dial">Набрать номер</string>
+    <string name="action_flashlight">Включить/выключить фонарик</string>
+    <string name="action_volume_panel">Панель громкости</string>
+    <string name="action_media_play_pause">Воспроизведение / Пауза</string>
+    <string name="action_media_next">Следующий трек</string>
+    <string name="action_media_prev">Предыдущий трек</string>
+    <string name="action_wifi_settings">Настройки беспроводной сети</string>
+    <string name="action_bluetooth_settings">Настройки беспроводной связи</string>
+    <string name="action_rotation_settings">Настройки поворота экрана</string>
+
+    <!-- Button Triggers -->
+    <string name="trigger_tap">Одиночное нажатие</string>
+    <string name="trigger_double_tap">Двойное нажатие</string>
+    <string name="trigger_long_press">Долгое нажатие</string>
+    <string name="trigger_swipe_left">Свайп влево</string>
+    <string name="trigger_swipe_up">Свайп вверх</string>
+    <string name="trigger_swipe_right">Свайп вправо</string>
+    <string name="trigger_swipe_down">Свайп вниз</string>
+
+    <!-- Themes -->
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_amoled">Чёрная</string>
+    <string name="settings_app_color_theme">Цветовая тема</string>
+    <string name="color_theme_ocean">Океан</string>
+    <string name="color_theme_emerald">Изумруд</string>
+    <string name="color_theme_violet">Фиолетовый</string>
+    <string name="color_theme_coral">Коралл</string>
+    <string name="color_theme_amber">Янтарь</string>
+    <string name="color_theme_monochrome">Монохром</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_system_title">Система</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_hide_keyboard">Скрывать при открытии клавиатуры</string>
+    <string name="settings_hide_keyboard_desc">Скрывает боковую панель или кнопку, когда открыта клавиатура</string>
+
+    <string name="settings_gesture_options_title">Параметры жестов</string>
+    <string name="settings_sensitivity_label">Чувствительность</string>
+    <string name="settings_sensitivity_value">%1$d%% (рекомендуется: 65–90%%)</string>
+    <string name="settings_sensitivity_relaxed">50% • Мягко</string>
+    <string name="settings_sensitivity_strict">95% • Точно</string>
+    <string name="settings_gesture_color">Цвет жеста</string>
+    <string name="settings_direction_priority">Приоритет направления</string>
+    <string name="settings_direction_priority_desc">Учитывать направление рисования похожих жестов</string>
+    <string name="settings_multi_stroke">Многоштриховые жесты</string>
+    <string name="settings_multi_stroke_desc">Разрешить жесты из нескольких линий</string>
+
+    <string name="settings_floating_title">Плавающее управление</string>
+    <string name="settings_floating_size">Размер: %1$d</string>
+    <string name="settings_floating_transparency">Прозрачность: %1$s</string>
+    <string name="settings_floating_color">Цвет кнопки</string>
+    <string name="settings_double_tap">Включить двойное нажатие</string>
+    <string name="settings_double_tap_desc">Назначить отдельное действие на двойное нажатие</string>
+    <string name="settings_floating_triggers">Настроить действия кнопки</string>
+
+    <string name="settings_side_title">Управление боковой панелью</string>
+    <string name="settings_side_mode_title">Режим активации</string>
+    <string name="settings_side_mode_direct">Рисовать сразу</string>
+    <string name="settings_side_mode_direct_desc">Проведите от края и рисуйте жест одним движением</string>
+    <string name="settings_side_mode_two_step">Сначала открыть, затем рисовать</string>
+    <string name="settings_side_mode_two_step_desc">Свайп от края открывает панель, вторым касанием рисуется жест</string>
+    <string name="settings_side_width">Ширина: %1$d</string>
+    <string name="settings_side_height">Высота: %1$d</string>
+    <string name="settings_side_transparency">Прозрачность: %1$s</string>
+    <string name="settings_side_location">Положение: %1$d%%</string>
+    <string name="settings_side_left">Слева</string>
+    <string name="settings_side_right">Справа</string>
+    <string name="settings_side_both">Обе</string>
+    <string name="settings_side_color">Цвет боковой полосы</string>
+
+    <string name="settings_haptics">Виброотклик</string>
+    <string name="settings_haptics_desc">Лёгкая вибрация при свайпе и распознавании жеста</string>
+    <string name="settings_hide_landscape">Скрывать в альбомной ориентации</string>
+    <string name="settings_hide_landscape_desc">Скрывать элементы в полноэкранных играх и видео</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Закрыть</string>
+    <string name="overlay_draw_now">Нарисуйте жест</string>
+    <string name="overlay_require_api28">Для этой функции нужна более новая версия системы</string>
+    <string name="overlay_flashlight_unavailable">Фонарик недоступен</string>
+</resources>
