@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Kayıtlı hareketler: %1$d</string>
 
     <string name="about_dialog_title">Veloa Hakkında</string>
-    <string name="about_dialog_body">Veloa v1.2.11 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.12 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
     <string name="ok">Tamam</string>
 
     <!-- Gestures Screen & Editor -->

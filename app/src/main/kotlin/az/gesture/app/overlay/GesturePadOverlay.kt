@@ -16,6 +16,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
 import az.gesture.app.R
 import az.gesture.app.data.Repo
 import az.gesture.app.data.Shortcut
@@ -35,30 +36,17 @@ class GesturePadOverlay(
     private val screenLoc = IntArray(2)
 
     private val matchPill: TextView
-    private val drawHintView: TextView
     private val gestureOverlay: GestureOverlayView
 
     init {
-        setBackgroundColor(Color.argb(175, 6, 12, 16))
+        setBackgroundColor(Color.argb(158, 8, 12, 18))
+        alpha = 0f
+        animate().alpha(1f).setDuration(140L).start()
         isFocusable = true
         isFocusableInTouchMode = true
 
         val settings = repo.getSettings()
         val strokeColor = settings.gestureColor
-
-        drawHintView = TextView(context).apply {
-            text = context.getString(R.string.overlay_draw_now)
-            setTextColor(Color.argb(175, 226, 232, 240))
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-            typeface = Typeface.DEFAULT_BOLD
-            visibility = if (openedFromEdge) View.GONE else View.VISIBLE
-            setPadding(dp(20f), dp(10f), dp(20f), dp(10f))
-            background = GradientDrawable().apply {
-                setColor(Color.argb(110, 19, 32, 40))
-                cornerRadius = dp(20f).toFloat()
-                setStroke(dp(1f), Color.argb(90, 45, 212, 191))
-            }
-        }
 
         gestureOverlay = GestureOverlayView(context).apply {
             gestureStrokeType = if (settings.multiStroke) {
@@ -76,14 +64,6 @@ class GesturePadOverlay(
             uncertainGestureColor = strokeColor
             isGestureVisible = true
             isEventsInterceptionEnabled = true
-            addOnGestureListener(object : GestureOverlayView.OnGestureListener {
-                override fun onGestureStarted(overlay: GestureOverlayView?, event: MotionEvent?) {
-                    drawHintView.visibility = View.GONE
-                }
-                override fun onGesture(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-                override fun onGestureEnded(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-                override fun onGestureCancelled(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-            })
             addOnGesturePerformedListener { overlay, gesture ->
                 val result = repo.recognize(gesture)
                 val matched = result.shortcut
@@ -100,7 +80,6 @@ class GesturePadOverlay(
                         if (strokeLength < dp(56f).toDouble()) {
                             openedFromEdge = false
                             overlay.clear(false)
-                            drawHintView.visibility = View.VISIBLE
                         } else {
                             onDismiss()
                         }
@@ -109,21 +88,24 @@ class GesturePadOverlay(
             }
         }
         addView(gestureOverlay, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-        addView(
-            drawHintView,
-            LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER)
-        )
+
+        val pillTextColor = if (ColorUtils.calculateLuminance(strokeColor) > 0.45) {
+            Color.parseColor("#06181A")
+        } else {
+            Color.parseColor("#F8FAFC")
+        }
 
         matchPill = TextView(context).apply {
             visibility = View.GONE
-            setTextColor(Color.parseColor("#042F2E"))
+            setTextColor(pillTextColor)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-            typeface = Typeface.DEFAULT_BOLD
-            setPadding(dp(18f), dp(9f), dp(18f), dp(9f))
+            typeface = Typeface.create("sans-serif-medium", Typeface.BOLD)
+            setPadding(dp(20f), dp(10f), dp(20f), dp(10f))
             background = GradientDrawable().apply {
-                setColor(Color.parseColor("#2DD4BF"))
-                cornerRadius = dp(20f).toFloat()
+                setColor(strokeColor)
+                cornerRadius = dp(24f).toFloat()
             }
+            elevation = dp(4f).toFloat()
         }
         addView(
             matchPill,
@@ -135,19 +117,19 @@ class GesturePadOverlay(
         val closeButton = TextView(context).apply {
             text = "✕"
             setTextColor(Color.parseColor("#E2E8F0"))
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             gravity = Gravity.CENTER
             background = GradientDrawable().apply {
                 shape = GradientDrawable.OVAL
-                setColor(Color.argb(160, 19, 32, 40))
-                setStroke(dp(1f), Color.argb(100, 45, 212, 191))
+                setColor(Color.argb(175, 22, 27, 36))
+                setStroke(dp(1f), Color.argb(48, 255, 255, 255))
             }
             contentDescription = context.getString(R.string.overlay_close)
             setOnClickListener { onDismiss() }
         }
         addView(
             closeButton,
-            LayoutParams(dp(40f), dp(40f), Gravity.TOP or Gravity.END).apply {
+            LayoutParams(dp(42f), dp(42f), Gravity.TOP or Gravity.END).apply {
                 topMargin = dp(44f)
                 marginEnd = dp(20f)
             }

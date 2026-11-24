@@ -1,13 +1,17 @@
 package az.gesture.app.ui.screens
 
 import android.gesture.Gesture
-import android.gesture.GestureOverlayView
-import android.view.MotionEvent
+import android.gesture.GesturePoint
+import android.gesture.GestureStroke
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,13 +31,13 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -45,18 +49,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.input.pointer.PointerInputChange
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import az.gesture.app.R
 import az.gesture.app.data.ActionType
 import az.gesture.app.data.AppThemeMode
@@ -67,11 +76,40 @@ import az.gesture.app.service.GestureAccessibilityService
 import az.gesture.app.ui.components.ActionIcon
 import az.gesture.app.ui.components.ActionPickerDialog
 import az.gesture.app.ui.components.AppPickerDialog
-import az.gesture.app.ui.components.ScrollSafeGestureOverlayView
 import az.gesture.app.ui.components.formatActionLabel
 import az.gesture.app.ui.components.resolveAppLabel
 import az.gesture.app.ui.theme.GestureTheme
 import kotlinx.coroutines.launch
+import kotlin.math.hypot
+
+data class TimedStrokePoint(
+    val x: Float,
+    val y: Float,
+    val timestamp: Long
+)
+
+private fun buildAndroidGesture(strokes: List<List<TimedStrokePoint>>): Gesture? {
+    val gesture = Gesture()
+    var added = 0
+    for (stroke in strokes) {
+        if (stroke.size < 2) continue
+        val pts = ArrayList<GesturePoint>(stroke.size)
+        for (p in stroke) {
+            pts.add(GesturePoint(p.x, p.y, p.timestamp))
+        }
+        gesture.addStroke(GestureStroke(pts))
+        added++
+    }
+    return if (added > 0) gesture else null
+}
+
+private fun strokePathLength(stroke: List<TimedStrokePoint>): Float {
+    var total = 0f
+    for (i in 1 until stroke.size) {
+        total += hypot(stroke[i].x - stroke[i - 1].x, stroke[i].y - stroke[i - 1].y)
+    }
+    return total
+}
 
 @Composable
 fun GestureEditorScreen(
@@ -90,8 +128,9 @@ fun GestureEditorScreen(
     var selectedAction by remember(editingShortcut) {
         mutableStateOf(editingShortcut?.actions?.firstOrNull())
     }
+    var completedStrokes by remember(editingShortcut) { mutableStateOf<List<List<TimedStrokePoint>>>(emptyList()) }
+    var activeStroke by remember(editingShortcut) { mutableStateOf<List<TimedStrokePoint>>(emptyList()) }
     var drawnGesture by remember(editingShortcut) { mutableStateOf<Gesture?>(null) }
-    var overlayRef by remember { mutableStateOf<GestureOverlayView?>(null) }
     var showActionPicker by remember { mutableStateOf(false) }
     var showQuickAppPicker by remember { mutableStateOf(false) }
 
@@ -136,12 +175,24 @@ fun GestureEditorScreen(
         )
     }
 
+    val allOffsets = remember(completedStrokes, activeStroke) {
+        buildList {
+            completedStrokes.forEach { stroke ->
+                add(stroke.map { Offset(it.x, it.y) })
+            }
+            if (activeStroke.isNotEmpty()) {
+                add(activeStroke.map { Offset(it.x, it.y) })
+            }
+        }
+    }
+
     GestureEditorContent(
         isEditing = editingShortcut != null,
         name = name,
         onNameChange = { name = it },
         selectedAction = selectedAction,
         selectedActionLabel = selectedAction?.let { formatActionLabel(context, it) },
+        strokes = allOffsets,
         hasDrawnStroke = drawnGesture != null,
         existingThumb = existingThumb,
         strokeColor = strokeColor,
@@ -156,17 +207,39 @@ fun GestureEditorScreen(
             }
         },
         onClearDrawing = {
-            overlayRef?.clear(false)
+            completedStrokes = emptyList()
+            activeStroke = emptyList()
             drawnGesture = null
         },
         onClearAction = { selectedAction = null },
         onPickApp = { showQuickAppPicker = true },
         onPickOtherAction = { showActionPicker = true },
-        onBindOverlay = { overlay -> overlayRef = overlay },
-        onGestureUpdated = { gesture -> drawnGesture = gesture },
+        onStrokeStart = { pt ->
+            if (!settings.multiStroke) {
+                completedStrokes = emptyList()
+                drawnGesture = null
+            }
+            activeStroke = listOf(pt)
+        },
+        onStrokeMove = { pt ->
+            val current = activeStroke
+            val last = current.lastOrNull()
+            if (last == null || hypot(pt.x - last.x, pt.y - last.y) >= 2f) {
+                activeStroke = current + pt
+            }
+        },
+        onStrokeEnd = {
+            val finished = activeStroke
+            activeStroke = emptyList()
+            if (finished.size >= 2 && strokePathLength(finished) >= 12f) {
+                val updated = completedStrokes + listOf(finished)
+                completedStrokes = updated
+                drawnGesture = buildAndroidGesture(updated)
+            }
+        },
         onSave = {
             val trimmedName = name.trim()
-            val finalGesture = drawnGesture ?: overlayRef?.gesture?.takeIf { it.strokesCount > 0 }
+            val finalGesture = drawnGesture
             val action = selectedAction
             when {
                 trimmedName.isEmpty() -> {
@@ -201,6 +274,7 @@ fun GestureEditorContent(
     onNameChange: (String) -> Unit,
     selectedAction: GestureAction?,
     selectedActionLabel: String?,
+    strokes: List<List<Offset>>,
     hasDrawnStroke: Boolean,
     existingThumb: ImageBitmap?,
     strokeColor: Int,
@@ -212,12 +286,11 @@ fun GestureEditorContent(
     onClearAction: () -> Unit,
     onPickApp: () -> Unit,
     onPickOtherAction: () -> Unit,
-    onBindOverlay: (GestureOverlayView) -> Unit,
-    onGestureUpdated: (Gesture) -> Unit,
+    onStrokeStart: (TimedStrokePoint) -> Unit,
+    onStrokeMove: (TimedStrokePoint) -> Unit,
+    onStrokeEnd: () -> Unit,
     onSave: () -> Unit
 ) {
-    val isInPreview = LocalInspectionMode.current
-
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -273,90 +346,42 @@ fun GestureEditorContent(
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.SemiBold
                 )
-                TextButton(onClick = onClearDrawing) {
-                    Text(stringResource(R.string.editor_clear_drawing))
+                FilledTonalButton(
+                    onClick = onClearDrawing,
+                    enabled = strokes.isNotEmpty(),
+                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.editor_clear_drawing),
+                        style = MaterialTheme.typography.labelLarge
+                    )
                 }
             }
 
-            Surface(
-                shape = RoundedCornerShape(22.dp),
-                color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.55f)),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    if (!hasDrawnStroke && existingThumb == null) {
-                        Text(
-                            text = stringResource(R.string.editor_draw_placeholder),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f),
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-
-                    if (!hasDrawnStroke && existingThumb != null) {
-                        Image(
-                            bitmap = existingThumb,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(160.dp)
-                                .align(Alignment.Center)
-                                .alpha(0.35f)
-                        )
-                    }
-
-                    if (!isInPreview) {
-                        AndroidView(
-                            modifier = Modifier.fillMaxSize(),
-                            factory = { ctx ->
-                                ScrollSafeGestureOverlayView(ctx).apply {
-                                    gestureStrokeType = if (multiStroke) {
-                                        GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE
-                                    } else {
-                                        GestureOverlayView.GESTURE_STROKE_TYPE_SINGLE
-                                    }
-                                    isFadeEnabled = false
-                                    gestureStrokeWidth = 12f
-                                    orientation = GestureOverlayView.ORIENTATION_VERTICAL
-                                    gestureStrokeAngleThreshold = 95f
-                                    gestureStrokeSquarenessTreshold = 0f
-                                    gestureStrokeLengthThreshold = 20f
-                                    gestureColor = strokeColor
-                                    uncertainGestureColor = strokeColor
-                                    isEventsInterceptionEnabled = true
-                                    addOnGestureListener(object : GestureOverlayView.OnGestureListener {
-                                        override fun onGestureStarted(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-                                        override fun onGesture(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-                                        override fun onGestureEnded(overlay: GestureOverlayView?, event: MotionEvent?) {
-                                            val g = overlay?.gesture
-                                            if (g != null && g.strokesCount > 0) {
-                                                onGestureUpdated(g)
-                                            }
-                                        }
-                                        override fun onGestureCancelled(overlay: GestureOverlayView?, event: MotionEvent?) = Unit
-                                    })
-                                    addOnGesturePerformedListener { overlay, gesture ->
-                                        val g = gesture ?: overlay.gesture
-                                        if (g != null && g.strokesCount > 0) {
-                                            onGestureUpdated(g)
-                                        }
-                                    }
-                                    onBindOverlay(this)
-                                }
-                            }
-                        )
-                    }
-                }
-            }
+            PersistentGesturePad(
+                strokes = strokes,
+                hasDrawnStroke = hasDrawnStroke,
+                existingThumb = existingThumb,
+                strokeColor = strokeColor,
+                multiStroke = multiStroke,
+                onStrokeStart = onStrokeStart,
+                onStrokeMove = onStrokeMove,
+                onStrokeEnd = onStrokeEnd
+            )
 
             if (hasDrawnStroke) {
-                Text(
-                    text = stringResource(R.string.editor_stroke_ready),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.45f)
+                ) {
+                    Text(
+                        text = stringResource(R.string.editor_stroke_ready),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                    )
+                }
             } else if (isEditing) {
                 Text(
                     text = stringResource(R.string.editor_existing_gesture_hint),
@@ -369,9 +394,12 @@ fun GestureEditorContent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Button(
+                FilledTonalButton(
                     onClick = onPickApp,
-                    modifier = Modifier.weight(1f)
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(46.dp)
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_action_apps),
@@ -382,9 +410,13 @@ fun GestureEditorContent(
                     Text(stringResource(R.string.editor_select_app_quick), maxLines = 1)
                 }
 
-                FilledTonalButton(
+                OutlinedButton(
                     onClick = onPickOtherAction,
-                    modifier = Modifier.weight(1f)
+                    shape = RoundedCornerShape(16.dp),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(46.dp)
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_add),
@@ -404,9 +436,9 @@ fun GestureEditorContent(
 
             if (selectedAction != null && selectedActionLabel != null) {
                 Card(
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant)
                 ) {
                     Row(
                         modifier = Modifier
@@ -414,7 +446,19 @@ fun GestureEditorContent(
                             .padding(horizontal = 14.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ActionIcon(type = selectedAction.type, modifier = Modifier.size(22.dp))
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f),
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                ActionIcon(
+                                    type = selectedAction.type,
+                                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
                         Spacer(Modifier.width(12.dp))
                         Text(
                             text = selectedActionLabel,
@@ -437,9 +481,9 @@ fun GestureEditorContent(
                 }
             } else {
                 Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+                    shape = RoundedCornerShape(20.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant)
                 ) {
                     Text(
                         text = stringResource(R.string.editor_no_action_yet),
@@ -447,7 +491,7 @@ fun GestureEditorContent(
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp)
+                            .padding(horizontal = 16.dp, vertical = 16.dp)
                     )
                 }
             }
@@ -458,7 +502,7 @@ fun GestureEditorContent(
                 label = { Text(stringResource(R.string.editor_name_label)) },
                 placeholder = { Text(stringResource(R.string.editor_name_placeholder)) },
                 singleLine = true,
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(18.dp),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -466,7 +510,10 @@ fun GestureEditorContent(
 
             Button(
                 onClick = onSave,
-                modifier = Modifier.fillMaxWidth()
+                shape = RoundedCornerShape(26.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_check),
@@ -480,17 +527,174 @@ fun GestureEditorContent(
     }
 }
 
+@Composable
+private fun PersistentGesturePad(
+    strokes: List<List<Offset>>,
+    hasDrawnStroke: Boolean,
+    existingThumb: ImageBitmap?,
+    strokeColor: Int,
+    multiStroke: Boolean,
+    onStrokeStart: (TimedStrokePoint) -> Unit,
+    onStrokeMove: (TimedStrokePoint) -> Unit,
+    onStrokeEnd: () -> Unit
+) {
+    val activeHighlight = hasDrawnStroke || strokes.isNotEmpty()
+    val dotGridColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.12f)
+    val composeStrokeColor = Color(strokeColor)
+
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        border = BorderStroke(
+            width = if (activeHighlight) 1.5.dp else 1.dp,
+            color = if (activeHighlight) {
+                MaterialTheme.colorScheme.primary.copy(alpha = 0.65f)
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            }
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(240.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .pointerInput(multiStroke) {
+                    awaitEachGesture {
+                        val down: PointerInputChange = awaitFirstDown(requireUnconsumed = false)
+                        down.consume()
+                        onStrokeStart(
+                            TimedStrokePoint(
+                                down.position.x,
+                                down.position.y,
+                                down.uptimeMillis
+                            )
+                        )
+                        val pointerId = down.id
+                        while (true) {
+                            val event = awaitPointerEvent()
+                            val change = event.changes.firstOrNull { it.id == pointerId } ?: break
+                            if (change.pressed) {
+                                change.consume()
+                                onStrokeMove(
+                                    TimedStrokePoint(
+                                        change.position.x,
+                                        change.position.y,
+                                        change.uptimeMillis
+                                    )
+                                )
+                            } else {
+                                change.consume()
+                                onStrokeEnd()
+                                break
+                            }
+                        }
+                    }
+                }
+        ) {
+            if (strokes.isEmpty() && existingThumb == null) {
+                Text(
+                    text = stringResource(R.string.editor_draw_placeholder),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.50f),
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+
+            if (strokes.isEmpty() && existingThumb != null) {
+                Image(
+                    bitmap = existingThumb,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(160.dp)
+                        .align(Alignment.Center)
+                        .alpha(0.45f)
+                )
+            }
+
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                val spacing = 22.dp.toPx()
+                val dotRadius = 1.2.dp.toPx()
+                var x = spacing * 0.8f
+                while (x < size.width - spacing * 0.4f) {
+                    var y = spacing * 0.8f
+                    while (y < size.height - spacing * 0.4f) {
+                        drawCircle(
+                            color = dotGridColor,
+                            radius = dotRadius,
+                            center = Offset(x, y)
+                        )
+                        y += spacing
+                    }
+                    x += spacing
+                }
+
+                val glowWidth = 13.dp.toPx()
+                val coreWidth = 5.5.dp.toPx()
+                for (pts in strokes) {
+                    if (pts.isEmpty()) continue
+                    if (pts.size == 1) {
+                        drawCircle(
+                            color = composeStrokeColor,
+                            radius = coreWidth * 0.6f,
+                            center = pts.first()
+                        )
+                        continue
+                    }
+                    val path = Path().apply {
+                        moveTo(pts.first().x, pts.first().y)
+                        for (i in 1 until pts.size) {
+                            val prev = pts[i - 1]
+                            val curr = pts[i]
+                            quadraticTo(
+                                prev.x,
+                                prev.y,
+                                (prev.x + curr.x) * 0.5f,
+                                (prev.y + curr.y) * 0.5f
+                            )
+                        }
+                        lineTo(pts.last().x, pts.last().y)
+                    }
+                    drawPath(
+                        path = path,
+                        color = composeStrokeColor.copy(alpha = 0.22f),
+                        style = Stroke(width = glowWidth, cap = StrokeCap.Round, join = StrokeJoin.Round)
+                    )
+                    drawPath(
+                        path = path,
+                        color = composeStrokeColor,
+                        style = Stroke(width = coreWidth, cap = StrokeCap.Round, join = StrokeJoin.Round)
+                    )
+                    drawCircle(
+                        color = composeStrokeColor,
+                        radius = 4.5.dp.toPx(),
+                        center = pts.first()
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Preview(name = "Editor AMOLED", showBackground = true, backgroundColor = 0xFF000000, widthDp = 393, heightDp = 851)
 @Composable
 fun GestureEditorPreview() {
     GestureTheme(themeMode = AppThemeMode.AMOLED, dynamicColor = false) {
         GestureEditorContent(
-            isEditing = false,
+            isEditing = true,
             name = "Instagram",
             onNameChange = {},
             selectedAction = GestureAction(ActionType.LAUNCH_APP, "com.instagram.android"),
             selectedActionLabel = "Launch app: Instagram",
-            hasDrawnStroke = false,
+            strokes = listOf(
+                listOf(
+                    Offset(340f, 120f),
+                    Offset(340f, 440f),
+                    Offset(620f, 440f)
+                )
+            ),
+            hasDrawnStroke = true,
             existingThumb = null,
             strokeColor = 0xFF2DD4BF.toInt(),
             multiStroke = true,
@@ -501,8 +705,9 @@ fun GestureEditorPreview() {
             onClearAction = {},
             onPickApp = {},
             onPickOtherAction = {},
-            onBindOverlay = {},
-            onGestureUpdated = {},
+            onStrokeStart = {},
+            onStrokeMove = {},
+            onStrokeEnd = {},
             onSave = {}
         )
     }

@@ -29,6 +29,7 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -66,6 +67,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -353,12 +358,43 @@ fun VeloaTopBar(
 ) {
     TopAppBar(
         title = {
-            Text(
-                text = stringResource(R.string.app_name),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                val brandPrimary = MaterialTheme.colorScheme.primary
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    border = BorderStroke(0.8.dp, brandPrimary.copy(alpha = 0.35f)),
+                    modifier = Modifier.size(30.dp)
+                ) {
+                    Canvas(modifier = Modifier.fillMaxSize().padding(7.dp)) {
+                        val w = size.width
+                        val h = size.height
+                        val path = Path().apply {
+                            moveTo(w * 0.14f, h * 0.20f)
+                            lineTo(w * 0.50f, h * 0.84f)
+                            lineTo(w * 0.86f, h * 0.20f)
+                        }
+                        drawPath(
+                            path = path,
+                            color = brandPrimary,
+                            style = Stroke(
+                                width = 2.6.dp.toPx(),
+                                cap = StrokeCap.Round,
+                                join = StrokeJoin.Round
+                            )
+                        )
+                    }
+                }
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.background
@@ -375,10 +411,10 @@ fun VeloaTopBar(
                 }
                 Surface(
                     shape = CircleShape,
-                    color = MaterialTheme.colorScheme.surface,
+                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(38.dp)
                         .clip(CircleShape)
                         .clickable(onClick = onCycleTheme)
                 ) {
@@ -394,10 +430,10 @@ fun VeloaTopBar(
 
                 Surface(
                     shape = CircleShape,
-                    color = MaterialTheme.colorScheme.surface,
+                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
                     modifier = Modifier
-                        .size(36.dp)
+                        .size(38.dp)
                         .clip(CircleShape)
                         .clickable(onClick = onOpenAbout)
                 ) {
@@ -424,16 +460,16 @@ fun FloatingBottomNavBar(
 ) {
     val dockColor = when (themeMode) {
         AppThemeMode.AMOLED -> Color(0xFF0C0F14)
-        AppThemeMode.DARK -> MaterialTheme.colorScheme.surface
+        AppThemeMode.DARK -> MaterialTheme.colorScheme.surfaceContainerHigh
         AppThemeMode.LIGHT -> MaterialTheme.colorScheme.surface
     }
 
     Surface(
-        shape = RoundedCornerShape(28.dp),
+        shape = RoundedCornerShape(32.dp),
         color = dockColor,
-        shadowElevation = 10.dp,
+        shadowElevation = 12.dp,
         tonalElevation = 4.dp,
-        border = BorderStroke(0.9.dp, MaterialTheme.colorScheme.outlineVariant),
+        border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
         modifier = modifier
     ) {
         Row(

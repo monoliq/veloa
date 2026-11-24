@@ -7,6 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -14,8 +15,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -29,10 +34,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -51,9 +56,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -268,31 +271,60 @@ fun HomeContent(
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
-            Text(
-                text = stringResource(R.string.home_welcome),
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Normal,
-                modifier = Modifier.padding(top = 2.dp, bottom = 4.dp)
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 2.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(R.string.home_welcome),
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                val ready = isServiceActive || overlayGranted
+                val dotColor = if (ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(7.dp)
+                    ) {
+                        Canvas(modifier = Modifier.size(8.dp)) {
+                            drawCircle(color = dotColor)
+                        }
+                        Text(
+                            text = stringResource(R.string.stats_gestures_count, shortcutsCount),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
         }
 
         item {
             Card(
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant)
+                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.75f))
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                        .padding(horizontal = 18.dp, vertical = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.required_permissions_title),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
 
@@ -358,12 +390,12 @@ fun HomeContent(
                             label = "accessibilityNotice"
                         ) { active ->
                             Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = Color(0xFFFF2A55).copy(alpha = if (isLightBg) 0.07f else 0.11f),
-                                border = BorderStroke(0.8.dp, Color(0xFFFF4D6D).copy(alpha = 0.45f)),
+                                shape = RoundedCornerShape(14.dp),
+                                color = Color(0xFFFF2A55).copy(alpha = if (isLightBg) 0.06f else 0.10f),
+                                border = BorderStroke(0.8.dp, Color(0xFFFF4D6D).copy(alpha = 0.40f)),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(start = 46.dp, top = 2.dp, bottom = 6.dp)
+                                    .padding(start = 36.dp, top = 2.dp, bottom = 6.dp)
                             ) {
                                 Text(
                                     text = stringResource(
@@ -446,21 +478,21 @@ fun HomeContent(
 
         item {
             Card(
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant)
+                border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.75f))
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                        .padding(horizontal = 18.dp, vertical = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.handler_type_title),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Medium
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.SemiBold
                     )
 
                     HandlerTypeOptionRow(
@@ -492,8 +524,8 @@ fun HomeContent(
                         exit = fadeOut(tween(180)) + shrinkVertically(tween(180))
                     ) {
                         Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.32f),
+                            shape = RoundedCornerShape(18.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainerLow,
                             border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -509,7 +541,7 @@ fun HomeContent(
                                     text = stringResource(R.string.settings_side_mode_title),
                                     style = MaterialTheme.typography.labelLarge,
                                     color = MaterialTheme.colorScheme.primary,
-                                    fontWeight = FontWeight.Medium,
+                                    fontWeight = FontWeight.SemiBold,
                                     modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
                                 )
                                 CompactModeOptionRow(
@@ -535,48 +567,34 @@ fun HomeContent(
                         enter = fadeIn(tween(240)) + expandVertically(tween(240)),
                         exit = fadeOut(tween(180)) + shrinkVertically(tween(180))
                     ) {
-                        val isLightBg = MaterialTheme.colorScheme.background.luminance() > 0.5f
-                        val glowRedText = if (isLightBg) Color(0xFFD91E36) else Color(0xFFFF4D6D)
-                        val glowShadow = Shadow(
-                            color = Color(0xFFFF2A55).copy(alpha = if (isLightBg) 0.35f else 0.78f),
-                            offset = Offset.Zero,
-                            blurRadius = if (isLightBg) 6f else 12f
-                        )
                         Surface(
-                            shape = RoundedCornerShape(14.dp),
-                            color = Color(0xFFFF2A55).copy(alpha = if (isLightBg) 0.08f else 0.12f),
-                            border = BorderStroke(0.9.dp, Color(0xFFFF4D6D).copy(alpha = 0.55f)),
+                            shape = RoundedCornerShape(16.dp),
+                            color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.45f),
+                            border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.secondary.copy(alpha = 0.35f)),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 2.dp)
                         ) {
                             Text(
                                 text = stringResource(R.string.handler_floating_hint),
-                                style = MaterialTheme.typography.bodySmall.copy(
-                                    color = glowRedText,
-                                    fontWeight = FontWeight.Medium,
-                                    shadow = glowShadow
-                                ),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp)
                             )
                         }
                     }
 
-                    Spacer(Modifier.height(2.dp))
-
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 2.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Text(
-                            text = stringResource(R.string.stats_gestures_count, shortcutsCount),
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
                         FilledTonalButton(
                             onClick = onOpenGesturePad,
-                            enabled = isServiceActive || overlayGranted
+                            enabled = isServiceActive || overlayGranted,
+                            shape = RoundedCornerShape(16.dp)
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_action_gesture_pad),
@@ -598,7 +616,7 @@ private fun PermissionDivider() {
     HorizontalDivider(
         thickness = 0.6.dp,
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.45f),
-        modifier = Modifier.padding(start = 46.dp)
+        modifier = Modifier.padding(start = 36.dp)
     )
 }
 
@@ -609,23 +627,46 @@ private fun PermissionCheckRow(
     checked: Boolean,
     onClick: () -> Unit
 ) {
+    val badgeFill by animateColorAsState(
+        targetValue = if (checked) MaterialTheme.colorScheme.primary else Color.Transparent,
+        animationSpec = tween(200),
+        label = "permBadgeFill"
+    )
+    val badgeBorder by animateColorAsState(
+        targetValue = if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
+        animationSpec = tween(200),
+        label = "permBadgeBorder"
+    )
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(14.dp))
             .clickable(onClick = onClick)
-            .padding(vertical = 4.dp, horizontal = 2.dp),
+            .padding(vertical = 8.dp, horizontal = 2.dp),
         verticalAlignment = Alignment.Top
     ) {
-        Checkbox(
-            checked = checked,
-            onCheckedChange = { onClick() }
-        )
-        Spacer(Modifier.width(4.dp))
-        Column(
+        Box(
             modifier = Modifier
-                .weight(1f)
-                .padding(top = 10.dp, bottom = 4.dp, end = 4.dp),
+                .padding(top = 2.dp)
+                .size(22.dp)
+                .clip(CircleShape)
+                .background(badgeFill)
+                .border(1.5.dp, badgeBorder, CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            if (checked) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_check),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(13.dp)
+                )
+            }
+        }
+        Spacer(Modifier.width(12.dp))
+        Column(
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
@@ -650,21 +691,32 @@ private fun HandlerTypeOptionRow(
     selected: Boolean,
     onClick: () -> Unit
 ) {
+    val bgColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.55f)
+        } else {
+            MaterialTheme.colorScheme.surfaceContainerLow
+        },
+        animationSpec = tween(200),
+        label = "handlerBg"
+    )
+    val borderColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.60f)
+        } else {
+            MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f)
+        },
+        animationSpec = tween(200),
+        label = "handlerBorder"
+    )
+
     Surface(
-        shape = RoundedCornerShape(16.dp),
-        color = if (selected) {
-            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
-        } else {
-            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f)
-        },
-        border = if (selected) {
-            BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.55f))
-        } else {
-            null
-        },
+        shape = RoundedCornerShape(18.dp),
+        color = bgColor,
+        border = BorderStroke(if (selected) 1.1.dp else 0.7.dp, borderColor),
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(18.dp))
             .clickable(onClick = onClick)
     ) {
         Row(
@@ -675,12 +727,12 @@ private fun HandlerTypeOptionRow(
                 selected = selected,
                 onClick = onClick
             )
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(6.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
+                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium
                 )
                 Text(
                     text = subtitle,
@@ -699,13 +751,19 @@ private fun CompactModeOptionRow(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    Surface(
-        shape = RoundedCornerShape(12.dp),
-        color = if (selected) {
+    val bgColor by animateColorAsState(
+        targetValue = if (selected) {
             MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
         } else {
             MaterialTheme.colorScheme.surface.copy(alpha = 0.65f)
         },
+        animationSpec = tween(180),
+        label = "modeBg"
+    )
+
+    Surface(
+        shape = RoundedCornerShape(14.dp),
+        color = bgColor,
         border = if (selected) {
             BorderStroke(0.9.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.55f))
         } else {
@@ -713,7 +771,7 @@ private fun CompactModeOptionRow(
         },
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(14.dp))
             .clickable(onClick = onClick)
     ) {
         Row(

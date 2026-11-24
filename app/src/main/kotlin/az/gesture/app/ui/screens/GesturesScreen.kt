@@ -2,6 +2,7 @@ package az.gesture.app.ui.screens
 
 import android.gesture.GestureOverlayView
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
@@ -103,7 +105,10 @@ fun GesturesScreen(
                     fontWeight = FontWeight.Normal
                 )
                 if (shortcuts.isNotEmpty()) {
-                    FilledTonalButton(onClick = { showTestDialog = true }) {
+                    FilledTonalButton(
+                        onClick = { showTestDialog = true },
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
                         Text(stringResource(R.string.gestures_test_mode))
                     }
                 }
@@ -113,9 +118,9 @@ fun GesturesScreen(
         if (shortcuts.isEmpty()) {
             item {
                 Card(
-                    shape = RoundedCornerShape(22.dp),
+                    shape = RoundedCornerShape(24.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 12.dp)
@@ -159,48 +164,52 @@ fun GesturesScreen(
                 }
 
                 Card(
-                    shape = RoundedCornerShape(18.dp),
+                    shape = RoundedCornerShape(22.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surface
                     ),
-                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
+                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.75f)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(18.dp))
+                        .clip(RoundedCornerShape(22.dp))
                         .clickable { onEditShortcut(shortcut) }
                 ) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                            .padding(horizontal = 14.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(
-                            modifier = Modifier.size(48.dp),
-                            contentAlignment = Alignment.Center
+                        Surface(
+                            shape = RoundedCornerShape(16.dp),
+                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            border = BorderStroke(0.7.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                            modifier = Modifier.size(52.dp)
                         ) {
-                            if (thumb != null) {
-                                Image(
-                                    bitmap = thumb,
-                                    contentDescription = shortcut.name,
-                                    modifier = Modifier.size(46.dp)
-                                )
-                            } else {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_action_gesture_pad),
-                                    contentDescription = null,
-                                    tint = Color(strokeColor)
-                                )
+                            Box(contentAlignment = Alignment.Center) {
+                                if (thumb != null) {
+                                    Image(
+                                        bitmap = thumb,
+                                        contentDescription = shortcut.name,
+                                        modifier = Modifier.size(40.dp)
+                                    )
+                                } else {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_action_gesture_pad),
+                                        contentDescription = null,
+                                        tint = Color(strokeColor)
+                                    )
+                                }
                             }
                         }
 
-                        Spacer(Modifier.width(18.dp))
+                        Spacer(Modifier.width(16.dp))
 
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
                                 text = shortcut.name,
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Normal,
+                                fontWeight = FontWeight.Medium,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
@@ -225,8 +234,8 @@ fun GesturesScreen(
                             Icon(
                                 painter = painterResource(R.drawable.ic_close),
                                 contentDescription = stringResource(R.string.editor_delete),
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(20.dp)
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(19.dp)
                             )
                         }
                     }
@@ -238,15 +247,15 @@ fun GesturesScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 18.dp, bottom = 24.dp),
+                    .padding(top = 16.dp, bottom = 24.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Surface(
                     shape = CircleShape,
-                    color = Color.Transparent,
-                    border = BorderStroke(1.8.dp, MaterialTheme.colorScheme.primary),
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    border = BorderStroke(1.2.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
                     modifier = Modifier
-                        .size(58.dp)
+                        .size(56.dp)
                         .clip(CircleShape)
                         .clickable(onClick = onCreateShortcut)
                 ) {
@@ -254,8 +263,8 @@ fun GesturesScreen(
                         Icon(
                             painter = painterResource(R.drawable.ic_add),
                             contentDescription = stringResource(R.string.editor_title_new),
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(28.dp)
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.size(26.dp)
                         )
                     }
                 }
@@ -281,16 +290,31 @@ private fun TestRecognitionDialog(
         text = {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Surface(
-                    shape = RoundedCornerShape(18.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.55f)),
+                    shape = RoundedCornerShape(20.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    border = BorderStroke(1.2.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.55f)),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(220.dp)
                 ) {
-                    AndroidView(
-                        modifier = Modifier.fillMaxSize(),
-                        factory = { ctx ->
+                    val dotColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.12f)
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Canvas(modifier = Modifier.fillMaxSize()) {
+                            val spacing = 22.dp.toPx()
+                            val r = 1.2.dp.toPx()
+                            var x = spacing * 0.8f
+                            while (x < size.width - spacing * 0.4f) {
+                                var y = spacing * 0.8f
+                                while (y < size.height - spacing * 0.4f) {
+                                    drawCircle(color = dotColor, radius = r, center = Offset(x, y))
+                                    y += spacing
+                                }
+                                x += spacing
+                            }
+                        }
+                        AndroidView(
+                            modifier = Modifier.fillMaxSize(),
+                            factory = { ctx ->
                             ScrollSafeGestureOverlayView(ctx).apply {
                                 gestureStrokeType = if (multiStroke) {
                                     GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE
@@ -323,7 +347,8 @@ private fun TestRecognitionDialog(
                                 }
                             }
                         }
-                    )
+                        )
+                    }
                 }
                 Spacer(Modifier.height(10.dp))
                 Text(

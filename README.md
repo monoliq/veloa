@@ -8,7 +8,7 @@
 
 *Android üçün 100% Kotlin və Jetpack Compose (Material 3) ilə hazırlanmış minimalist, sürətli və reklamsız jest / yan panel köməkçisi.*
 
-[![Release](https://img.shields.io/badge/Release-v1.2.11-0ea5e9?style=for-the-badge)](https://github.com/chatgpt20272027-sys/veloa/releases/tag/v1.2.11)
+[![Release](https://img.shields.io/badge/Release-v1.2.12-0ea5e9?style=for-the-badge)](https://github.com/chatgpt20272027-sys/veloa/releases/tag/v1.2.12)
 [![Kotlin](https://img.shields.io/badge/Kotlin-100%25-7f52ff?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-14b8a6?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://developer.android.com/compose)
 [![Android](https://img.shields.io/badge/Android-8.0%2B%20(API%2026)-3ddc84?style=for-the-badge&logo=android&logoColor=black)](https://developer.android.com)
@@ -16,8 +16,8 @@
 
 <br />
 
-**[Download APK (v1.2.11)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.11/Veloa.apk)** &nbsp;·&nbsp;
-**[Watch Promo Video (EN)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.11/Veloa_Promo_EN.mp4)** &nbsp;·&nbsp;
+**[Download APK (v1.2.12)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.12/Veloa.apk)** &nbsp;·&nbsp;
+**[Watch Promo Video (EN)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.12/Veloa_Promo_EN.mp4)** &nbsp;·&nbsp;
 **[All Releases](https://github.com/chatgpt20272027-sys/veloa/releases)**
 
 </div>
@@ -28,7 +28,7 @@
 
 <div align="center">
 
-<a href="https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.11/Veloa_Promo_EN.mp4">
+<a href="https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.12/Veloa_Promo_EN.mp4">
   <img src="docs/media/promo_video_cover.png" width="760" alt="Watch Veloa Promo Video (English, 0:42)" />
 </a>
 
@@ -79,8 +79,8 @@
   `VeloaKeepAliveService`, `VeloaWatchdogJobService`, and `KeepAliveRestartReceiver` automatically recover from aggressive OEM RAM cleaners. If a banking app restricts Accessibility Services, disable Accessibility and keep launching apps seamlessly over any screen via **Display Over Other Apps**.
 - **Themes, Palettes & Keyboard Awareness**  
   3 theme modes (**Light**, **Dark**, **Pure Black AMOLED**) × 6 color palettes (**Ocean**, **Emerald**, **Violet**, **Coral**, **Amber**, **Monochrome**), auto-hide on keyboard or full-screen landscape, and subtle haptic feedback.
-- **100% Minimalist & Offline**  
-  Zero ads, zero analytics, zero internet telemetry.
+- **Minimalist Material 3 Interface & Persistent Editor Canvas**  
+  Clean distraction-free edge gesture overlay, dot-grid gesture drawing pad whose strokes stay visible until cleared, tonal Material 3 cards, zero ads, and 100% offline privacy.
 
 ---
 
@@ -107,7 +107,7 @@ Full localized UI sorted alphabetically inside **Settings → Language**:
 
 ### Install Pre-built APK
 
-1. Download **`Veloa.apk`** from the [v1.2.11 Release](https://github.com/chatgpt20272027-sys/veloa/releases/tag/v1.2.11).
+1. Download **`Veloa.apk`** from the [v1.2.12 Release](https://github.com/chatgpt20272027-sys/veloa/releases/tag/v1.2.12).
 2. Install the APK on Android 8.0+ (API 26+).
 3. On Android 13+, if Accessibility shows *"Restricted setting"*, open **App info → ⋮ (top-right) → Allow restricted settings**.
 
@@ -139,8 +139,8 @@ keyPassword=YOUR_KEY_PASSWORD
 
 **Veloa** — ekranın kənarından sürüşdürərək və ya üzən dairəvi düymədən istifadə edərək ekranda istədiyiniz işarəni çəkməklə tətbiqləri və sistem əməliyyatlarını dərhal işə salan reklamsız, oflayn Android köməkçisidir.
 
-- **Yükləmə (APK)**: [Veloa.apk (v1.2.11)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.11/Veloa.apk)
-- **Tanıtım Videosu (EN)**: [Veloa_Promo_EN.mp4](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.11/Veloa_Promo_EN.mp4)
+- **Yükləmə (APK)**: [Veloa.apk (v1.2.12)](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.12/Veloa.apk)
+- **Tanıtım Videosu (EN)**: [Veloa_Promo_EN.mp4](https://github.com/chatgpt20272027-sys/veloa/releases/download/v1.2.12/Veloa_Promo_EN.mp4)
 - **Əsas imkanlar**: Yan Panel (*Birbaşa çək* / *Əvvəl aç, sonra çək*) və Üzən Düymə rejimi, `50%–95%` 1-ə-1 həssaslıq, bank tətbiqləri üçün Əlçatanlıqsız tətbiq açma dəstəyi, 3 tema × 6 rəng palitrası və 11 dil dəstəyi.
 
 </details>

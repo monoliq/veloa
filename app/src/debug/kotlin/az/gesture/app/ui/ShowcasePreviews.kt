@@ -1,9 +1,5 @@
 package az.gesture.app.ui
 
-import android.graphics.Bitmap
-import android.graphics.Canvas as AndroidCanvas
-import android.graphics.Paint as AndroidPaint
-import android.graphics.Path as AndroidPath
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
@@ -36,12 +32,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -68,25 +62,6 @@ private data class PreviewGestureRow(
     val subtitle: String,
     val glyph: String
 )
-
-private fun createSampleGestureThumb(strokeColorInt: Int): ImageBitmap {
-    val bmp = Bitmap.createBitmap(300, 300, Bitmap.Config.ARGB_8888)
-    val canvas = AndroidCanvas(bmp)
-    val paint = AndroidPaint(AndroidPaint.ANTI_ALIAS_FLAG).apply {
-        color = strokeColorInt
-        style = AndroidPaint.Style.STROKE
-        strokeWidth = 20f
-        strokeCap = AndroidPaint.Cap.ROUND
-        strokeJoin = AndroidPaint.Join.ROUND
-    }
-    val path = AndroidPath().apply {
-        moveTo(95f, 52f)
-        lineTo(95f, 228f)
-        lineTo(222f, 228f)
-    }
-    canvas.drawPath(path, paint)
-    return bmp.asImageBitmap()
-}
 
 @Preview(
     name = "Home Dark Ocean",
@@ -218,9 +193,12 @@ fun GesturesShowcasePreview() {
                             Text(
                                 text = stringResource(R.string.saved_gestures_title),
                                 style = MaterialTheme.typography.headlineMedium,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.SemiBold
                             )
-                            FilledTonalButton(onClick = {}) {
+                            FilledTonalButton(
+                                onClick = {},
+                                shape = RoundedCornerShape(16.dp)
+                            ) {
                                 Text(stringResource(R.string.gestures_test_mode))
                             }
                         }
@@ -228,72 +206,81 @@ fun GesturesShowcasePreview() {
 
                     items(rows, key = { it.title }) { item ->
                         Card(
-                            shape = RoundedCornerShape(18.dp),
+                            shape = RoundedCornerShape(22.dp),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surface
                             ),
-                            border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
+                            border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.75f)),
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                                    .padding(horizontal = 14.dp, vertical = 12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Canvas(modifier = Modifier.size(46.dp)) {
-                                    val w = size.width
-                                    val h = size.height
-                                    val path = Path().apply {
-                                        when (item.glyph) {
-                                            "I" -> {
-                                                moveTo(w * 0.50f, h * 0.14f)
-                                                lineTo(w * 0.50f, h * 0.86f)
+                                Surface(
+                                    shape = RoundedCornerShape(16.dp),
+                                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                    border = BorderStroke(0.7.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                                    modifier = Modifier.size(52.dp)
+                                ) {
+                                    Box(contentAlignment = Alignment.Center) {
+                                        Canvas(modifier = Modifier.size(34.dp)) {
+                                            val w = size.width
+                                            val h = size.height
+                                            val path = Path().apply {
+                                                when (item.glyph) {
+                                                    "I" -> {
+                                                        moveTo(w * 0.50f, h * 0.14f)
+                                                        lineTo(w * 0.50f, h * 0.86f)
+                                                    }
+                                                    "L" -> {
+                                                        moveTo(w * 0.28f, h * 0.16f)
+                                                        lineTo(w * 0.28f, h * 0.82f)
+                                                        lineTo(w * 0.78f, h * 0.82f)
+                                                    }
+                                                    "C" -> {
+                                                        moveTo(w * 0.76f, h * 0.24f)
+                                                        cubicTo(
+                                                            w * 0.18f, h * 0.10f,
+                                                            w * 0.18f, h * 0.90f,
+                                                            w * 0.76f, h * 0.76f
+                                                        )
+                                                    }
+                                                    "V" -> {
+                                                        moveTo(w * 0.20f, h * 0.20f)
+                                                        lineTo(w * 0.50f, h * 0.82f)
+                                                        lineTo(w * 0.80f, h * 0.20f)
+                                                    }
+                                                    else -> {
+                                                        moveTo(w * 0.22f, h * 0.22f)
+                                                        lineTo(w * 0.78f, h * 0.22f)
+                                                        lineTo(w * 0.22f, h * 0.78f)
+                                                        lineTo(w * 0.78f, h * 0.78f)
+                                                    }
+                                                }
                                             }
-                                            "L" -> {
-                                                moveTo(w * 0.28f, h * 0.16f)
-                                                lineTo(w * 0.28f, h * 0.82f)
-                                                lineTo(w * 0.78f, h * 0.82f)
-                                            }
-                                            "C" -> {
-                                                moveTo(w * 0.76f, h * 0.24f)
-                                                cubicTo(
-                                                    w * 0.18f, h * 0.10f,
-                                                    w * 0.18f, h * 0.90f,
-                                                    w * 0.76f, h * 0.76f
+                                            drawPath(
+                                                path = path,
+                                                color = strokeColor,
+                                                style = Stroke(
+                                                    width = 3.6.dp.toPx(),
+                                                    cap = StrokeCap.Round,
+                                                    join = StrokeJoin.Round
                                                 )
-                                            }
-                                            "V" -> {
-                                                moveTo(w * 0.20f, h * 0.20f)
-                                                lineTo(w * 0.50f, h * 0.82f)
-                                                lineTo(w * 0.80f, h * 0.20f)
-                                            }
-                                            else -> {
-                                                moveTo(w * 0.22f, h * 0.22f)
-                                                lineTo(w * 0.78f, h * 0.22f)
-                                                lineTo(w * 0.22f, h * 0.78f)
-                                                lineTo(w * 0.78f, h * 0.78f)
-                                            }
+                                            )
                                         }
                                     }
-                                    drawPath(
-                                        path = path,
-                                        color = strokeColor,
-                                        style = Stroke(
-                                            width = 4.2.dp.toPx(),
-                                            cap = StrokeCap.Round,
-                                            join = StrokeJoin.Round
-                                        )
-                                    )
                                 }
 
-                                Spacer(Modifier.width(18.dp))
+                                Spacer(Modifier.width(16.dp))
 
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
                                         text = item.title,
                                         style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.Normal,
+                                        fontWeight = FontWeight.Medium,
                                         maxLines = 1,
                                         overflow = TextOverflow.Ellipsis
                                     )
@@ -310,8 +297,8 @@ fun GesturesShowcasePreview() {
                                     Icon(
                                         painter = painterResource(R.drawable.ic_close),
                                         contentDescription = null,
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(20.dp)
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(19.dp)
                                     )
                                 }
                             }
@@ -322,23 +309,23 @@ fun GesturesShowcasePreview() {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 18.dp, bottom = 24.dp),
+                                .padding(top = 16.dp, bottom = 24.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color.Transparent,
-                                border = BorderStroke(1.8.dp, MaterialTheme.colorScheme.primary),
+                                color = MaterialTheme.colorScheme.primaryContainer,
+                                border = BorderStroke(1.2.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)),
                                 modifier = Modifier
-                                    .size(58.dp)
+                                    .size(56.dp)
                                     .clip(CircleShape)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         painter = painterResource(R.drawable.ic_add),
                                         contentDescription = stringResource(R.string.editor_title_new),
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(28.dp)
+                                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                                        modifier = Modifier.size(26.dp)
                                     )
                                 }
                             }
@@ -369,20 +356,26 @@ fun GesturesShowcasePreview() {
 )
 @Composable
 fun EditorShowcasePreview() {
-    val thumb = remember { createSampleGestureThumb(0xFF34D399.toInt()) }
     GestureTheme(
         themeMode = AppThemeMode.AMOLED,
         colorTheme = AppColorTheme.EMERALD,
         dynamicColor = false
     ) {
         GestureEditorContent(
-            isEditing = true,
+            isEditing = false,
             name = "Instagram",
             onNameChange = {},
             selectedAction = GestureAction(ActionType.LAUNCH_APP, "com.instagram.android"),
             selectedActionLabel = "Launch app: Instagram",
-            hasDrawnStroke = false,
-            existingThumb = thumb,
+            strokes = listOf(
+                listOf(
+                    Offset(340f, 110f),
+                    Offset(340f, 450f),
+                    Offset(620f, 450f)
+                )
+            ),
+            hasDrawnStroke = true,
+            existingThumb = null,
             strokeColor = 0xFF34D399.toInt(),
             multiStroke = true,
             snackbarHostState = remember { SnackbarHostState() },
@@ -392,8 +385,9 @@ fun EditorShowcasePreview() {
             onClearAction = {},
             onPickApp = {},
             onPickOtherAction = {},
-            onBindOverlay = {},
-            onGestureUpdated = {},
+            onStrokeStart = {},
+            onStrokeMove = {},
+            onStrokeEnd = {},
             onSave = {}
         )
     }
