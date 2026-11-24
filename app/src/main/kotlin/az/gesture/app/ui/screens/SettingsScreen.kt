@@ -797,3 +797,167 @@ fun SettingsThemePreview() {
         }
     }
 }
+
+@Preview(
+    name = "Settings Dark Ocean",
+    locale = "en",
+    showBackground = true,
+    backgroundColor = 0xFF0C0E12,
+    widthDp = 393,
+    heightDp = 851
+)
+@Composable
+fun SettingsShowcasePreview() {
+    GestureTheme(themeMode = AppThemeMode.DARK, colorTheme = AppColorTheme.OCEAN, dynamicColor = false) {
+        Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(modifier = Modifier.fillMaxSize()) {
+                    az.gesture.app.VeloaTopBar(
+                        themeMode = AppThemeMode.DARK,
+                        onCycleTheme = {},
+                        onOpenAbout = {}
+                    )
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 112.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        item {
+                            SettingsSectionTitle(stringResource(R.string.settings_system_title))
+                            Spacer(Modifier.height(8.dp))
+                            SettingsCard {
+                                Text(
+                                    text = stringResource(R.string.settings_language),
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                Surface(
+                                    shape = RoundedCornerShape(14.dp),
+                                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text(
+                                            text = stringResource(AppLanguage.EN.labelRes),
+                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                        Icon(
+                                            painter = painterResource(R.drawable.ic_arrow_down),
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+
+                                Text(
+                                    text = stringResource(R.string.settings_theme),
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                val themeOptions = listOf(
+                                    Triple(AppThemeMode.LIGHT, R.drawable.ic_sun, R.string.theme_light),
+                                    Triple(AppThemeMode.DARK, R.drawable.ic_moon, R.string.theme_dark),
+                                    Triple(AppThemeMode.AMOLED, R.drawable.ic_theme_auto, R.string.theme_amoled)
+                                )
+                                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                                    themeOptions.forEachIndexed { idx, (mode, iconRes, labelRes) ->
+                                        SegmentedButton(
+                                            selected = mode == AppThemeMode.DARK,
+                                            onClick = {},
+                                            shape = SegmentedButtonDefaults.itemShape(index = idx, count = themeOptions.size),
+                                            icon = {
+                                                Icon(
+                                                    painter = painterResource(iconRes),
+                                                    contentDescription = null,
+                                                    modifier = Modifier.size(16.dp)
+                                                )
+                                            }
+                                        ) {
+                                            Text(stringResource(labelRes), maxLines = 1)
+                                        }
+                                    }
+                                }
+
+                                Text(
+                                    text = stringResource(R.string.settings_app_color_theme),
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                AppColorThemePicker(
+                                    selectedTheme = AppColorTheme.OCEAN,
+                                    onSelect = {}
+                                )
+                            }
+                        }
+
+                        item {
+                            SettingsSectionTitle(stringResource(R.string.settings_gesture_options_title))
+                            Spacer(Modifier.height(8.dp))
+                            SettingsCard {
+                                Column {
+                                    Text(
+                                        text = stringResource(R.string.settings_sensitivity_label),
+                                        style = MaterialTheme.typography.titleSmall
+                                    )
+                                    Text(
+                                        text = stringResource(R.string.settings_sensitivity_value, 75),
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Slider(
+                                        value = 75f,
+                                        onValueChange = {},
+                                        valueRange = 50f..95f,
+                                        steps = 8
+                                    )
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        Text(
+                                            text = stringResource(R.string.settings_sensitivity_relaxed),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.settings_sensitivity_strict),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+
+                                Text(
+                                    text = stringResource(R.string.settings_gesture_color),
+                                    style = MaterialTheme.typography.titleSmall
+                                )
+                                ColorSwatchRow(
+                                    colors = GESTURE_COLOR_OPTIONS,
+                                    selectedColor = GESTURE_COLOR_OPTIONS.first(),
+                                    onSelect = {}
+                                )
+
+                                SettingsCheckboxRow(
+                                    title = stringResource(R.string.settings_multi_stroke),
+                                    subtitle = stringResource(R.string.settings_multi_stroke_desc),
+                                    checked = true,
+                                    onCheckedChange = {}
+                                )
+                            }
+                        }
+                    }
+                }
+
+                az.gesture.app.FloatingBottomNavBar(
+                    selectedTab = az.gesture.app.AppTab.SETTINGS,
+                    themeMode = AppThemeMode.DARK,
+                    onSelectTab = {},
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 14.dp)
+                )
+            }
+        }
+    }
+}
