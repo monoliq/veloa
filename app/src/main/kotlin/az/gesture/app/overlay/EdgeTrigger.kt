@@ -39,9 +39,9 @@ class EdgeTrigger(
     private val density = resources.displayMetrics.density
     private fun dp(v: Float) = v * density
 
-    private val touchSlopPx = dp(8f)
+    private val holdCancelPx = dp(18f)
     private val swipeThresholdPx = dp(10f)
-    private val longPressDelayMs = 360L
+    private val longPressDelayMs = 170L
     private val exclusionRects = listOf(Rect())
 
     private val handler = Handler(Looper.getMainLooper())
@@ -49,6 +49,8 @@ class EdgeTrigger(
 
     private var downRawX = 0f
     private var downRawY = 0f
+    private var lastRawX = 0f
+    private var lastRawY = 0f
     private var startWinX = 0
     private var startWinY = 0
     private var gestureDownTime = 0L
@@ -74,6 +76,10 @@ class EdgeTrigger(
         if (!movedBeforeLongPress && !forwarding && !openedOnly && !hiddenForPad) {
             isDraggingHandle = true
             isDraggedMidScreen = false
+            downRawX = lastRawX
+            downRawY = lastRawY
+            startWinX = layoutParams.x
+            startWinY = layoutParams.y
             if (hapticsEnabled()) {
                 @Suppress("DEPRECATION")
                 performHapticFeedback(
@@ -174,6 +180,8 @@ class EdgeTrigger(
                 edgeAnimator?.cancel()
                 downRawX = event.rawX
                 downRawY = event.rawY
+                lastRawX = event.rawX
+                lastRawY = event.rawY
                 startWinX = layoutParams.x
                 startWinY = layoutParams.y
                 gestureDownTime = event.downTime
@@ -188,6 +196,8 @@ class EdgeTrigger(
             }
 
             MotionEvent.ACTION_MOVE -> {
+                lastRawX = event.rawX
+                lastRawY = event.rawY
                 val dx = event.rawX - downRawX
                 val dy = event.rawY - downRawY
 
@@ -201,15 +211,12 @@ class EdgeTrigger(
                     return true
                 }
 
-                if (hypot(dx, dy) > touchSlopPx) {
-                    movedBeforeLongPress = true
-                    handler.removeCallbacks(longPressRunnable)
-                }
-
                 if (openedOnly) return true
                 if (!forwarding) {
                     val inward = if (isLeftSide) dx else -dx
                     if (inward >= swipeThresholdPx && abs(dx) > abs(dy) * 0.55f) {
+                        movedBeforeLongPress = true
+                        handler.removeCallbacks(longPressRunnable)
                         if (hapticsEnabled()) {
                             @Suppress("DEPRECATION")
                             performHapticFeedback(
@@ -225,6 +232,9 @@ class EdgeTrigger(
                             openedOnly = true
                             onEdgeOpenPadOnly()
                         }
+                    } else if (hypot(dx, dy) > holdCancelPx) {
+                        movedBeforeLongPress = true
+                        handler.removeCallbacks(longPressRunnable)
                     }
                 } else {
                     onEdgeSwipeMove(event.rawX, event.rawY, gestureDownTime, event.eventTime)
