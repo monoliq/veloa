@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">Tətbiq məlumatı → Batareya → Məhdudiyyətsiz</string>
     <string name="perm_xiaomi_popup">Arxa Fonda Pəncərə Açma</string>
     <string name="perm_roadmap_xiaomi_popup">Digər icazələr → Arxa fonda açılan pəncərələr → Həmişə icazə ver</string>
-    <string name="perm_xiaomi_lock">Keş Təmizləmədən Qoru (Tətbiqi Kilidlə)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Tətbiqləri kilidlə → Veloa → Aktiv et</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Təhlükəsizlik → Sürəti artır → Ayarlar (⚙) → Tətbiqləri kilidlə → Veloa</string>
     <string name="btn_open_app_info">Məhdud ayarlara icazə ver</string>
     <string name="perm_roadmap_restricted">Tətbiq məlumatı → Yuxarı sağ ⋮ → Məhdud ayarlara icazə ver</string>
     <string name="perm_accessibility_restart_hint">Sistem xidməti dayandırıb — Əlçatanlıq ayarında söndürüb yenidən yandırın</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Saxlanmış jestlər: %1$d</string>
 
     <string name="about_dialog_title">Veloa Haqqında</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
     <string name="ok">Oldu</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Yenidən cəhd et</string>
     <string name="update_install_permission_hint">Yeniləməni quraşdırmaq üçün bu mənbədən tətbiq quraşdırma icazəsini aktiv edin.</string>
     <string name="update_open_install_settings">İcazə ver</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">İlk Qurulum İcazələri</string>
+    <string name="initial_perm_subtitle">Veloa-nın fasiləsiz işləməsi üçün bu icazələri növbə ilə aktiv edin.</string>
+    <string name="initial_perm_grant">İcazə ver</string>
+    <string name="initial_perm_skip">Keç</string>
 </resources>

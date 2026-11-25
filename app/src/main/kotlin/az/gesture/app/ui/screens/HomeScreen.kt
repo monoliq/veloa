@@ -97,13 +97,11 @@ fun HomeScreen(
     var backgroundRestricted by remember { mutableStateOf(BackgroundPermissionHelper.isBackgroundRestricted(context)) }
     var autoStartConfirmed by remember { mutableStateOf(repo.isAutoStartConfirmed()) }
     var xiaomiPopupConfirmed by remember { mutableStateOf(repo.isXiaomiPopupConfirmed()) }
-    var xiaomiLockConfirmed by remember { mutableStateOf(repo.isXiaomiLockConfirmed()) }
     var settings by remember { mutableStateOf(repo.getSettings()) }
     var shortcutsCount by remember { mutableIntStateOf(repo.getShortcuts().size) }
 
     val autoStartTarget = remember(context) { BackgroundPermissionHelper.resolveAutoStartTarget(context) }
     val hasXiaomiPopup = remember(context) { BackgroundPermissionHelper.hasXiaomiBackgroundPopupSetting(context) }
-    val xiaomiLockTarget = remember(context) { BackgroundPermissionHelper.resolveXiaomiMemoryLockTarget(context) }
     val canDirectBatteryDialog = remember(context) { BackgroundPermissionHelper.canLaunchDirectBatteryDialog(context) }
 
     val notificationLauncher = rememberLauncherForActivityResult(
@@ -129,7 +127,6 @@ fun HomeScreen(
                 backgroundRestricted = BackgroundPermissionHelper.isBackgroundRestricted(context)
                 autoStartConfirmed = repo.isAutoStartConfirmed()
                 xiaomiPopupConfirmed = repo.isXiaomiPopupConfirmed()
-                xiaomiLockConfirmed = repo.isXiaomiLockConfirmed()
                 settings = repo.getSettings()
                 shortcutsCount = repo.getShortcuts().size
                 if (resumedRunning || enabledInSystem || overlayGranted) {
@@ -173,9 +170,6 @@ fun HomeScreen(
         autoStartRoadmap = stringResource(autoStartTarget.kind.roadmapRes),
         showXiaomiPopupPermission = hasXiaomiPopup,
         xiaomiPopupGranted = xiaomiPopupConfirmed,
-        showXiaomiLockPermission = xiaomiLockTarget != null,
-        xiaomiLockGranted = xiaomiLockConfirmed,
-        xiaomiLockRoadmap = xiaomiLockTarget?.let { stringResource(it.kind.roadmapRes) } ?: "",
         handlerType = settings.handlerType,
         sideTriggerMode = settings.sideTriggerMode,
         shortcutsCount = shortcutsCount,
@@ -201,11 +195,6 @@ fun HomeScreen(
             repo.setXiaomiPopupConfirmed(true)
             xiaomiPopupConfirmed = true
             BackgroundPermissionHelper.openXiaomiBackgroundPopupSetting(context)
-        },
-        onRequestXiaomiLock = {
-            repo.setXiaomiLockConfirmed(true)
-            xiaomiLockConfirmed = true
-            BackgroundPermissionHelper.openXiaomiMemoryLockSetting(context)
         },
         onOpenAppInfo = { BackgroundPermissionHelper.openAppInfo(context) },
         onSelectHandlerType = { type ->
@@ -243,9 +232,6 @@ fun HomeContent(
     autoStartRoadmap: String,
     showXiaomiPopupPermission: Boolean,
     xiaomiPopupGranted: Boolean,
-    showXiaomiLockPermission: Boolean,
-    xiaomiLockGranted: Boolean,
-    xiaomiLockRoadmap: String,
     handlerType: HandlerType,
     sideTriggerMode: SideTriggerMode,
     shortcutsCount: Int,
@@ -256,7 +242,6 @@ fun HomeContent(
     onRequestBattery: () -> Unit,
     onRequestAutoStart: () -> Unit,
     onRequestXiaomiPopup: () -> Unit,
-    onRequestXiaomiLock: () -> Unit,
     onOpenAppInfo: () -> Unit,
     onSelectHandlerType: (HandlerType) -> Unit,
     onSelectSideTriggerMode: (SideTriggerMode) -> Unit,
@@ -459,17 +444,6 @@ fun HomeContent(
                             roadmap = stringResource(R.string.perm_roadmap_xiaomi_popup),
                             checked = xiaomiPopupGranted,
                             onClick = onRequestXiaomiPopup
-                        )
-                    }
-
-                    if (showXiaomiLockPermission) {
-                        PermissionDivider()
-
-                        PermissionCheckRow(
-                            label = stringResource(R.string.perm_xiaomi_lock),
-                            roadmap = xiaomiLockRoadmap,
-                            checked = xiaomiLockGranted,
-                            onClick = onRequestXiaomiLock
                         )
                     }
                 }
@@ -816,10 +790,7 @@ fun HomeScreenPreview() {
                 autoStartRoadmap = "Avtomatik başlatma → Veloa → Aktiv et",
                 showXiaomiPopupPermission = true,
                 xiaomiPopupGranted = false,
-                showXiaomiLockPermission = true,
-                xiaomiLockGranted = false,
-                xiaomiLockRoadmap = "Təhlükəsizlik → Sürəti artır → Ayarlar (⚙) → Tətbiqləri kilidlə → Veloa",
-                handlerType = HandlerType.BOTH,
+                handlerType = HandlerType.SIDE,
                 sideTriggerMode = SideTriggerMode.OPEN_THEN_DRAW,
                 shortcutsCount = 5,
                 showRestrictedHint = false,
@@ -829,7 +800,6 @@ fun HomeScreenPreview() {
                 onRequestBattery = {},
                 onRequestAutoStart = {},
                 onRequestXiaomiPopup = {},
-                onRequestXiaomiLock = {},
                 onOpenAppInfo = {},
                 onSelectHandlerType = {},
                 onSelectSideTriggerMode = {},

@@ -85,7 +85,9 @@ import az.gesture.app.data.LocaleHelper
 import az.gesture.app.data.Repo
 import az.gesture.app.data.Shortcut
 import az.gesture.app.data.SideTriggerMode
+import az.gesture.app.ui.components.InitialPermissionsDialog
 import az.gesture.app.ui.components.UpdateDialogHost
+import az.gesture.app.ui.components.hasPendingInitialPermissions
 import az.gesture.app.ui.screens.GestureEditorScreen
 import az.gesture.app.ui.screens.GesturesScreen
 import az.gesture.app.ui.screens.HomeContent
@@ -124,6 +126,12 @@ class MainActivity : ComponentActivity() {
             var editingShortcut by remember { mutableStateOf<Shortcut?>(null) }
             var gesturesRefreshKey by remember { mutableIntStateOf(0) }
             var showAboutDialog by remember { mutableStateOf(false) }
+            var showInitialPermissions by remember {
+                mutableStateOf(
+                    !repo.isInitialPermissionFlowDone() &&
+                        hasPendingInitialPermissions(context, repo)
+                )
+            }
             var availableUpdate by remember { mutableStateOf<AppReleaseInfo?>(null) }
             val currentVersion = remember(context) { AppUpdateChecker.getInstalledVersionName(context) }
 
@@ -132,6 +140,9 @@ class MainActivity : ComponentActivity() {
             val settingsScroll = remember { ScrollSnapshot() }
 
             LaunchedEffect(Unit) {
+                if (!repo.isInitialPermissionFlowDone() && !hasPendingInitialPermissions(context, repo)) {
+                    repo.setInitialPermissionFlowDone(true)
+                }
                 withContext(Dispatchers.IO) {
                     AppUpdateChecker.cleanupOldUpdateApks(context, currentVersion)
                 }
@@ -218,13 +229,20 @@ class MainActivity : ComponentActivity() {
                             }
                         )
 
-                        availableUpdate?.let { release ->
-                            UpdateDialogHost(
+                        if (showInitialPermissions) {
+                            InitialPermissionsDialog(
                                 repo = repo,
-                                release = release,
-                                currentVersion = currentVersion,
-                                onFinished = { availableUpdate = null }
+                                onFinished = { showInitialPermissions = false }
                             )
+                        } else {
+                            availableUpdate?.let { release ->
+                                UpdateDialogHost(
+                                    repo = repo,
+                                    release = release,
+                                    currentVersion = currentVersion,
+                                    onFinished = { availableUpdate = null }
+                                )
+                            }
                         }
                     }
                 }
@@ -617,10 +635,7 @@ fun MainShellPreview() {
                     autoStartRoadmap = "Avtomatik başlatma → Veloa → Aktiv et",
                     showXiaomiPopupPermission = false,
                     xiaomiPopupGranted = false,
-                    showXiaomiLockPermission = false,
-                    xiaomiLockGranted = false,
-                    xiaomiLockRoadmap = "",
-                    handlerType = HandlerType.BOTH,
+                    handlerType = HandlerType.SIDE,
                     sideTriggerMode = SideTriggerMode.OPEN_THEN_DRAW,
                     shortcutsCount = 5,
                     showRestrictedHint = false,
@@ -630,7 +645,6 @@ fun MainShellPreview() {
                     onRequestBattery = {},
                     onRequestAutoStart = {},
                     onRequestXiaomiPopup = {},
-                    onRequestXiaomiLock = {},
                     onOpenAppInfo = {},
                     onSelectHandlerType = {},
                     onSelectSideTriggerMode = {},

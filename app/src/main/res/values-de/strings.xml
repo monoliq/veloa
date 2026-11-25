@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">App-Info → Akku → Uneingeschränkt</string>
     <string name="perm_xiaomi_popup">Fenster im Hintergrund öffnen</string>
     <string name="perm_roadmap_xiaomi_popup">Weitere Berechtigungen → Fenster im Hintergrund öffnen → Immer zulassen</string>
-    <string name="perm_xiaomi_lock">Vor Bereinigung schützen (Sperren)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Apps sperren → Veloa → Aktivieren</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Sicherheit → Geschwindigkeit erhöhen → Einstellungen (⚙) → Apps sperren → Veloa</string>
     <string name="btn_open_app_info">Eingeschränkte Einstellungen zulassen</string>
     <string name="perm_roadmap_restricted">App-Info → Oben rechts ⋮ → Eingeschränkte Einstellungen zulassen</string>
     <string name="perm_accessibility_restart_hint">Dienst wurde vom System gestoppt — in Bedienungshilfe aus- und wieder einschalten</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Gespeicherte Gesten: %1$d</string>
 
     <string name="about_dialog_title">Über Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
     <string name="ok">Verstanden</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Erneut versuchen</string>
     <string name="update_install_permission_hint">Erlauben Sie die Installation unbekannter Apps für Veloa, um das Update zu installieren.</string>
     <string name="update_open_install_settings">Erlaubnis erteilen</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Berechtigungen bei Erststart</string>
+    <string name="initial_perm_subtitle">Aktivieren Sie diese Berechtigungen der Reihe nach für einen stabilen Betrieb.</string>
+    <string name="initial_perm_grant">Erlauben</string>
+    <string name="initial_perm_skip">Überspringen</string>
 </resources>

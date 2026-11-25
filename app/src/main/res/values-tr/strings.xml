@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">Uygulama bilgisi → Pil → Kısıtlama yok</string>
     <string name="perm_xiaomi_popup">Arka Planda Pencere Açma</string>
     <string name="perm_roadmap_xiaomi_popup">Diğer izinler → Arka planda açılır pencereleri göster → Her zaman izin ver</string>
-    <string name="perm_xiaomi_lock">Temizleyiciden Koru (Uygulamayı Kilitle)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Uygulamaları kilitle → Veloa → Aç</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Güvenlik → Hızı artır → Ayarlar (⚙) → Uygulamaları kilitle → Veloa</string>
     <string name="btn_open_app_info">Kısıtlı ayarlara izin ver</string>
     <string name="perm_roadmap_restricted">Uygulama bilgisi → Sağ üst ⋮ → Kısıtlı ayarlara izin ver</string>
     <string name="perm_accessibility_restart_hint">Sistem hizmeti durdurdu — Erişilebilirlik ayarında kapatıp yeniden açın</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Kayıtlı hareketler: %1$d</string>
 
     <string name="about_dialog_title">Veloa Hakkında</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
     <string name="ok">Tamam</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Tekrar dene</string>
     <string name="update_install_permission_hint">Güncellemeyi yüklemek için Veloa için bilinmeyen uygulama yükleme iznini açın.</string>
     <string name="update_open_install_settings">İzin ver</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">İlk Kurulum İzinleri</string>
+    <string name="initial_perm_subtitle">Veloa\'nın kesintisiz çalışması için bu izinleri sırayla etkinleştirin.</string>
+    <string name="initial_perm_grant">İzin ver</string>
+    <string name="initial_perm_skip">Geç</string>
 </resources>

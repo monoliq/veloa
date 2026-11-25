@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">App info → Battery → Unrestricted</string>
     <string name="perm_xiaomi_popup">Background Pop-up Windows</string>
     <string name="perm_roadmap_xiaomi_popup">Other permissions → Display pop-up windows while in background → Always allow</string>
-    <string name="perm_xiaomi_lock">Protect From Cleaner (Lock App)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Lock apps → Veloa → Turn on</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Security → Boost speed → Settings (⚙) → Lock apps → Veloa</string>
     <string name="btn_open_app_info">Allow restricted settings</string>
     <string name="perm_roadmap_restricted">App info → Top-right ⋮ → Allow restricted settings</string>
     <string name="perm_accessibility_restart_hint">Service was stopped by system — toggle it off and on in Accessibility Settings</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Saved gestures: %1$d</string>
 
     <string name="about_dialog_title">About Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Minimalist, ad-free gesture launcher and side panel assistant.\n\nIf Accessibility is restricted on newer devices: App info → top-right ⋮ → Allow restricted settings.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Minimalist, ad-free gesture launcher and side panel assistant.\n\nIf Accessibility is restricted on newer devices: App info → top-right ⋮ → Allow restricted settings.</string>
     <string name="ok">OK</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Retry</string>
     <string name="update_install_permission_hint">Allow installing unknown apps from Veloa to apply the update.</string>
     <string name="update_open_install_settings">Grant Permission</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Initial Setup Permissions</string>
+    <string name="initial_perm_subtitle">Enable these permissions in order so Veloa runs reliably.</string>
+    <string name="initial_perm_grant">Allow</string>
+    <string name="initial_perm_skip">Skip</string>
 </resources>

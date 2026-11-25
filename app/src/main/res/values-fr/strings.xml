@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">Infos appli → Batterie → Sans restriction</string>
     <string name="perm_xiaomi_popup">Fenêtres contextuelles en arrière-plan</string>
     <string name="perm_roadmap_xiaomi_popup">Autres autorisations → Fenêtres contextuelles en arrière-plan → Toujours autoriser</string>
-    <string name="perm_xiaomi_lock">Protéger du nettoyeur (Verrouiller)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Verrouiller les applications → Veloa → Activer</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Sécurité → Accélérer → Paramètres (⚙) → Verrouiller les applications → Veloa</string>
     <string name="btn_open_app_info">Autoriser les paramètres restreints</string>
     <string name="perm_roadmap_restricted">Infos appli → En haut à droite ⋮ → Autoriser les paramètres restreints</string>
     <string name="perm_accessibility_restart_hint">Service arrêté par le système — désactivez puis réactivez-le dans Accessibilité</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Gestes enregistrés : %1$d</string>
 
     <string name="about_dialog_title">À propos de Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
     <string name="ok">D\'accord</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Réessayer</string>
     <string name="update_install_permission_hint">Autorisez l\'installation d\'applications inconnues pour Veloa afin d\'installer la mise à jour.</string>
     <string name="update_open_install_settings">Autoriser</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Autorisations initiales</string>
+    <string name="initial_perm_subtitle">Activez ces autorisations dans l\'ordre pour que Veloa fonctionne sans interruption.</string>
+    <string name="initial_perm_grant">Autoriser</string>
+    <string name="initial_perm_skip">Ignorer</string>
 </resources>

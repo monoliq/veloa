@@ -24,19 +24,9 @@ enum class AutoStartTargetKind(@param:StringRes val roadmapRes: Int) {
     APP_INFO_BATTERY(R.string.perm_roadmap_autostart_app_info)
 }
 
-enum class XiaomiLockTargetKind(@param:StringRes val roadmapRes: Int) {
-    DIRECT_LOCK_LIST(R.string.perm_roadmap_xiaomi_lock_direct),
-    SECURITY_APP(R.string.perm_roadmap_xiaomi_lock_security)
-}
-
 data class ResolvedSettingsTarget(
     val intent: Intent,
     val kind: AutoStartTargetKind
-)
-
-data class ResolvedXiaomiLockTarget(
-    val intent: Intent,
-    val kind: XiaomiLockTargetKind
 )
 
 object BackgroundPermissionHelper {
@@ -207,35 +197,6 @@ object BackgroundPermissionHelper {
 
     fun openXiaomiBackgroundPopupSetting(context: Context) {
         if (!launchSafely(context, buildXiaomiPopupIntent(context))) {
-            openAppInfo(context)
-        }
-    }
-
-    /**
-     * Xiaomi / HyperOS Memory Cleaner Lock Apps ("Tətbiqləri kilidlə") whitelist so pressing "X"
-     * (Clear All / Boost Speed) in Recents does NOT kill Veloa.
-     */
-    fun resolveXiaomiMemoryLockTarget(context: Context): ResolvedXiaomiLockTarget? {
-        val directLock = componentIntent(
-            "com.miui.securitycenter",
-            "com.miui.memoryclean.MemoryCleanLockActivity"
-        )
-        if (isResolvable(context, directLock)) {
-            return ResolvedXiaomiLockTarget(directLock, XiaomiLockTargetKind.DIRECT_LOCK_LIST)
-        }
-        val securityMain = componentIntent(
-            "com.miui.securitycenter",
-            "com.miui.securityscan.MainActivity"
-        )
-        if (isResolvable(context, securityMain)) {
-            return ResolvedXiaomiLockTarget(securityMain, XiaomiLockTargetKind.SECURITY_APP)
-        }
-        return null
-    }
-
-    fun openXiaomiMemoryLockSetting(context: Context) {
-        val target = resolveXiaomiMemoryLockTarget(context)
-        if (target == null || !launchSafely(context, target.intent)) {
             openAppInfo(context)
         }
     }

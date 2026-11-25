@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">Info app → Batteria → Senza restrizioni</string>
     <string name="perm_xiaomi_popup">Finestre a comparsa in secondo piano</string>
     <string name="perm_roadmap_xiaomi_popup">Altre autorizzazioni → Finestre a comparsa in secondo piano → Consenti sempre</string>
-    <string name="perm_xiaomi_lock">Proteggi dalla pulizia (Blocca)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Blocca app → Veloa → Attiva</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Sicurezza → Aumenta velocità → Impostazioni (⚙) → Blocca app → Veloa</string>
     <string name="btn_open_app_info">Consenti impostazioni con restrizioni</string>
     <string name="perm_roadmap_restricted">Info app → In alto a destra ⋮ → Consenti impostazioni con restrizioni</string>
     <string name="perm_accessibility_restart_hint">Servizio arrestato dal sistema — disattivalo e riattivalo in Accessibilità</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Gesti salvati: %1$d</string>
 
     <string name="about_dialog_title">Informazioni su Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Assistente minimalista senza pubblicità per gesti e pannello laterale.\n\nSe l\'accessibilità è limitata: Info app → in alto a destra ⋮ → Consenti impostazioni con restrizioni.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Assistente minimalista senza pubblicità per gesti e pannello laterale.\n\nSe l\'accessibilità è limitata: Info app → in alto a destra ⋮ → Consenti impostazioni con restrizioni.</string>
     <string name="ok">Va bene</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Riprova</string>
     <string name="update_install_permission_hint">Consenti l\'installazione di app sconosciute da Veloa per applicare l\'aggiornamento.</string>
     <string name="update_open_install_settings">Concedi permesso</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Autorizzazioni iniziali</string>
+    <string name="initial_perm_subtitle">Attiva queste autorizzazioni in ordine per far funzionare Veloa senza interruzioni.</string>
+    <string name="initial_perm_grant">Consenti</string>
+    <string name="initial_perm_skip">Salta</string>
 </resources>

@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">О приложении → Батарея → Без ограничений</string>
     <string name="perm_xiaomi_popup">Всплывающие окна в фоне</string>
     <string name="perm_roadmap_xiaomi_popup">Другие разрешения → Всплывающие окна в фоновом режиме → Всегда разрешать</string>
-    <string name="perm_xiaomi_lock">Защита от очистки (Закрепить)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Закрепить приложения → Veloa → Включить</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Безопасность → Ускорение → Настройки (⚙) → Закрепить приложения → Veloa</string>
     <string name="btn_open_app_info">Разрешить ограниченные настройки</string>
     <string name="perm_roadmap_restricted">О приложении → Вверху справа ⋮ → Разрешить ограниченные настройки</string>
     <string name="perm_accessibility_restart_hint">Система остановила службу — выключите и снова включите её в Спец. возможностях</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Сохранённых жестов: %1$d</string>
 
     <string name="about_dialog_title">О приложении Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
     <string name="ok">Хорошо</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Повторить</string>
     <string name="update_install_permission_hint">Разрешите установку из неизвестных источников для Veloa, чтобы установить обновление.</string>
     <string name="update_open_install_settings">Разрешить</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Начальные разрешения</string>
+    <string name="initial_perm_subtitle">Включите эти разрешения по очереди для стабильной работы Veloa.</string>
+    <string name="initial_perm_grant">Разрешить</string>
+    <string name="initial_perm_skip">Пропустить</string>
 </resources>

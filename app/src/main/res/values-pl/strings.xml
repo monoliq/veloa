@@ -41,9 +41,6 @@
     <string name="perm_roadmap_autostart_app_info">Informacje o aplikacji → Bateria → Bez ograniczeń</string>
     <string name="perm_xiaomi_popup">Okna wyskakujące w tle</string>
     <string name="perm_roadmap_xiaomi_popup">Inne uprawnienia → Okna wyskakujące w tle → Zawsze zezwalaj</string>
-    <string name="perm_xiaomi_lock">Ochrona przed czyszczeniem (Zablokuj)</string>
-    <string name="perm_roadmap_xiaomi_lock_direct">Zablokuj aplikacje → Veloa → Włącz</string>
-    <string name="perm_roadmap_xiaomi_lock_security">Panel sterowania → Przyspiesz → Ustawienia (⚙) → Zablokuj aplikacje → Veloa</string>
     <string name="btn_open_app_info">Zezwól na ograniczone ustawienia</string>
     <string name="perm_roadmap_restricted">Informacje o aplikacji → Prawy górny róg ⋮ → Zezwól na ograniczone ustawienia</string>
     <string name="perm_accessibility_restart_hint">System zatrzymał usługę — wyłącz i włącz ją ponownie w Ułatwieniach dostępu</string>
@@ -65,7 +62,7 @@
     <string name="stats_gestures_count">Zapisane gesty: %1$d</string>
 
     <string name="about_dialog_title">O aplikacji Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.15 — Minimalistyczny asystent gestów i panelu bocznego bez reklam.\n\nJeśli ułatwienia dostępu są zablokowane: Informacje o aplikacji → prawy górny róg ⋮ → Zezwól na ograniczone ustawienia.</string>
+    <string name="about_dialog_body">Veloa v1.2.16 — Minimalistyczny asystent gestów i panelu bocznego bez reklam.\n\nJeśli ułatwienia dostępu są zablokowane: Informacje o aplikacji → prawy górny róg ⋮ → Zezwól na ograniczone ustawienia.</string>
     <string name="ok">Dobrze</string>
 
     <!-- Gestures Screen & Editor -->
@@ -219,4 +216,10 @@
     <string name="update_retry">Ponów</string>
     <string name="update_install_permission_hint">Zezwól aplikacji Veloa na instalowanie z nieznanych źródeł, aby zainstalować aktualizację.</string>
     <string name="update_open_install_settings">Udziel uprawnienia</string>
+
+    <!-- Initial Permissions Dialog -->
+    <string name="initial_perm_title">Początkowe uprawnienia</string>
+    <string name="initial_perm_subtitle">Włącz te uprawnienia po kolei, aby Veloa działała niezawodnie.</string>
+    <string name="initial_perm_grant">Zezwól</string>
+    <string name="initial_perm_skip">Pomiń</string>
 </resources>

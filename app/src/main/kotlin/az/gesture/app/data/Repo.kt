@@ -235,10 +235,10 @@ class Repo private constructor(context: Context) {
         prefs.edit().putBoolean(KEY_XIAOMI_POPUP_CONFIRMED, confirmed).apply()
     }
 
-    fun isXiaomiLockConfirmed(): Boolean = prefs.getBoolean(KEY_XIAOMI_LOCK_CONFIRMED, false)
+    fun isInitialPermissionFlowDone(): Boolean = prefs.getBoolean(KEY_INITIAL_PERMISSION_FLOW_DONE, false)
 
-    fun setXiaomiLockConfirmed(confirmed: Boolean) {
-        prefs.edit().putBoolean(KEY_XIAOMI_LOCK_CONFIRMED, confirmed).apply()
+    fun setInitialPermissionFlowDone(done: Boolean) {
+        prefs.edit().putBoolean(KEY_INITIAL_PERMISSION_FLOW_DONE, done).apply()
     }
 
     fun wasNotificationRequested(): Boolean = prefs.getBoolean(KEY_NOTIFICATION_REQUESTED, false)
@@ -287,7 +287,7 @@ class Repo private constructor(context: Context) {
         private const val KEY_HIDE_LANDSCAPE = "hide_in_landscape"
         private const val KEY_AUTO_START_CONFIRMED = "auto_start_confirmed"
         private const val KEY_XIAOMI_POPUP_CONFIRMED = "xiaomi_popup_confirmed"
-        private const val KEY_XIAOMI_LOCK_CONFIRMED = "xiaomi_lock_confirmed"
+        private const val KEY_INITIAL_PERMISSION_FLOW_DONE = "initial_permission_flow_done"
         private const val KEY_NOTIFICATION_REQUESTED = "notification_requested"
         private const val KEY_SKIPPED_UPDATE_VERSION = "skipped_update_version"
 
