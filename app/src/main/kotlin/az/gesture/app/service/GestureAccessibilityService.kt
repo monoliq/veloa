@@ -87,6 +87,10 @@ class GestureAccessibilityService : AccessibilityService() {
         }
     }
 
+    private val imeFollowUpRunnable = Runnable {
+        imeCheckRunnable.run()
+    }
+
     private fun recomputeKeyboardVisibility(hideOnKeyboard: Boolean) {
         val nextShown = hideOnKeyboard && (observerImeVisible || accessibilityImeVisible)
         if (nextShown != isKeyboardShown) {
@@ -188,7 +192,9 @@ class GestureAccessibilityService : AccessibilityService() {
         try {
             if (!::repo.isInitialized) return
             mainHandler.removeCallbacks(imeCheckRunnable)
-            mainHandler.postDelayed(imeCheckRunnable, 160L)
+            mainHandler.removeCallbacks(imeFollowUpRunnable)
+            mainHandler.postDelayed(imeCheckRunnable, 100L)
+            mainHandler.postDelayed(imeFollowUpRunnable, 380L)
         } catch (_: Throwable) {
         }
     }
@@ -282,7 +288,12 @@ class GestureAccessibilityService : AccessibilityService() {
             if (!settings.floatingEnabled || hideLandscape) {
                 removeFloatingButton()
             } else {
-                ensureOrUpdateFloatingButton(settings.sizeDp, settings.buttonXRatio, settings.buttonYRatio)
+                ensureOrUpdateFloatingButton(
+                    sizeDp = settings.sizeDp,
+                    xRatio = settings.buttonXRatio,
+                    yRatio = settings.buttonYRatio,
+                    hideOnKeyboard = settings.hideOnKeyboard
+                )
                 floatingButton?.applySettings(settings)
             }
 
@@ -295,7 +306,8 @@ class GestureAccessibilityService : AccessibilityService() {
                     heightDp = settings.sideHeightDp,
                     locationRatio = settings.sideLocation,
                     colorInt = settings.sideColor,
-                    transparency = settings.sideTransparency
+                    transparency = settings.sideTransparency,
+                    hideOnKeyboard = settings.hideOnKeyboard
                 )
             }
 
@@ -333,7 +345,12 @@ class GestureAccessibilityService : AccessibilityService() {
         }
     }
 
-    private fun ensureOrUpdateFloatingButton(sizeDp: Int, xRatio: Float, yRatio: Float) {
+    private fun ensureOrUpdateFloatingButton(
+        sizeDp: Int,
+        xRatio: Float,
+        yRatio: Float,
+        hideOnKeyboard: Boolean
+    ) {
         val density = resources.displayMetrics.density
         val sizePx = (sizeDp * density).roundToInt()
         val metrics = resources.displayMetrics
@@ -342,6 +359,9 @@ class GestureAccessibilityService : AccessibilityService() {
         val marginY = (24f * density).roundToInt()
         val maxX = (screenW - sizePx).coerceAtLeast(0)
         val maxY = (screenH - sizePx - marginY).coerceAtLeast(marginY)
+        val desiredFlags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            if (hideOnKeyboard) WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM else 0
 
         val existing = floatingButton
         val existingParams = buttonParams
@@ -350,6 +370,7 @@ class GestureAccessibilityService : AccessibilityService() {
             existingParams.height = sizePx
             existingParams.x = existingParams.x.coerceIn(0, maxX)
             existingParams.y = existingParams.y.coerceIn(marginY, maxY)
+            existingParams.flags = desiredFlags
             try {
                 windowManager.updateViewLayout(existing, existingParams)
             } catch (_: Throwable) {
@@ -366,7 +387,7 @@ class GestureAccessibilityService : AccessibilityService() {
             sizePx,
             sizePx,
             WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            desiredFlags,
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START
@@ -420,7 +441,8 @@ class GestureAccessibilityService : AccessibilityService() {
         heightDp: Int,
         locationRatio: Float,
         colorInt: Int,
-        transparency: Float
+        transparency: Float,
+        hideOnKeyboard: Boolean
     ) {
         removeEdgeTriggers()
         val density = resources.displayMetrics.density
@@ -432,10 +454,26 @@ class GestureAccessibilityService : AccessibilityService() {
         val posY = (minY + ((maxY - minY) * locationRatio.coerceIn(0f, 1f))).roundToInt()
 
         if (side == EdgeSide.LEFT || side == EdgeSide.BOTH) {
-            addEdgeStrip(isLeft = true, widthPx = widthPx, heightPx = heightPx, yPx = posY, colorInt = colorInt, transparency = transparency)
+            addEdgeStrip(
+                isLeft = true,
+                widthPx = widthPx,
+                heightPx = heightPx,
+                yPx = posY,
+                colorInt = colorInt,
+                transparency = transparency,
+                hideOnKeyboard = hideOnKeyboard
+            )
         }
         if (side == EdgeSide.RIGHT || side == EdgeSide.BOTH) {
-            addEdgeStrip(isLeft = false, widthPx = widthPx, heightPx = heightPx, yPx = posY, colorInt = colorInt, transparency = transparency)
+            addEdgeStrip(
+                isLeft = false,
+                widthPx = widthPx,
+                heightPx = heightPx,
+                yPx = posY,
+                colorInt = colorInt,
+                transparency = transparency,
+                hideOnKeyboard = hideOnKeyboard
+            )
         }
     }
 
@@ -445,17 +483,20 @@ class GestureAccessibilityService : AccessibilityService() {
         heightPx: Int,
         yPx: Int,
         colorInt: Int,
-        transparency: Float
+        transparency: Float,
+        hideOnKeyboard: Boolean
     ) {
         val screenW = resources.displayMetrics.widthPixels
         val maxX = (screenW - widthPx).coerceAtLeast(0)
+        val flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            if (hideOnKeyboard) WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM else 0
         val params = WindowManager.LayoutParams(
             widthPx,
             heightPx,
             WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            flags,
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START

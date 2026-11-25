@@ -295,7 +295,12 @@ class VeloaKeepAliveService : Service() {
             if (!settings.floatingEnabled || hideLandscape) {
                 removeFallbackFloatingButton()
             } else {
-                ensureOrUpdateFallbackButton(settings.sizeDp, settings.buttonXRatio, settings.buttonYRatio)
+                ensureOrUpdateFallbackButton(
+                    sizeDp = settings.sizeDp,
+                    xRatio = settings.buttonXRatio,
+                    yRatio = settings.buttonYRatio,
+                    hideOnKeyboard = settings.hideOnKeyboard
+                )
                 floatingButton?.applySettings(settings)
             }
 
@@ -308,7 +313,8 @@ class VeloaKeepAliveService : Service() {
                     heightDp = settings.sideHeightDp,
                     locationRatio = settings.sideLocation,
                     colorInt = settings.sideColor,
-                    transparency = settings.sideTransparency
+                    transparency = settings.sideTransparency,
+                    hideOnKeyboard = settings.hideOnKeyboard
                 )
             }
 
@@ -363,7 +369,12 @@ class VeloaKeepAliveService : Service() {
         removeFallbackEdgeTriggers()
     }
 
-    private fun ensureOrUpdateFallbackButton(sizeDp: Int, xRatio: Float, yRatio: Float) {
+    private fun ensureOrUpdateFallbackButton(
+        sizeDp: Int,
+        xRatio: Float,
+        yRatio: Float,
+        hideOnKeyboard: Boolean
+    ) {
         val density = resources.displayMetrics.density
         val sizePx = (sizeDp * density).roundToInt()
         val screenW = resources.displayMetrics.widthPixels
@@ -371,6 +382,9 @@ class VeloaKeepAliveService : Service() {
         val marginY = (24f * density).roundToInt()
         val maxX = (screenW - sizePx).coerceAtLeast(0)
         val maxY = (screenH - sizePx - marginY).coerceAtLeast(marginY)
+        val desiredFlags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            if (hideOnKeyboard) WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM else 0
 
         val existing = floatingButton
         val existingParams = buttonParams
@@ -379,6 +393,7 @@ class VeloaKeepAliveService : Service() {
             existingParams.height = sizePx
             existingParams.x = existingParams.x.coerceIn(0, maxX)
             existingParams.y = existingParams.y.coerceIn(marginY, maxY)
+            existingParams.flags = desiredFlags
             try {
                 windowManager.updateViewLayout(existing, existingParams)
             } catch (_: Throwable) {
@@ -395,7 +410,7 @@ class VeloaKeepAliveService : Service() {
             sizePx,
             sizePx,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            desiredFlags,
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START
@@ -445,7 +460,8 @@ class VeloaKeepAliveService : Service() {
         heightDp: Int,
         locationRatio: Float,
         colorInt: Int,
-        transparency: Float
+        transparency: Float,
+        hideOnKeyboard: Boolean
     ) {
         removeFallbackEdgeTriggers()
         val density = resources.displayMetrics.density
@@ -457,10 +473,10 @@ class VeloaKeepAliveService : Service() {
         val posY = (minY + ((maxY - minY) * locationRatio.coerceIn(0f, 1f))).roundToInt()
 
         if (side == EdgeSide.LEFT || side == EdgeSide.BOTH) {
-            addFallbackEdgeStrip(true, widthPx, heightPx, posY, colorInt, transparency)
+            addFallbackEdgeStrip(true, widthPx, heightPx, posY, colorInt, transparency, hideOnKeyboard)
         }
         if (side == EdgeSide.RIGHT || side == EdgeSide.BOTH) {
-            addFallbackEdgeStrip(false, widthPx, heightPx, posY, colorInt, transparency)
+            addFallbackEdgeStrip(false, widthPx, heightPx, posY, colorInt, transparency, hideOnKeyboard)
         }
     }
 
@@ -483,17 +499,20 @@ class VeloaKeepAliveService : Service() {
         heightPx: Int,
         yPx: Int,
         colorInt: Int,
-        transparency: Float
+        transparency: Float,
+        hideOnKeyboard: Boolean
     ) {
         val screenW = resources.displayMetrics.widthPixels
         val maxX = (screenW - widthPx).coerceAtLeast(0)
+        val flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            if (hideOnKeyboard) WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM else 0
         val params = WindowManager.LayoutParams(
             widthPx,
             heightPx,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+            flags,
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START

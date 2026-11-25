@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Сохранённых жестов: %1$d</string>
 
     <string name="about_dialog_title">О приложении Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.14 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
+    <string name="about_dialog_body">Veloa v1.2.15 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
     <string name="ok">Хорошо</string>
 
     <!-- Gestures Screen & Editor -->

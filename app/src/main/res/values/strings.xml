@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Saxlanmış jestlər: %1$d</string>
 
     <string name="about_dialog_title">Veloa Haqqında</string>
-    <string name="about_dialog_body">Veloa v1.2.14 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.15 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
     <string name="ok">Oldu</string>
 
     <!-- Gestures Screen & Editor -->
