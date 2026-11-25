@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Gestos salvos: %1$d</string>
 
     <string name="about_dialog_title">Sobre o Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Assistente minimalista e sem anúncios para gestos e painel lateral.\n\nSe a acessibilidade estiver restrita: Informações do app → superior direito ⋮ → Permitir configurações restritas.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Assistente minimalista e sem anúncios para gestos e painel lateral.\n\nSe a acessibilidade estiver restrita: Informações do app → superior direito ⋮ → Permitir configurações restritas.</string>
     <string name="ok">Certo</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Desenhe o gesto</string>
     <string name="overlay_require_api28">Este recurso exige uma versão mais recente do sistema</string>
     <string name="overlay_flashlight_unavailable">Lanterna indisponível</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Nova atualização disponível</string>
+    <string name="update_whats_new">Novidades</string>
+    <string name="update_no_notes">Esta versão inclui melhorias e correções de erros.</string>
+    <string name="update_download">Baixar</string>
+    <string name="update_dismiss">Recusar</string>
+    <string name="update_dismiss_confirm_title">Tem certeza?</string>
+    <string name="update_dismiss_confirm_message">Se recusar agora, você continuará usando a versão atual.</string>
+    <string name="update_dont_show_again">Não mostrar isso novamente</string>
+    <string name="update_back">Voltar</string>
+    <string name="update_downloading">Baixando...</string>
+    <string name="update_download_failed">Falha no download. Verifique sua conexão e tente novamente.</string>
+    <string name="update_retry">Tentar novamente</string>
+    <string name="update_install_permission_hint">Permita instalar aplicativos desconhecidos pelo Veloa para aplicar a atualização.</string>
+    <string name="update_open_install_settings">Conceder permissão</string>
 </resources>

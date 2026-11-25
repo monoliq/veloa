@@ -92,6 +92,7 @@
 | **Accessibility Service** *(Optional)* | Executes global system actions (`Back`, `Home`, `Recents`, `Lock screen`, `Screenshot`, `Quick settings`, `Split screen`) | Can be toggled off anytime while keeping app-launch gestures working |
 | **Notifications** | Maintains foreground service stability badge on Android 13+ | No promotional or remote notifications |
 | **Unrestricted Battery / Auto-Start** | Prevents Xiaomi/Samsung/OEM cleaners from killing background triggers | Guided step-by-step per device manufacturer on the Home tab |
+| **Internet & Package Install** | Checks GitHub Releases for newer versions and installs downloaded APK updates | Zero ads, zero analytics, zero tracking |
 
 ---
 

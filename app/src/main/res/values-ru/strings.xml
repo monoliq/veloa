@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Сохранённых жестов: %1$d</string>
 
     <string name="about_dialog_title">О приложении Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Минималистичный помощник жестов и боковой панели без рекламы.\n\nЕсли спец. возможности заблокированы: О приложении → вверху справа ⋮ → Разрешить ограниченные настройки.</string>
     <string name="ok">Хорошо</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Нарисуйте жест</string>
     <string name="overlay_require_api28">Для этой функции нужна более новая версия системы</string>
     <string name="overlay_flashlight_unavailable">Фонарик недоступен</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Доступно обновление</string>
+    <string name="update_whats_new">Что нового</string>
+    <string name="update_no_notes">Эта версия содержит улучшения и исправления ошибок.</string>
+    <string name="update_download">Скачать</string>
+    <string name="update_dismiss">Отклонить</string>
+    <string name="update_dismiss_confirm_title">Вы уверены?</string>
+    <string name="update_dismiss_confirm_message">Если отказаться сейчас, останется текущая версия приложения.</string>
+    <string name="update_dont_show_again">Больше не показывать</string>
+    <string name="update_back">Назад</string>
+    <string name="update_downloading">Загрузка...</string>
+    <string name="update_download_failed">Ошибка загрузки. Проверьте сеть и попробуйте снова.</string>
+    <string name="update_retry">Повторить</string>
+    <string name="update_install_permission_hint">Разрешите установку из неизвестных источников для Veloa, чтобы установить обновление.</string>
+    <string name="update_open_install_settings">Разрешить</string>
 </resources>

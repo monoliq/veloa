@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Zapisane gesty: %1$d</string>
 
     <string name="about_dialog_title">O aplikacji Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Minimalistyczny asystent gestów i panelu bocznego bez reklam.\n\nJeśli ułatwienia dostępu są zablokowane: Informacje o aplikacji → prawy górny róg ⋮ → Zezwól na ograniczone ustawienia.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Minimalistyczny asystent gestów i panelu bocznego bez reklam.\n\nJeśli ułatwienia dostępu są zablokowane: Informacje o aplikacji → prawy górny róg ⋮ → Zezwól na ograniczone ustawienia.</string>
     <string name="ok">Dobrze</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Narysuj gest</string>
     <string name="overlay_require_api28">Ta funkcja wymaga nowszej wersji systemu</string>
     <string name="overlay_flashlight_unavailable">Latarka niedostępna</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Dostępna nowa aktualizacja</string>
+    <string name="update_whats_new">Co nowego</string>
+    <string name="update_no_notes">Ta wersja zawiera ulepszenia i poprawki błędów.</string>
+    <string name="update_download">Pobierz</string>
+    <string name="update_dismiss">Odrzuć</string>
+    <string name="update_dismiss_confirm_title">Czy na pewno?</string>
+    <string name="update_dismiss_confirm_message">Jeśli pominiesz teraz, pozostaniesz przy bieżącej wersji.</string>
+    <string name="update_dont_show_again">Nie pokazuj tego ponownie</string>
+    <string name="update_back">Wstecz</string>
+    <string name="update_downloading">Pobieranie...</string>
+    <string name="update_download_failed">Pobieranie nie powiodło się. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="update_retry">Ponów</string>
+    <string name="update_install_permission_hint">Zezwól aplikacji Veloa na instalowanie z nieznanych źródeł, aby zainstalować aktualizację.</string>
+    <string name="update_open_install_settings">Udziel uprawnienia</string>
 </resources>

@@ -247,6 +247,17 @@ class Repo private constructor(context: Context) {
         prefs.edit().putBoolean(KEY_NOTIFICATION_REQUESTED, true).apply()
     }
 
+    fun getSkippedUpdateVersion(): String? = prefs.getString(KEY_SKIPPED_UPDATE_VERSION, null)
+
+    fun setSkippedUpdateVersion(version: String?) {
+        val cleaned = version?.trim().orEmpty()
+        if (cleaned.isEmpty()) {
+            prefs.edit().remove(KEY_SKIPPED_UPDATE_VERSION).apply()
+        } else {
+            prefs.edit().putString(KEY_SKIPPED_UPDATE_VERSION, cleaned).apply()
+        }
+    }
+
     companion object {
         private const val PREFS_NAME = "gesture_prefs"
         private const val KEY_SHORTCUTS = "shortcuts_json"
@@ -278,6 +289,7 @@ class Repo private constructor(context: Context) {
         private const val KEY_XIAOMI_POPUP_CONFIRMED = "xiaomi_popup_confirmed"
         private const val KEY_XIAOMI_LOCK_CONFIRMED = "xiaomi_lock_confirmed"
         private const val KEY_NOTIFICATION_REQUESTED = "notification_requested"
+        private const val KEY_SKIPPED_UPDATE_VERSION = "skipped_update_version"
 
         @Volatile
         private var instance: Repo? = null

@@ -19,8 +19,8 @@ android {
     applicationId = "az.gesture.app"
     minSdk = 26
     targetSdk = 35
-    versionCode = 18
-    versionName = "1.2.13"
+    versionCode = 19
+    versionName = "1.2.14"
   }
 
   signingConfigs {

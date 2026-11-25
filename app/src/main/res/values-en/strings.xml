@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Saved gestures: %1$d</string>
 
     <string name="about_dialog_title">About Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Minimalist, ad-free gesture launcher and side panel assistant.\n\nIf Accessibility is restricted on newer devices: App info → top-right ⋮ → Allow restricted settings.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Minimalist, ad-free gesture launcher and side panel assistant.\n\nIf Accessibility is restricted on newer devices: App info → top-right ⋮ → Allow restricted settings.</string>
     <string name="ok">OK</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Draw your gesture</string>
     <string name="overlay_require_api28">This feature requires a newer system version</string>
     <string name="overlay_flashlight_unavailable">Flashlight unavailable</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Update Available</string>
+    <string name="update_whats_new">What\'s new</string>
+    <string name="update_no_notes">This release includes stability improvements and bug fixes.</string>
+    <string name="update_download">Download</string>
+    <string name="update_dismiss">Dismiss</string>
+    <string name="update_dismiss_confirm_title">Are you sure?</string>
+    <string name="update_dismiss_confirm_message">If you skip now, you will continue using the current version.</string>
+    <string name="update_dont_show_again">Don\'t show this again</string>
+    <string name="update_back">Back</string>
+    <string name="update_downloading">Downloading...</string>
+    <string name="update_download_failed">Download failed. Check your connection and try again.</string>
+    <string name="update_retry">Retry</string>
+    <string name="update_install_permission_hint">Allow installing unknown apps from Veloa to apply the update.</string>
+    <string name="update_open_install_settings">Grant Permission</string>
 </resources>

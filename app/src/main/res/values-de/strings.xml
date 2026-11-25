@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Gespeicherte Gesten: %1$d</string>
 
     <string name="about_dialog_title">Über Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
     <string name="ok">Verstanden</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Geste zeichnen</string>
     <string name="overlay_require_api28">Diese Funktion erfordert eine neuere Systemversion</string>
     <string name="overlay_flashlight_unavailable">Taschenlampe nicht verfügbar</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Neues Update verfügbar</string>
+    <string name="update_whats_new">Neuerungen</string>
+    <string name="update_no_notes">Diese Version enthält Verbesserungen und Fehlerbehebungen.</string>
+    <string name="update_download">Herunterladen</string>
+    <string name="update_dismiss">Ablehnen</string>
+    <string name="update_dismiss_confirm_title">Sind Sie sicher?</string>
+    <string name="update_dismiss_confirm_message">Wenn Sie jetzt abbrechen, verwenden Sie weiterhin die aktuelle Version.</string>
+    <string name="update_dont_show_again">Nicht mehr anzeigen</string>
+    <string name="update_back">Zurück</string>
+    <string name="update_downloading">Wird heruntergeladen...</string>
+    <string name="update_download_failed">Download fehlgeschlagen. Verbindung prüfen und erneut versuchen.</string>
+    <string name="update_retry">Erneut versuchen</string>
+    <string name="update_install_permission_hint">Erlauben Sie die Installation unbekannter Apps für Veloa, um das Update zu installieren.</string>
+    <string name="update_open_install_settings">Erlaubnis erteilen</string>
 </resources>

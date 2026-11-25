@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Kayıtlı hareketler: %1$d</string>
 
     <string name="about_dialog_title">Veloa Hakkında</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
     <string name="ok">Tamam</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Hareketi çizin</string>
     <string name="overlay_require_api28">Bu özellik daha yeni sistem sürümü gerektirir</string>
     <string name="overlay_flashlight_unavailable">El feneri bulunamadı</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Yeni güncelleme mevcut</string>
+    <string name="update_whats_new">Yenilikler</string>
+    <string name="update_no_notes">Bu sürümde iyileştirmeler ve hata düzeltmeleri yer alıyor.</string>
+    <string name="update_download">İndir</string>
+    <string name="update_dismiss">Reddet</string>
+    <string name="update_dismiss_confirm_title">Emin misiniz?</string>
+    <string name="update_dismiss_confirm_message">Şimdi reddederseniz mevcut sürümü kullanmaya devam edersiniz.</string>
+    <string name="update_dont_show_again">Bunu bir daha gösterme</string>
+    <string name="update_back">Geri</string>
+    <string name="update_downloading">İndiriliyor...</string>
+    <string name="update_download_failed">İndirme başarısız. Bağlantıyı kontrol edip tekrar deneyin.</string>
+    <string name="update_retry">Tekrar dene</string>
+    <string name="update_install_permission_hint">Güncellemeyi yüklemek için Veloa için bilinmeyen uygulama yükleme iznini açın.</string>
+    <string name="update_open_install_settings">İzin ver</string>
 </resources>

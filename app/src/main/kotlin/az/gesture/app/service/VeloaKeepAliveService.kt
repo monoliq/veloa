@@ -23,6 +23,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import android.view.Gravity
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -37,6 +38,7 @@ import az.gesture.app.data.SideTriggerMode
 import az.gesture.app.overlay.EdgeTrigger
 import az.gesture.app.overlay.FloatingButton
 import az.gesture.app.overlay.GesturePadOverlay
+import az.gesture.app.overlay.KeyboardVisibilityObserver
 import kotlin.math.roundToInt
 
 /**
@@ -56,6 +58,8 @@ class VeloaKeepAliveService : Service() {
     private val edgeTriggers = mutableListOf<EdgeTrigger>()
     private var gesturePadOverlay: GesturePadOverlay? = null
     private var isLandscape = false
+    private var isKeyboardShown = false
+    private var keyboardObserver: KeyboardVisibilityObserver? = null
     private var prefListenerRegistered = false
     private var screenReceiverRegistered = false
     private var suppressSelfSidePrefRefresh = false
@@ -307,7 +311,44 @@ class VeloaKeepAliveService : Service() {
                     transparency = settings.sideTransparency
                 )
             }
+
+            syncFallbackKeyboardObserver(
+                settings.hideOnKeyboard && (settings.floatingEnabled || settings.sideEnabled) && !hideLandscape
+            )
+            updateFallbackHandlersVisibility()
         } catch (_: Throwable) {
+        }
+    }
+
+    private fun syncFallbackKeyboardObserver(shouldObserve: Boolean) {
+        if (shouldObserve) {
+            if (keyboardObserver == null) {
+                keyboardObserver = KeyboardVisibilityObserver(
+                    context = this,
+                    windowManager = windowManager,
+                    overlayType = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+                ) { visible ->
+                    val hide = if (::repo.isInitialized) repo.getSettings().hideOnKeyboard else false
+                    val next = hide && visible
+                    if (next != isKeyboardShown) {
+                        isKeyboardShown = next
+                        updateFallbackHandlersVisibility()
+                    }
+                }.also { it.attach() }
+            }
+        } else {
+            keyboardObserver?.detach()
+            keyboardObserver = null
+            isKeyboardShown = false
+        }
+    }
+
+    private fun updateFallbackHandlersVisibility() {
+        val visibility = if (isKeyboardShown) View.GONE else View.VISIBLE
+        floatingButton?.visibility = visibility
+        edgeTriggers.forEach { it.visibility = visibility }
+        if (gesturePadOverlay != null) {
+            setFallbackHandlersHiddenForPad(true)
         }
     }
 
@@ -316,6 +357,7 @@ class VeloaKeepAliveService : Service() {
             mainHandler.post { removeFallbackOverlays() }
             return
         }
+        syncFallbackKeyboardObserver(false)
         hideFallbackGesturePad()
         removeFallbackFloatingButton()
         removeFallbackEdgeTriggers()

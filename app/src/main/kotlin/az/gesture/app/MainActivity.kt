@@ -85,12 +85,17 @@ import az.gesture.app.data.LocaleHelper
 import az.gesture.app.data.Repo
 import az.gesture.app.data.Shortcut
 import az.gesture.app.data.SideTriggerMode
+import az.gesture.app.ui.components.UpdateDialogHost
 import az.gesture.app.ui.screens.GestureEditorScreen
 import az.gesture.app.ui.screens.GesturesScreen
 import az.gesture.app.ui.screens.HomeContent
 import az.gesture.app.ui.screens.HomeScreen
 import az.gesture.app.ui.screens.SettingsScreen
 import az.gesture.app.ui.theme.GestureTheme
+import az.gesture.app.update.AppReleaseInfo
+import az.gesture.app.update.AppUpdateChecker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.Locale
 
 private class ScrollSnapshot(
@@ -119,10 +124,28 @@ class MainActivity : ComponentActivity() {
             var editingShortcut by remember { mutableStateOf<Shortcut?>(null) }
             var gesturesRefreshKey by remember { mutableIntStateOf(0) }
             var showAboutDialog by remember { mutableStateOf(false) }
+            var availableUpdate by remember { mutableStateOf<AppReleaseInfo?>(null) }
+            val currentVersion = remember(context) { AppUpdateChecker.getInstalledVersionName(context) }
 
             val homeScroll = remember { ScrollSnapshot() }
             val gesturesScroll = remember { ScrollSnapshot() }
             val settingsScroll = remember { ScrollSnapshot() }
+
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    AppUpdateChecker.cleanupOldUpdateApks(context, currentVersion)
+                }
+                val latest = AppUpdateChecker.fetchLatestRelease()
+                if (latest != null &&
+                    AppUpdateChecker.shouldPromptUpdate(
+                        remoteVersion = latest.versionName,
+                        currentVersion = currentVersion,
+                        skippedVersion = repo.getSkippedUpdateVersion()
+                    )
+                ) {
+                    availableUpdate = latest
+                }
+            }
 
             LaunchedEffect(themeMode) {
                 val isDark = themeMode != AppThemeMode.LIGHT
@@ -194,6 +217,15 @@ class MainActivity : ComponentActivity() {
                                 colorTheme = next
                             }
                         )
+
+                        availableUpdate?.let { release ->
+                            UpdateDialogHost(
+                                repo = repo,
+                                release = release,
+                                currentVersion = currentVersion,
+                                onFinished = { availableUpdate = null }
+                            )
+                        }
                     }
                 }
             }

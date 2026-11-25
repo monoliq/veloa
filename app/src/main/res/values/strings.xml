@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Saxlanmış jestlər: %1$d</string>
 
     <string name="about_dialog_title">Veloa Haqqında</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
     <string name="ok">Oldu</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Jesti çəkin</string>
     <string name="overlay_require_api28">Bu funksiya daha yeni sistem versiyası tələb edir</string>
     <string name="overlay_flashlight_unavailable">Fənər tapılmadı</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Yeni yeniləmə mövcuddur</string>
+    <string name="update_whats_new">Yeniliklər</string>
+    <string name="update_no_notes">Bu versiyada təkmilləşdirmələr və xəta düzəlişləri mövcuddur.</string>
+    <string name="update_download">Yüklə</string>
+    <string name="update_dismiss">İmtina</string>
+    <string name="update_dismiss_confirm_title">Əminsiniz?</string>
+    <string name="update_dismiss_confirm_message">İndi imtina etsəniz, tətbiq əvvəlki versiyada qalacaq.</string>
+    <string name="update_dont_show_again">Bunu bir daha mənə göstərmə</string>
+    <string name="update_back">Geri</string>
+    <string name="update_downloading">Yüklənir...</string>
+    <string name="update_download_failed">Yükləmə uğursuz oldu. İnterneti yoxlayıb yenidən cəhd edin.</string>
+    <string name="update_retry">Yenidən cəhd et</string>
+    <string name="update_install_permission_hint">Yeniləməni quraşdırmaq üçün bu mənbədən tətbiq quraşdırma icazəsini aktiv edin.</string>
+    <string name="update_open_install_settings">İcazə ver</string>
 </resources>

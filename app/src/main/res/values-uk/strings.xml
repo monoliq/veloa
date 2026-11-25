@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Збережених жестів: %1$d</string>
 
     <string name="about_dialog_title">Про застосунок Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
     <string name="ok">Гаразд</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Намалюйте жест</string>
     <string name="overlay_require_api28">Для цієї функції потрібна новіша версія системи</string>
     <string name="overlay_flashlight_unavailable">Ліхтарик недоступний</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Доступне оновлення</string>
+    <string name="update_whats_new">Що нового</string>
+    <string name="update_no_notes">Ця версія містить покращення та виправлення помилок.</string>
+    <string name="update_download">Завантажити</string>
+    <string name="update_dismiss">Відхилити</string>
+    <string name="update_dismiss_confirm_title">Ви впевнені?</string>
+    <string name="update_dismiss_confirm_message">Якщо відхилити зараз, ви залишитеся на поточній версії.</string>
+    <string name="update_dont_show_again">Більше не показувати</string>
+    <string name="update_back">Назад</string>
+    <string name="update_downloading">Завантаження...</string>
+    <string name="update_download_failed">Помилка завантаження. Перевірте мережу та спробуйте ще раз.</string>
+    <string name="update_retry">Повторити</string>
+    <string name="update_install_permission_hint">Дозвольте встановлення з невідомих джерел для Veloa, щоб встановити оновлення.</string>
+    <string name="update_open_install_settings">Надати дозвіл</string>
 </resources>

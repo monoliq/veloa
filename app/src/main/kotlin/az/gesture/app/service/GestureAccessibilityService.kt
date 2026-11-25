@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.pm.ServiceInfo
 import android.content.res.Configuration
 import android.graphics.PixelFormat
+import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -28,6 +29,7 @@ import az.gesture.app.data.SideTriggerMode
 import az.gesture.app.overlay.EdgeTrigger
 import az.gesture.app.overlay.FloatingButton
 import az.gesture.app.overlay.GesturePadOverlay
+import az.gesture.app.overlay.KeyboardVisibilityObserver
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -49,8 +51,12 @@ class GestureAccessibilityService : AccessibilityService() {
     private var gesturePadOverlay: GesturePadOverlay? = null
 
     private var isLandscape = false
+    private var accessibilityImeVisible = false
+    private var observerImeVisible = false
     private var isKeyboardShown = false
     private var suppressSelfSidePrefRefresh = false
+    private var keyboardObserver: KeyboardVisibilityObserver? = null
+    private val imeBoundsRect = Rect()
 
     private val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         if (key != "button_x_ratio" &&
@@ -67,16 +73,25 @@ class GestureAccessibilityService : AccessibilityService() {
         try {
             if (!::repo.isInitialized) return@Runnable
             val settings = repo.getSettings()
-            val imeVisible = if (settings.hideOnKeyboard) {
-                windows?.any { it.type == AccessibilityWindowInfo.TYPE_INPUT_METHOD } == true
+            accessibilityImeVisible = if (settings.hideOnKeyboard) {
+                windows?.any { win ->
+                    if (win.type != AccessibilityWindowInfo.TYPE_INPUT_METHOD) return@any false
+                    win.getBoundsInScreen(imeBoundsRect)
+                    imeBoundsRect.height() > 0 && imeBoundsRect.width() > 0
+                } == true
             } else {
                 false
             }
-            if (imeVisible != isKeyboardShown) {
-                isKeyboardShown = imeVisible
-                updateHandlersVisibility()
-            }
+            recomputeKeyboardVisibility(settings.hideOnKeyboard)
         } catch (_: Throwable) {
+        }
+    }
+
+    private fun recomputeKeyboardVisibility(hideOnKeyboard: Boolean) {
+        val nextShown = hideOnKeyboard && (observerImeVisible || accessibilityImeVisible)
+        if (nextShown != isKeyboardShown) {
+            isKeyboardShown = nextShown
+            updateHandlersVisibility()
         }
     }
 
@@ -284,8 +299,37 @@ class GestureAccessibilityService : AccessibilityService() {
                 )
             }
 
+            syncKeyboardObserver(settings.hideOnKeyboard && (settings.floatingEnabled || settings.sideEnabled) && !hideLandscape)
+            recomputeKeyboardVisibility(settings.hideOnKeyboard)
             updateHandlersVisibility()
         } catch (_: Throwable) {
+        }
+    }
+
+    private fun syncKeyboardObserver(shouldObserve: Boolean) {
+        if (shouldObserve) {
+            if (keyboardObserver == null) {
+                keyboardObserver = KeyboardVisibilityObserver(
+                    context = this,
+                    windowManager = windowManager,
+                    overlayType = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY
+                ) { visible ->
+                    observerImeVisible = visible
+                    if (!visible) {
+                        accessibilityImeVisible = false
+                        mainHandler.removeCallbacks(imeCheckRunnable)
+                        mainHandler.postDelayed(imeCheckRunnable, 80L)
+                    }
+                    val hide = if (::repo.isInitialized) repo.getSettings().hideOnKeyboard else false
+                    recomputeKeyboardVisibility(hide)
+                }.also { it.attach() }
+            }
+        } else {
+            keyboardObserver?.detach()
+            keyboardObserver = null
+            observerImeVisible = false
+            accessibilityImeVisible = false
+            isKeyboardShown = false
         }
     }
 
@@ -558,6 +602,7 @@ class GestureAccessibilityService : AccessibilityService() {
     }
 
     private fun removeAllOverlays() {
+        syncKeyboardObserver(false)
         hideGesturePad()
         removeFloatingButton()
         removeEdgeTriggers()

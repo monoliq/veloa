@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Gesti salvati: %1$d</string>
 
     <string name="about_dialog_title">Informazioni su Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Assistente minimalista senza pubblicità per gesti e pannello laterale.\n\nSe l\'accessibilità è limitata: Info app → in alto a destra ⋮ → Consenti impostazioni con restrizioni.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Assistente minimalista senza pubblicità per gesti e pannello laterale.\n\nSe l\'accessibilità è limitata: Info app → in alto a destra ⋮ → Consenti impostazioni con restrizioni.</string>
     <string name="ok">Va bene</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Disegna il gesto</string>
     <string name="overlay_require_api28">Questa funzione richiede una versione più recente del sistema</string>
     <string name="overlay_flashlight_unavailable">Torcia non disponibile</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Nuovo aggiornamento disponibile</string>
+    <string name="update_whats_new">Novità</string>
+    <string name="update_no_notes">Questa versione include miglioramenti e correzioni di bug.</string>
+    <string name="update_download">Scarica</string>
+    <string name="update_dismiss">Rifiuta</string>
+    <string name="update_dismiss_confirm_title">Sei sicuro?</string>
+    <string name="update_dismiss_confirm_message">Se salti ora, continuerai a usare la versione attuale.</string>
+    <string name="update_dont_show_again">Non mostrare più</string>
+    <string name="update_back">Indietro</string>
+    <string name="update_downloading">Download in corso...</string>
+    <string name="update_download_failed">Download non riuscito. Controlla la connessione e riprova.</string>
+    <string name="update_retry">Riprova</string>
+    <string name="update_install_permission_hint">Consenti l\'installazione di app sconosciute da Veloa per applicare l\'aggiornamento.</string>
+    <string name="update_open_install_settings">Concedi permesso</string>
 </resources>

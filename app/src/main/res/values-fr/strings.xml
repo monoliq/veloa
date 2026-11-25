@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Gestes enregistrés : %1$d</string>
 
     <string name="about_dialog_title">À propos de Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.13 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
+    <string name="about_dialog_body">Veloa v1.2.14 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
     <string name="ok">D\'accord</string>
 
     <!-- Gestures Screen & Editor -->
@@ -203,4 +203,20 @@
     <string name="overlay_draw_now">Dessinez votre geste</string>
     <string name="overlay_require_api28">Cette fonction nécessite une version système plus récente</string>
     <string name="overlay_flashlight_unavailable">Lampe torche indisponible</string>
+
+    <!-- App Update -->
+    <string name="update_available_title">Nouvelle mise à jour disponible</string>
+    <string name="update_whats_new">Nouveautés</string>
+    <string name="update_no_notes">Cette version inclut des améliorations et des correctifs.</string>
+    <string name="update_download">Télécharger</string>
+    <string name="update_dismiss">Ignorer</string>
+    <string name="update_dismiss_confirm_title">Êtes-vous sûr ?</string>
+    <string name="update_dismiss_confirm_message">Si vous ignorez maintenant, vous continuerez avec la version actuelle.</string>
+    <string name="update_dont_show_again">Ne plus afficher ceci</string>
+    <string name="update_back">Retour</string>
+    <string name="update_downloading">Téléchargement...</string>
+    <string name="update_download_failed">Échec du téléchargement. Vérifiez la connexion et réessayez.</string>
+    <string name="update_retry">Réessayer</string>
+    <string name="update_install_permission_hint">Autorisez l\'installation d\'applications inconnues pour Veloa afin d\'installer la mise à jour.</string>
+    <string name="update_open_install_settings">Autoriser</string>
 </resources>
