@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Збережених жестів: %1$d</string>
 
     <string name="about_dialog_title">Про застосунок Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.12 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
+    <string name="about_dialog_body">Veloa v1.2.13 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
     <string name="ok">Гаразд</string>
 
     <!-- Gestures Screen & Editor -->

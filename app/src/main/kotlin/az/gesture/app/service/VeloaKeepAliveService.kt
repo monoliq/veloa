@@ -58,12 +58,14 @@ class VeloaKeepAliveService : Service() {
     private var isLandscape = false
     private var prefListenerRegistered = false
     private var screenReceiverRegistered = false
+    private var suppressSelfSidePrefRefresh = false
 
     private val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         if (key != "button_x_ratio" &&
             key != "button_y_ratio" &&
             key != "sensitivity_percent" &&
-            key != "direction_priority"
+            key != "direction_priority" &&
+            !(suppressSelfSidePrefRefresh && (key == "side_location" || key == "edge_side"))
         ) {
             mainHandler.post {
                 promoteToForeground()
@@ -420,6 +422,19 @@ class VeloaKeepAliveService : Service() {
         }
     }
 
+    private fun setFallbackHandlersHiddenForPad(hidden: Boolean) {
+        edgeTriggers.forEach { it.setHiddenForPad(hidden) }
+        floatingButton?.let { btn ->
+            btn.animate().cancel()
+            if (hidden) {
+                btn.alpha = 0f
+            } else {
+                btn.alpha = 1f
+                btn.scheduleIdleFade()
+            }
+        }
+    }
+
     private fun addFallbackEdgeStrip(
         isLeft: Boolean,
         widthPx: Int,
@@ -428,6 +443,8 @@ class VeloaKeepAliveService : Service() {
         colorInt: Int,
         transparency: Float
     ) {
+        val screenW = resources.displayMetrics.widthPixels
+        val maxX = (screenW - widthPx).coerceAtLeast(0)
         val params = WindowManager.LayoutParams(
             widthPx,
             heightPx,
@@ -437,15 +454,19 @@ class VeloaKeepAliveService : Service() {
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT
         ).apply {
-            gravity = (if (isLeft) Gravity.START else Gravity.END) or Gravity.TOP
+            gravity = Gravity.TOP or Gravity.START
+            x = if (isLeft) 0 else maxX
             y = yPx
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             }
         }
-        val strip = EdgeTrigger(
+        lateinit var strip: EdgeTrigger
+        strip = EdgeTrigger(
             context = this,
+            windowManager = windowManager,
+            layoutParams = params,
             isLeftSide = isLeft,
             hapticsEnabled = { repo.getSettings().haptics },
             isDirectDraw = { repo.getSettings().sideTriggerMode == SideTriggerMode.DIRECT_DRAW },
@@ -460,6 +481,9 @@ class VeloaKeepAliveService : Service() {
             onEdgeSwipeEnd = { rawX, rawY, downTime, eventTime, cancelled ->
                 val action = if (cancelled) MotionEvent.ACTION_CANCEL else MotionEvent.ACTION_UP
                 gesturePadOverlay?.forwardTouchEvent(action, rawX, rawY, downTime, eventTime)
+            },
+            onHandleRepositioned = { newIsLeft, newLocationRatio ->
+                handleFallbackSideRepositioned(strip, originalWasLeft = isLeft, newIsLeft = newIsLeft, newLocationRatio = newLocationRatio)
             }
         ).apply {
             applyStyle(colorInt, transparency)
@@ -471,8 +495,42 @@ class VeloaKeepAliveService : Service() {
         }
     }
 
+    private fun handleFallbackSideRepositioned(
+        movedStrip: EdgeTrigger,
+        originalWasLeft: Boolean,
+        newIsLeft: Boolean,
+        newLocationRatio: Float
+    ) {
+        val settings = repo.getSettings()
+        suppressSelfSidePrefRefresh = true
+        if (settings.edgeSide == EdgeSide.BOTH && newIsLeft == originalWasLeft) {
+            repo.saveSideHandlePosition(newLocationRatio, null)
+            val density = resources.displayMetrics.density
+            val heightPx = (settings.sideHeightDp * density).roundToInt()
+            val screenH = resources.displayMetrics.heightPixels
+            val minY = (32f * density).roundToInt()
+            val maxY = (screenH - heightPx - minY).coerceAtLeast(minY)
+            val syncedY = (minY + ((maxY - minY) * newLocationRatio)).roundToInt()
+            edgeTriggers.filter { it !== movedStrip }.forEach { it.updateYPosition(syncedY) }
+        } else {
+            val newSide = if (newIsLeft) EdgeSide.LEFT else EdgeSide.RIGHT
+            repo.saveSideHandlePosition(newLocationRatio, newSide)
+            val toRemove = edgeTriggers.filter { it !== movedStrip }
+            toRemove.forEach { other ->
+                other.cancelTimers()
+                try {
+                    windowManager.removeView(other)
+                } catch (_: Throwable) {
+                }
+                edgeTriggers.remove(other)
+            }
+        }
+        mainHandler.post { suppressSelfSidePrefRefresh = false }
+    }
+
     private fun removeFallbackEdgeTriggers() {
         edgeTriggers.forEach { view ->
+            view.cancelTimers()
             try {
                 windowManager.removeView(view)
             } catch (_: Throwable) {
@@ -485,6 +543,7 @@ class VeloaKeepAliveService : Service() {
         try {
             if (gesturePadOverlay != null || !Settings.canDrawOverlays(this)) return
             repo.reloadLibrary()
+            setFallbackHandlersHiddenForPad(true)
             val params = WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -505,11 +564,13 @@ class VeloaKeepAliveService : Service() {
                 onShortcutMatched = { shortcut ->
                     hideFallbackGesturePad()
                     fallbackExecutor.executeChain(shortcut.actions, shortcut.delayMs, initialDelayMs = 130L)
-                }
+                },
+                onOpenApp = { openVeloaApp() }
             )
             windowManager.addView(pad, params)
             gesturePadOverlay = pad
         } catch (_: Throwable) {
+            setFallbackHandlersHiddenForPad(false)
         }
     }
 
@@ -521,6 +582,19 @@ class VeloaKeepAliveService : Service() {
             }
         }
         gesturePadOverlay = null
+        setFallbackHandlersHiddenForPad(false)
+    }
+
+    private fun openVeloaApp() {
+        try {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            startActivity(intent)
+        } catch (_: Throwable) {
+        }
     }
 
     private fun promoteToForeground() {

@@ -213,6 +213,16 @@ class Repo private constructor(context: Context) {
             .apply()
     }
 
+    fun saveSideHandlePosition(locationRatio: Float, edgeSide: EdgeSide? = null) {
+        prefs.edit().apply {
+            putFloat(KEY_SIDE_LOCATION, locationRatio.coerceIn(0f, 1f))
+            if (edgeSide != null) {
+                putString(KEY_EDGE_SIDE, edgeSide.name)
+            }
+            apply()
+        }
+    }
+
     fun isAutoStartConfirmed(): Boolean = prefs.getBoolean(KEY_AUTO_START_CONFIRMED, false)
 
     fun setAutoStartConfirmed(confirmed: Boolean) {

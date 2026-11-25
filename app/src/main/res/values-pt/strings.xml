@@ -65,7 +65,7 @@
     <string name="stats_gestures_count">Gestos salvos: %1$d</string>
 
     <string name="about_dialog_title">Sobre o Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.12 — Assistente minimalista e sem anúncios para gestos e painel lateral.\n\nSe a acessibilidade estiver restrita: Informações do app → superior direito ⋮ → Permitir configurações restritas.</string>
+    <string name="about_dialog_body">Veloa v1.2.13 — Assistente minimalista e sem anúncios para gestos e painel lateral.\n\nSe a acessibilidade estiver restrita: Informações do app → superior direito ⋮ → Permitir configurações restritas.</string>
     <string name="ok">Certo</string>
 
     <!-- Gestures Screen & Editor -->
