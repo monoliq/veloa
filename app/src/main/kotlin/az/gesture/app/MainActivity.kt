@@ -30,14 +30,19 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,6 +51,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -61,6 +67,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -97,6 +104,7 @@ import az.gesture.app.ui.theme.GestureTheme
 import az.gesture.app.update.AppReleaseInfo
 import az.gesture.app.update.AppUpdateChecker
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
@@ -132,8 +140,16 @@ class MainActivity : ComponentActivity() {
                         hasPendingInitialPermissions(context, repo)
                 )
             }
+            var latestRelease by remember { mutableStateOf<AppReleaseInfo?>(null) }
             var availableUpdate by remember { mutableStateOf<AppReleaseInfo?>(null) }
             val currentVersion = remember(context) { AppUpdateChecker.getInstalledVersionName(context) }
+            var cachedLatestVersion by remember { mutableStateOf(repo.getKnownLatestVersion()) }
+            val hasPendingUpdate = AppUpdateChecker.hasPendingUpdate(
+                remoteVersion = latestRelease?.versionName ?: cachedLatestVersion,
+                currentVersion = currentVersion
+            )
+            val pendingUpdateVersion = latestRelease?.versionName ?: cachedLatestVersion
+            val coroutineScope = rememberCoroutineScope()
 
             val homeScroll = remember { ScrollSnapshot() }
             val gesturesScroll = remember { ScrollSnapshot() }
@@ -143,18 +159,32 @@ class MainActivity : ComponentActivity() {
                 if (!repo.isInitialPermissionFlowDone() && !hasPendingInitialPermissions(context, repo)) {
                     repo.setInitialPermissionFlowDone(true)
                 }
+                if (cachedLatestVersion != null && !AppUpdateChecker.isNewerVersion(cachedLatestVersion!!, currentVersion)) {
+                    repo.setKnownLatestVersion(null)
+                    cachedLatestVersion = null
+                }
                 withContext(Dispatchers.IO) {
                     AppUpdateChecker.cleanupOldUpdateApks(context, currentVersion)
                 }
                 val latest = AppUpdateChecker.fetchLatestRelease()
-                if (latest != null &&
-                    AppUpdateChecker.shouldPromptUpdate(
-                        remoteVersion = latest.versionName,
-                        currentVersion = currentVersion,
-                        skippedVersion = repo.getSkippedUpdateVersion()
-                    )
-                ) {
-                    availableUpdate = latest
+                if (latest != null) {
+                    if (AppUpdateChecker.isNewerVersion(latest.versionName, currentVersion)) {
+                        latestRelease = latest
+                        cachedLatestVersion = latest.versionName
+                        repo.setKnownLatestVersion(latest.versionName)
+                        if (AppUpdateChecker.shouldPromptUpdate(
+                                remoteVersion = latest.versionName,
+                                currentVersion = currentVersion,
+                                skippedVersion = repo.getSkippedUpdateVersion()
+                            )
+                        ) {
+                            availableUpdate = latest
+                        }
+                    } else {
+                        latestRelease = null
+                        cachedLatestVersion = null
+                        repo.setKnownLatestVersion(null)
+                    }
                 }
             }
 
@@ -206,6 +236,25 @@ class MainActivity : ComponentActivity() {
                             gesturesRefreshKey = gesturesRefreshKey,
                             showAboutDialog = showAboutDialog,
                             onShowAboutDialog = { showAboutDialog = it },
+                            hasPendingUpdate = hasPendingUpdate,
+                            pendingUpdateVersion = pendingUpdateVersion,
+                            onOpenPendingUpdate = {
+                                showAboutDialog = false
+                                val ready = latestRelease
+                                if (ready != null) {
+                                    availableUpdate = ready
+                                } else {
+                                    coroutineScope.launch {
+                                        val fetched = AppUpdateChecker.fetchLatestRelease()
+                                        if (fetched != null && AppUpdateChecker.isNewerVersion(fetched.versionName, currentVersion)) {
+                                            latestRelease = fetched
+                                            cachedLatestVersion = fetched.versionName
+                                            repo.setKnownLatestVersion(fetched.versionName)
+                                            availableUpdate = fetched
+                                        }
+                                    }
+                                }
+                            },
                             onOpenEditor = { shortcut ->
                                 editingShortcut = shortcut
                                 editorOpen = true
@@ -288,6 +337,9 @@ private fun AppRoot(
     gesturesRefreshKey: Int,
     showAboutDialog: Boolean,
     onShowAboutDialog: (Boolean) -> Unit,
+    hasPendingUpdate: Boolean,
+    pendingUpdateVersion: String?,
+    onOpenPendingUpdate: () -> Unit,
     onOpenEditor: (Shortcut?) -> Unit,
     onCloseEditor: (saved: Boolean) -> Unit,
     onGesturesChanged: () -> Unit,
@@ -305,10 +357,61 @@ private fun AppRoot(
         AlertDialog(
             onDismissRequest = { onShowAboutDialog(false) },
             title = { Text(stringResource(R.string.about_dialog_title)) },
-            text = { Text(stringResource(R.string.about_dialog_body)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(stringResource(R.string.about_dialog_body))
+                    if (hasPendingUpdate && !pendingUpdateVersion.isNullOrBlank()) {
+                        Surface(
+                            shape = RoundedCornerShape(14.dp),
+                            color = Color(0xFFFACC15).copy(alpha = 0.14f),
+                            border = BorderStroke(0.9.dp, Color(0xFFFACC15).copy(alpha = 0.55f)),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(10.dp)
+                                        .clip(CircleShape)
+                                        .background(Color(0xFFFACC15))
+                                )
+                                Text(
+                                    text = stringResource(R.string.about_update_available_hint, pendingUpdateVersion),
+                                    style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    }
+                }
+            },
+            dismissButton = if (hasPendingUpdate) {
+                {
+                    TextButton(onClick = { onShowAboutDialog(false) }) {
+                        Text(stringResource(R.string.ok))
+                    }
+                }
+            } else {
+                null
+            },
             confirmButton = {
-                TextButton(onClick = { onShowAboutDialog(false) }) {
-                    Text(stringResource(R.string.ok))
+                if (hasPendingUpdate) {
+                    Button(
+                        onClick = onOpenPendingUpdate,
+                        shape = RoundedCornerShape(14.dp)
+                    ) {
+                        Text(stringResource(R.string.about_update_now))
+                    }
+                } else {
+                    TextButton(onClick = { onShowAboutDialog(false) }) {
+                        Text(stringResource(R.string.ok))
+                    }
                 }
             }
         )
@@ -330,6 +433,7 @@ private fun AppRoot(
         topBar = {
             VeloaTopBar(
                 themeMode = themeMode,
+                hasPendingUpdate = hasPendingUpdate,
                 onCycleTheme = {
                     val next = when (themeMode) {
                         AppThemeMode.LIGHT -> AppThemeMode.DARK
@@ -404,7 +508,8 @@ private fun AppRoot(
 fun VeloaTopBar(
     themeMode: AppThemeMode,
     onCycleTheme: () -> Unit,
-    onOpenAbout: () -> Unit
+    onOpenAbout: () -> Unit,
+    hasPendingUpdate: Boolean = false
 ) {
     TopAppBar(
         title = {
@@ -478,21 +583,35 @@ fun VeloaTopBar(
                     }
                 }
 
-                Surface(
-                    shape = CircleShape,
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
-                    modifier = Modifier
-                        .size(38.dp)
-                        .clip(CircleShape)
-                        .clickable(onClick = onOpenAbout)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_info),
-                            contentDescription = stringResource(R.string.about_dialog_title),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.size(17.dp)
+                Box(modifier = Modifier.size(38.dp)) {
+                    Surface(
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        border = BorderStroke(0.8.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
+                            .clickable(onClick = onOpenAbout)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_info),
+                                contentDescription = stringResource(R.string.about_dialog_title),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(17.dp)
+                            )
+                        }
+                    }
+
+                    if (hasPendingUpdate) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .offset(x = 1.dp, y = (-1).dp)
+                                .size(11.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFFFACC15))
+                                .border(1.8.dp, MaterialTheme.colorScheme.background, CircleShape)
                         )
                     }
                 }

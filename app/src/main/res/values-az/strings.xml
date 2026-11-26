@@ -62,7 +62,7 @@
     <string name="stats_gestures_count">Saxlanmış jestlər: %1$d</string>
 
     <string name="about_dialog_title">Veloa Haqqında</string>
-    <string name="about_dialog_body">Veloa v1.2.16 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.17 — Minimalist dizaynlı, reklamsız jest və yan panel köməkçisi.\n\nYeni sistemlərdə Əlçatanlıq bloklanarsa: Tətbiq məlumatı → yuxarı sağ ⋮ → Məhdud ayarlara icazə ver.</string>
     <string name="ok">Oldu</string>
 
     <!-- Gestures Screen & Editor -->
@@ -222,4 +222,12 @@
     <string name="initial_perm_subtitle">Veloa-nın fasiləsiz işləməsi üçün bu icazələri növbə ilə aktiv edin.</string>
     <string name="initial_perm_grant">İcazə ver</string>
     <string name="initial_perm_skip">Keç</string>
+
+    <!-- Update Badge & Support Contact -->
+    <string name="about_update_available_hint">Yeni versiya mövcuddur: v%1$s</string>
+    <string name="about_update_now">Yenilə</string>
+    <string name="settings_contact_title">Müraciət və Əlaqə</string>
+    <string name="settings_contact_desc">Şikayət, rəy və təklifləriniz üçün elektron poçt vasitəsilə bizimlə əlaqə saxlaya bilərsiniz.</string>
+    <string name="settings_contact_subject">Veloa — Rəy və Təklif</string>
+    <string name="settings_contact_copied">E-poçt ünvanı kopyalandı</string>
 </resources>

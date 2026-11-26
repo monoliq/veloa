@@ -258,6 +258,17 @@ class Repo private constructor(context: Context) {
         }
     }
 
+    fun getKnownLatestVersion(): String? = prefs.getString(KEY_KNOWN_LATEST_VERSION, null)
+
+    fun setKnownLatestVersion(version: String?) {
+        val cleaned = version?.trim().orEmpty()
+        if (cleaned.isEmpty()) {
+            prefs.edit().remove(KEY_KNOWN_LATEST_VERSION).apply()
+        } else {
+            prefs.edit().putString(KEY_KNOWN_LATEST_VERSION, cleaned).apply()
+        }
+    }
+
     companion object {
         private const val PREFS_NAME = "gesture_prefs"
         private const val KEY_SHORTCUTS = "shortcuts_json"
@@ -290,6 +301,7 @@ class Repo private constructor(context: Context) {
         private const val KEY_INITIAL_PERMISSION_FLOW_DONE = "initial_permission_flow_done"
         private const val KEY_NOTIFICATION_REQUESTED = "notification_requested"
         private const val KEY_SKIPPED_UPDATE_VERSION = "skipped_update_version"
+        private const val KEY_KNOWN_LATEST_VERSION = "known_latest_version"
 
         @Volatile
         private var instance: Repo? = null

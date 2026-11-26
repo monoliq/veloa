@@ -62,7 +62,7 @@
     <string name="stats_gestures_count">Gestes enregistrés : %1$d</string>
 
     <string name="about_dialog_title">À propos de Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.16 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
+    <string name="about_dialog_body">Veloa v1.2.17 — Assistant minimaliste et sans publicité pour gestes et panneau latéral.\n\nSi l\'accessibilité est restreinte : Infos appli → en haut à droite ⋮ → Autoriser les paramètres restreints.</string>
     <string name="ok">D\'accord</string>
 
     <!-- Gestures Screen & Editor -->
@@ -222,4 +222,12 @@
     <string name="initial_perm_subtitle">Activez ces autorisations dans l\'ordre pour que Veloa fonctionne sans interruption.</string>
     <string name="initial_perm_grant">Autoriser</string>
     <string name="initial_perm_skip">Ignorer</string>
+
+    <!-- Update Badge & Support Contact -->
+    <string name="about_update_available_hint">Nouvelle version disponible : v%1$s</string>
+    <string name="about_update_now">Mettre à jour</string>
+    <string name="settings_contact_title">Contact et assistance</string>
+    <string name="settings_contact_desc">Contactez-nous par e-mail pour vos remarques, suggestions ou signalements.</string>
+    <string name="settings_contact_subject">Veloa — Commentaires et assistance</string>
+    <string name="settings_contact_copied">Adresse e-mail copiée</string>
 </resources>

@@ -29,6 +29,16 @@ class AppUpdateCheckerTest {
     }
 
     @Test
+    fun pendingUpdateBadgeStaysActiveUntilInstalledVersionCatchesUp() {
+        assertTrue(AppUpdateChecker.hasPendingUpdate("1.2.17", "1.2.16"))
+        assertTrue(AppUpdateChecker.hasPendingUpdate("v1.2.17", "1.2.16"))
+        assertFalse(AppUpdateChecker.hasPendingUpdate("1.2.17", "1.2.17"))
+        assertFalse(AppUpdateChecker.hasPendingUpdate("1.2.16", "1.2.17"))
+        assertFalse(AppUpdateChecker.hasPendingUpdate(null, "1.2.17"))
+        assertFalse(AppUpdateChecker.hasPendingUpdate("  ", "1.2.17"))
+    }
+
+    @Test
     fun releaseNotesFormatterStripsDownloadsAndCleansMarkdown() {
         val raw = """
             ## Veloa v1.2.14

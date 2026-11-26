@@ -62,7 +62,7 @@
     <string name="stats_gestures_count">Kayıtlı hareketler: %1$d</string>
 
     <string name="about_dialog_title">Veloa Hakkında</string>
-    <string name="about_dialog_body">Veloa v1.2.16 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
+    <string name="about_dialog_body">Veloa v1.2.17 — Sade tasarımlı, reklamsız hareket ve yan panel yardımcısı.\n\nYeni sistemlerde Erişilebilirlik engellenirse: Uygulama bilgisi → sağ üst ⋮ → Kısıtlı ayarlara izin ver.</string>
     <string name="ok">Tamam</string>
 
     <!-- Gestures Screen & Editor -->
@@ -222,4 +222,12 @@
     <string name="initial_perm_subtitle">Veloa\'nın kesintisiz çalışması için bu izinleri sırayla etkinleştirin.</string>
     <string name="initial_perm_grant">İzin ver</string>
     <string name="initial_perm_skip">Geç</string>
+
+    <!-- Update Badge & Support Contact -->
+    <string name="about_update_available_hint">Yeni sürüm mevcut: v%1$s</string>
+    <string name="about_update_now">Güncelle</string>
+    <string name="settings_contact_title">İletişim ve Destek</string>
+    <string name="settings_contact_desc">Şikayet, görüş ve önerileriniz için e-posta yoluyla bizimle iletişime geçebilirsiniz.</string>
+    <string name="settings_contact_subject">Veloa — Görüş ve Öneri</string>
+    <string name="settings_contact_copied">E-posta adresi kopyalandı</string>
 </resources>

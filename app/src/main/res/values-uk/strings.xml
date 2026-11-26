@@ -62,7 +62,7 @@
     <string name="stats_gestures_count">Збережених жестів: %1$d</string>
 
     <string name="about_dialog_title">Про застосунок Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.16 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
+    <string name="about_dialog_body">Veloa v1.2.17 — Мінімалістичний помічник жестів і бічної панелі без реклами.\n\nЯкщо спец. можливості заблоковано: Про застосунок → зверху праворуч ⋮ → Дозволити обмежені налаштування.</string>
     <string name="ok">Гаразд</string>
 
     <!-- Gestures Screen & Editor -->
@@ -222,4 +222,12 @@
     <string name="initial_perm_subtitle">Увімкніть ці дозволи по черзі для стабільної роботи Veloa.</string>
     <string name="initial_perm_grant">Дозволити</string>
     <string name="initial_perm_skip">Пропустити</string>
+
+    <!-- Update Badge & Support Contact -->
+    <string name="about_update_available_hint">Доступна нова версія: v%1$s</string>
+    <string name="about_update_now">Оновити</string>
+    <string name="settings_contact_title">Зворотний зв\'язок</string>
+    <string name="settings_contact_desc">Зв\'яжіться з нами електронною поштою щодо відгуків, пропозицій або зауважень.</string>
+    <string name="settings_contact_subject">Veloa — Відгуки та підтримка</string>
+    <string name="settings_contact_copied">Електронну пошту скопійовано</string>
 </resources>

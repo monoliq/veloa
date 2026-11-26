@@ -25,7 +25,7 @@ data class AppReleaseInfo(
 object AppUpdateChecker {
 
     const val LATEST_RELEASE_API_URL =
-        "https://api.github.com/repos/chatgpt20272027-sys/veloa/releases/latest"
+        "https://api.github.com/repos/monoliq/veloa/releases/latest"
 
     private const val CONNECT_TIMEOUT_MS = 8_000
     private const val READ_TIMEOUT_MS = 8_000
@@ -60,6 +60,11 @@ object AppUpdateChecker {
             if (r != c) return r > c
         }
         return false
+    }
+
+    fun hasPendingUpdate(remoteVersion: String?, currentVersion: String): Boolean {
+        if (remoteVersion.isNullOrBlank()) return false
+        return isNewerVersion(remoteVersion, currentVersion)
     }
 
     fun shouldPromptUpdate(

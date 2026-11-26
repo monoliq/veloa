@@ -1,6 +1,12 @@
 package az.gesture.app.ui.screens
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
@@ -73,6 +79,8 @@ import az.gesture.app.ui.theme.GestureTheme
 import java.text.Collator
 import java.util.Locale
 import kotlin.math.roundToInt
+
+private const val SUPPORT_EMAIL = "siber4773@gmail.com"
 
 @Composable
 fun SettingsScreen(
@@ -620,6 +628,76 @@ fun SettingsScreen(
                             settings = repo.getSettings()
                         }
                     )
+                }
+            }
+        }
+
+        // 6. CONTACT & FEEDBACK
+        item {
+            SettingsSectionTitle(stringResource(R.string.settings_contact_title))
+            Spacer(Modifier.height(8.dp))
+            SettingsCard {
+                val subjectText = stringResource(R.string.settings_contact_subject)
+                val copiedText = stringResource(R.string.settings_contact_copied)
+                Surface(
+                    shape = RoundedCornerShape(16.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                    border = BorderStroke(0.7.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.55f)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable {
+                            val mailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                                data = Uri.parse("mailto:$SUPPORT_EMAIL")
+                                putExtra(Intent.EXTRA_SUBJECT, subjectText)
+                            }
+                            try {
+                                context.startActivity(mailIntent)
+                            } catch (_: Throwable) {
+                                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                                clipboard?.setPrimaryClip(ClipData.newPlainText("email", SUPPORT_EMAIL))
+                                Toast.makeText(context, copiedText, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 14.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_mail),
+                                    contentDescription = stringResource(R.string.settings_contact_title),
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            Text(
+                                text = SUPPORT_EMAIL,
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = stringResource(R.string.settings_contact_desc),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
                 }
             }
         }
