@@ -62,7 +62,7 @@
     <string name="stats_gestures_count">Gespeicherte Gesten: %1$d</string>
 
     <string name="about_dialog_title">Über Veloa</string>
-    <string name="about_dialog_body">Veloa v1.2.17 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
+    <string name="about_dialog_body">Veloa v1.2.18 — Minimalistischer, werbefreier Gesten- und Seitenleisten-Assistent.\n\nFalls die Bedienungshilfe blockiert ist: App-Info → oben rechts ⋮ → Eingeschränkte Einstellungen zulassen.</string>
     <string name="ok">Verstanden</string>
 
     <!-- Gestures Screen & Editor -->
